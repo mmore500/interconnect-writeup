@@ -1,0 +1,353 @@
+\subsection{Standard SignalGP Instruction Library}
+
+To counteract crowding of the mutational landscape by the volume of custom instructions provided, a second identical copy of each standard SignalGP instruction was included in the library.
+These instructions were included in both the neighbor hardware and network hardware instruction libraries.
+
+\begin{itemize}
+\item \textbf{Increment}
+Increment value in a designated register.
+\item \textbf{Decrement}
+Decrement value in a designated register.
+\item \textbf{Not}
+Logically toggle value in a designated register.
+\item \textbf{Add}
+Add values from two designated registers into a third designated register.
+\item \textbf{Subtract}
+Subtract values from two designated registers into a third designated register.
+\item \textbf{Subtract}
+Subtract values from two designated registers into a third designated register.
+\item \textbf{Multiply}
+Multiply values from two designated registers into a third designated register.
+\item \textbf{Divide}
+Divide values from two designated registers into a third designated register.
+\item \textbf{Modulus}
+Calculate the modulus from two designated registers and place result into a third designated register.
+\item \textbf{Test Equal}
+Compare values in two designated registers and place equality result into a third designated register.
+\item \textbf{Test Non-equality}
+Compare values in two designated registers and place opposite equality result into a third designated register.
+\item \textbf{Test Less}
+Compare values in two designated registers and place less-than result into a third designated register.
+\item \textbf{If}
+If a designated register is non-zero, proceed.
+Otherwise, skip block.
+\item \textbf{While}
+While a designated register is non-zero, loop over a program block.
+Otherwise, skip block.
+\item \textbf{Countdown}
+While a designated register is non-zero, loop over a program block and decrement the value in the designated register.
+Otherwise, skip block.
+\item \textbf{Close}
+If a preceding program block is, close it.
+\item \textbf{Break}
+Break to the end of the current program block.
+\item \textbf{Call}
+Call the SignalGP program module that best matches instruction's affinity.
+\item \textbf{Return}
+If possible, return from the current function.
+\item \textbf{Set Memory}
+% also covers terminal
+Set a designated register's value to genetically-determined value.
+\item \textbf{Copy Memory}
+Copy the value of a designated register to a second designated register.
+\item \textbf{Swap Memory}
+Swap the values of two designated registers.
+\item \textbf{Input}
+Copy a designated element of input memory into a designated register.
+\item \textbf{Output}
+Copy to a designated element of output memory from a designated register.
+\item \textbf{Commit}
+Copy a designated register into a designated element of global memory.
+\item \textbf{Pull}
+Copy a designated element of global memory into a designated register.
+\item \textbf{Fork}
+Fork a new thread with the SignalGP program module that best matches the instruction's affinity.
+\item \textbf{Terminate}
+Terminate the current thread.
+\item \textbf{Nop}
+No operation.
+\item \textbf{RNG Draw}
+Draw a random value between 0.0 and 1.0 from random number generator and store result in a register.
+\item \textbf{Set Regulator}
+Set the program module regulator that best matches (without regulation) the instruction's affinity to the value of a designated register.
+\item \textbf{Set Own Regulator}
+Set the program module regulator of the currently-executing program module to value of a designated register.
+\item \textbf{Adjust Regulator}
+Adjust the program module regulator of the program module that best matches (without regulation) the instruction's affinity a designated fraction toward a designated register's value.
+\item \textbf{Adjust Own Regulator}
+Adjust the program module regulator of the currently-executing program module a designated fraction toward a designated register's value.
+\item \textbf{Sense Regulator}
+Copy the program module regulator value of the program module that best matches (without regulation) the instruction's affinity into a designated register.
+\end{itemize}
+
+\subsection{Custom Instruction Library: Neighbor-Manager Hardware}
+
+\begin{itemize}
+\item \textbf{Send Intracellular Message}
+Send a message to a single other SignalGP instance within the cell specified by a designated register's value.
+\item \textbf{Broadcast Intracellular Message}
+Send a message to all SignalGP instances within the cell, excluding self.
+\item \textbf{Put Internal Membrane Bringer}
+Place a tag in the internal membrane that, with default arguments, admits incoming internal messages it matches with.
+\item \textbf{Put Internal Membrane Blocker}
+Place a tag in the internal membrane that, with default arguments, blocks incoming internal messages it matches with.
+\item \textbf{Put External Membrane Bringer}
+Place a tag in the external membrane that, with default arguments, admits incoming external messages it matches with.
+\item \textbf{Put External Membrane Blocker}
+Place a tag in the external membrane that, with default arguments, blocks incoming external messages it matches with.
+\item \textbf{Send Intercellular Message}
+Send a message to a single cellular neighbor.
+\item \textbf{Broadcast Intercellular Message}
+Send a message to all cellular neighbors.
+\item \textbf{Broadcast Network Message}
+Send a message to all network-connected hardware.
+\item \textbf{Broadcast Reverse Network Message}
+Send a message to all hardware networ-connected to a cell.
+\item \textbf{Share Resource}
+Send a proportion of the cell's stockpiled resource to a neighboring cell.
+One instruction defaults to sending a large proportion of available resource (50\%) to the neighboring cell.
+A second instruction defaults to sending a small proportion of available resource (5\%) to the neighboring cell.
+The proportion of available resource can be adjusted by a register-based argument.
+\item \textbf{Set Stockpile Sharing Reserve}
+Designate a quantity of stockpiled resource as ineligible for sharing.
+The amount may be modified by a register-based argument.
+\item \textbf{Clear Stockpile Sharing Reserve}
+Designate all stockpiled resource as eligble for sharing.
+\item \textbf{Restrict Outgoing Shared Resource}
+Reduce outgoing sharing efficacy.
+Unsent resource is retained by the sending cell (with no resource lost).
+The fraction reduced is determined by a register-based argument.
+\item \textbf{Restrict Incoming Shared Resource}
+Reduce incoming sharing efficacy.
+Declined resource is retained by the sending cell (with no resource lost).
+The fraction reduced is determined by a register-based argument.
+\item \textbf{Reproduce}
+Attempt to spawn a child cell in a particular direction, paid for out of the parent cell's resource stockpile.
+If sufficient resource is not available in the cell's stockpile, no resource is action is taken.
+Variants of this instruction are defined for each channel ID inheritance level: from endowing the daughter cell with the parental channel IDs across all levels, to endowing the daughter cell with a new level-one channel ID but the parent's level-two channel ID, to endowing the daughter cell with all-new channel IDs.
+If a channel generation counter limit has been reached, reproduction is simply attempted at the next highest level; even with channel generation counters maxed out, cells may generate offspring with all-new channel IDs.
+\item \textbf{Mark Daughter Imprint}
+Depending on argument values, register or clear a tag imprint to apply to daughter cells.
+\item \textbf{Pause Reproduction}
+Pause cellular reproduction in a single direction for the remainder of the current update and for the entire next update.
+Variants of this instruction pause reproduction at a certain wave/channel-signaling level or across all channel ID inheritance levels.
+\item \textbf{Set Stockpile Reproduction Reserve}
+Designate a quantity of stockpiled resource as ineligible for use to reproduce.
+The amount may be modified by a register-based argument.
+\item \textbf{Clear Stockpile Sharing Reserve}
+Designate all stockpiled resource as eligible for use to reproduce.
+\item \textbf{Apoptosis}
+The cell is killed at the end of the current update.
+\item \textbf{Designate Heir} A dying cell's own stockpile is split evenly among neighboring cells that are designated at the time of death.
+On apoptosis, 50\% of the reproduction cost to establish a cell is also split between designated neighboring cells.
+These instructions mark or un-mark a neighbor as a heir.
+\item \textbf{Increase Channel Generation Counter}
+Increases the cell's channel generation counter.
+The amount the cell's generation counter is increased by can be adjusted by register-based argument.
+\item \textbf{Query Own Stockpile}
+Sets a designated register to the amount of resource present in the cell's stockpile.
+\item \textbf{Query Own Channel Generation Counter}
+This instruction sets a designated register to the value of the cell's channel generation counter.
+A variant of this instruction is provided for each wave/channel-signaling level.
+\item \textbf{Query ``Is Neighbor Live?''}
+This instruction sets a designated register to 1 if the neighboring tile contains a live cell and 0 otherwise.
+\item \textbf{Query ``Is Neighbor My Cellular Child?''}
+This instruction sets a designated register to 1 if the neighboring cell is the daughter of the querying cell and 0 otherwise.
+\item \textbf{Query ``Is Neighbor My Cellular Parent?''}
+This instruction sets a designated register to 1 if the neighboring cell is the parent of the querying cell and 0 otherwise.
+\item \textbf{Query ``Does Neighbor's Channel ID Match Mine?''}
+This instruction sets a designated register to 1 if the neighboring cell has the same channel ID as the querying cell and 0 otherwise.
+A variant of this instruction is provided for each wave/channel-signaling level.
+\item \textbf{Query ``Does Neighbor's Channel ID Descend From Mine?''}
+This instruction sets a designated register to 1 if the neighboring cell's highest-level channel ID is different from the querying cell's highest-level channel ID, but is descended from the querying cell's channel ID via an explicit propagule-generating reproduction call.
+This instruction allows a querying cell to sense whether its neighbor is a member of a same-channel group that is a propagule of the querying cell's same-channel group.
+\item \textbf{Query ``Does My Channel ID Descend From Neighbor's?''}
+This instruction sets a designated register to 1 if the querying cell's highest-level channel ID is different from the neighboring cell's highest-level channel ID, but is descended from the neighboring cell's channel ID  via an explicit propagule-generating reproduction call.
+This instruction allows a querying cell to sense whether it is a member of a same-channel group that is a propagule of the neighboring cell's same-channel group.
+\item \textbf{Query ``Is Neighbor Poorer?''}
+This instruction sets a designated register to 1 if the querying cell's resource stockpile is larger than the neighboring cell's.
+\item \textbf{Query ``Is Neighbor Older?''}
+This instruction sets a designated register to 1 if the querying cell's cell age is less than the neighboring cell's.
+\item \textbf{Query ``Is Neighbor Expired?''}
+This instruction sets a designated register to 1 if a neighboring cell's channel generation counter has exceeded the expiration threshold.
+\item \textbf{Query Neighbor's Channel ID}
+This instruction sets a designated register to the neighbor's channel ID.
+A variant of this instruction is provided for each wave/channel-signaling level.
+\item \textbf{Query Neighbor's Stockpile}
+This instruction sets a designated register to the amount of resource present in the neighbor's stockpile.
+\item \textbf{Add Fledgling Connection}
+If the number of outgoing connections is less than both the system-defined connection count cap and an argument-defined connection count cap, start a new fledgling network connection.
+\item \textbf{Add Fledgling Search Query}
+Add a tag query that, depending on argument value, either promotes or represses the cell's fledgling network connections to mature into established network connections with other cells containing tag signals it matches with.
+\item \textbf{Add Fledgling Search Signal}
+Add a tag signal that, depending on argument value, either promotes or represses other cell's fledgling network connections with tag queries it matches with to mature into established network connections.
+\item \textbf{Prune Outgoing Connection}
+Remove an outgoing established network connection.
+\item \textbf{Prune Outgoing Connection}
+Remove an incoming established network connection.
+\end{itemize}
+
+\subsection{Network-Manager Hardware Environmental Cue Library}
+
+Environmental cues were triggered every eight updates.
+
+\begin{itemize}
+\item \textbf{On Update}
+This event is triggered every eight updates.
+\item \textbf{Imprinted Tag}
+If an imprinted tag was set by the cell's parent, this event is triggered every eight updates.
+\item \textbf{Just Born}
+This event is triggered once after a cell is born.
+\item \textbf{Richer Neighbor}
+This event is triggered if a neighbor cell has more stockpiled resource than the focal cell.
+\item \textbf{Poorer Neighbor}
+This event is triggered if a neighbor cell has less stockpiled resource than the focal cell.
+\item \textbf{Facing Cellular Child}
+This event is triggered if the SignalGP instance is facing a neighboring cell that is the querying cell's daughter.
+\item \textbf{Facing Cellular Parent}
+This event is triggered if the SignalGP instance is facing a neighboring cell that is the querying cell's parent.
+\item \textbf{Neighbor's Channel ID Descends From Mine}
+This event is triggered if the neighboring cell's highest-level channel ID is different from the querying cell's highest-level channel ID, but is descended from the querying cell's channel ID via an explicit propagule-generating reproduction call.
+This event allows a querying cell to sense whether its neighbor is a member of a same-channel group that is a propagule of the querying cell's same-channel group.
+\item \textbf{My Channel ID Descends From Neighbor's}
+This event is triggered if the focal cell's highest-level channel ID is different from the neighboring cell's highest-level channel ID, but is descended from the neighboring cell's channel ID via an explicit propagule-generating reproduction call.
+This event allows a neighboring cell to sense whether its neighbor is a member of a same-channel group that is a propagule of the neighboring cell's same-channel group.
+\item \textbf{Neighbor's Channel ID Matches Mine}
+This event is triggered if a SignalGP instance is facing a neighbor cell that shares its channel ID.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Neighbor's Channel ID Does Not Match Mine}
+This event is triggered if a SignalGP instance is facing a neighbor cell that does not share its channel ID.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Unexpired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the expiration threshold.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expiring}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where somatic propagation capacity, but not resource accumulation capacity, is lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where both somatic propagation capacity and resource accumulation capacity are lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{No-reward Resource Activation}
+This event is triggered if a SignalGP instance's cell experiences a resource collection activation where no resource reward is achieved (e.g., the cell lies extent of the resource wave).
+A different event is provided for each resource wave/channel-signaling level.
+\end{itemize}
+
+\subsection{Custom Instruction Library: Network-Manager Hardware}
+
+\begin{itemize}
+\item \textbf{Broadcast Intracellular Message}
+Send a message to all SignalGP instances within the cell, excluding self.
+\item \textbf{Put Internal Membrane Bringer}
+Place a tag in the internal membrane that, with default arguments, admits incoming internal messages it matches with.
+\item \textbf{Put Internal Membrane Blocker}
+Place a tag in the internal membrane that, with default arguments, blocks incoming internal messages it matches with.
+\item \textbf{Put External Membrane Bringer}
+Place a tag in the external membrane that, with default arguments, admits incoming external messages it matches with.
+\item \textbf{Put External Membrane Blocker}
+Place a tag in the external membrane that, with default arguments, blocks incoming external messages it matches with.
+\item \textbf{Broadcast Intercellular Message}
+Send a message to all cellular neighbors.
+\item \textbf{Send Network Message}
+Send a message to all network-connected network-manager hardware.
+\item \textbf{Broadcast Network Message}
+Send a message to all network-connected hardware.
+\item \textbf{Send Reverse Network Message}
+Send a message to all network-manager hardware network-connected to a cell.
+\item \textbf{Broadcast Reverse Network Message}
+Send a message to all hardware network-connected to a cell.
+\item \textbf{Share Resource}
+Send a proportion of the cell's stockpiled resource to a neighboring cell.
+One instruction defaults to sending a large proportion of available resource (50\%) to the neighboring cell.
+A second instruction defaults to sending a small proportion of available resource (5\%) to the neighboring cell.
+The proportion of available resource can be adjusted by a register-based argument.
+\item \textbf{Set Stockpile Sharing Reserve}
+Designate a quantity of stockpiled resource as ineligible for sharing.
+The amount may be modified by a register-based argument.
+\item \textbf{Clear Stockpile Sharing Reserve}
+Designate all stockpiled resource as eligble for sharing.
+\item \textbf{Restrict Outgoing Shared Resource}
+Reduce outgoing sharing efficacy.
+Unsent resource is retained by the sending cell (with no resource lost).
+The fraction reduced is determined by a register-based argument.
+\item \textbf{Restrict Incoming Shared Resource}
+Reduce incoming sharing efficacy.
+Declined resource is retained by the sending cell (with no resource lost).
+The fraction reduced is determined by a register-based argument.
+\item \textbf{Reproduce}
+Attempt to spawn a child cell in a particular direction, paid for out of the parent cell's resource stockpile.
+If sufficient resource is not available in the cell's stockpile, no resource is action is taken.
+Variants of this instruction are defined for each channel ID inheritance level: from endowing the daughter cell with the parental channel IDs across all levels, to endowing the daughter cell with a new level-one channel ID but the parent's level-two channel ID, to endowing the daughter cell with all-new channel IDs.
+If a channel generation counter limit has been reached, reproduction is simply attempted at the next highest level; even with channel generation counters maxed out, cells may generate offspring with all-new channel IDs.
+\item \textbf{Mark Daughter Imprint}
+Depending on argument values, register or clear a tag imprint to apply to daughter cells.
+\item \textbf{Pause Reproduction}
+Pause cellular reproduction in a single direction for the remainder of the current update and for the entire next update.
+Variants of this instruction pause reproduction at a certain wave/channel-signaling level or across all channel ID inheritance levels.
+\item \textbf{Set Stockpile Reproduction Reserve}
+Designate a quantity of stockpiled resource as ineligible for use to reproduce.
+The amount may be modified by a register-based argument.
+\item \textbf{Clear Stockpile Sharing Reserve}
+Designate all stockpiled resource as eligible for use to reproduce.
+\item \textbf{Apoptosis}
+The cell is killed at the end of the current update.
+\item \textbf{Designate Heir} A dying cell's own stockpile is split evenly among neighboring cells that are designated at the time of death.
+On apoptosis, 50\% of the reproduction cost to establish a cell is also split between designated neighboring cells.
+These instructions mark or un-mark a neighbor as a heir.
+\item \textbf{Increase Channel Generation Counter}
+Increases the cell's channel generation counter.
+The amount the cell's generation counter is increased by can be adjusted by register-based argument.
+\item \textbf{Query Own Stockpile}
+Sets a designated register to the amount of resource present in the cell's stockpile.
+\item \textbf{Query Own Channel Generation Counter}
+This instruction sets a designated register to the value of the cell's channel generation counter.
+A variant of this instruction is provided for each wave/channel-signaling level.
+\item \textbf{Query Incoming Connections}
+This instruction writes the current number of incoming connections and the current mean length of incoming connections into two separate genetically-determined registers.
+\item \textbf{Query Outgoing Connections}
+This instruction writes the current number of outgoing connections and the current mean length of outgoing connections into two separate genetically-determined registers.
+\item \textbf{Add Fledgling Connection}
+If the number of outgoing connections is less than both the system-defined connection count cap and an argument-defined connection count cap, start a new fledgling network connection.
+\item \textbf{Add Fledgling Search Query}
+Add a tag query that, depending on argument value, either promotes or represses the cell's fledgling network connections to mature into established network connections with other cells containing tag signals it matches with.
+\item \textbf{Add Fledgling Search Signal}
+Add a tag signal that, depending on argument value, either promotes or represses other cell's fledgling network connections with tag queries it matches with to mature into established network connections.
+\item \textbf{Prune Outgoing Connection}
+Remove an outgoing established network connection.
+\item \textbf{Prune Outgoing Connection}
+Remove an incoming established network connection.
+\item \textbf{Set Fledgling Connection Aging Parameter}
+Set a parameter that controls the baseline rate at which fledgling connections mature towards established connections.
+\item \textbf{Set Fledgling Connection Search Exploitation Parameter}
+Set a parameter that controls the baseline rate at which less-successful fledgling connection probes reset to more-successful fledgling connection probes.
+\item \textbf{Set Fledgling Connection Threshold Parameter}
+Set a parameter that controls the threshold at which fledgling connections mature into established connections.
+\item \textbf{Set Fledgling Connection Query Sensitivity Parameter}
+Set a parameter that controls the fledgling connection's sensitivity to favorable and unfavorable tagged query/signal matches.
+\end{itemize}
+
+\subsection{Network-Manager Hardware Environmental Cue Library}
+
+Environmental cues were triggered every eight updates.
+
+\begin{itemize}
+\item \textbf{On Update}
+This event is triggered every eight updates.
+\item \textbf{Imprinted Tag}
+If an imprinted tag was set by the cell's parent, this event is triggered every eight updates.
+\item \textbf{Just Born}
+This event is triggered once after a cell is born.
+\item \textbf{Connection Length}
+Separate events are triggered if a cell's mean outgoing network connection length falls between 0 and 4 cell widths, 2 and 6 cell widths, 4 and 8 cell widths, 6 and 10 cell widths, or above 8 cell widths.
+\item \textbf{Channel Generation Counter Is Unexpired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the expiration threshold.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expiring}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where somatic propagation capacity, but not resource accumulation capacity, is lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where both somatic propagation capacity and resource accumulation capacity are lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{No-reward Resource Activation}
+This event is triggered if a SignalGP instance's cell experiences a resource collection activation where no resource reward is achieved (e.g., the cell lies extent of the resource wave).
+A different event is provided for each resource wave/channel-signaling level.
+\end{itemize}
