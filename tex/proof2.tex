@@ -1,0 +1,98 @@
+\subsection{Node-to-Node Hops per Small World Graph Connection, Hierarchical Construction}
+
+Suppose we have a small-world graph $G$ with degree bounded by a finite constant $m$.
+
+Pick an arbitrary vertex $a \in V(G)$.
+Let $f(a)$ represent the fraction of nodes in the graph $V(G)$ that
+By the definition of a small-world graph,
+\begin{align*}
+  \frac{1}{|V(G)|} \sum_{v \in V(G)} d(a, v) \propto \log |V(G)|.
+\end{align*}
+
+Because the degree of the graph $G$ is bounded by $m$, there must be a subset $T \subseteq G$ that, for some $k \geq 2$ forms a complete $k$-nary tree rooted at $a$.
+Specifically, such that
+\begin{enumerate}
+  \item $E(T) \subseteq E(G)$,
+  \item $V(T) \subseteq V(G)$,
+  \item for $T$, tree height $h \propto \log |V(G)|$,
+  \item $|V(T)| \propto |V(G)|$.
+\end{enumerate}
+
+Legenstein and Maass establish a lower bound for the amount of wiring required to construct a one-dimensional $k$-nary tree with $n$ nodes: $\Omega(n \log n)$ \citep{legenstein2001optimizing}.
+This corresponds to a best-case total edge length of $T$.
+Because, $T \subseteq G$, $\Omega(n \log n)$ is also a best-case lower bound for the total edge length of $G$.
+
+Because the degree of nodes in $T$ is bounded by $k$,
+\begin{align*}
+|E(T)| \in O \Big( |V(T)| \Big).
+\end{align*}.
+
+In fact, because the degree of nodes in $G$ is also bounded by $m$,
+\begin{align*}
+|E(G)| \in O \Big( |V(G)| \Big).
+\end{align*}.
+
+The best-case average edge length can be computed as the best-case total edge length divided by the worst-case number of edges.
+For arbitrary $\{x, y\} \in E(G)$,
+\begin{align*}
+\bar{d}(x, y) &
+\in \Omega \Big( \frac{ |E(G)| \times \log |E(G)| }{ |E(G)| } \Big)\\
+\in \Omega \Big( \log |E(G)| \Big).
+\end{align*}
+
+This result applies to all possible small-world graphs in a one-dimensional case.
+
+To analyze two-dimensional cases, we will analyze the wiring cost of regular space-filling trees with construction based on \citep{kuffner2009space}.
+This represents an efficient , potentially representative of a lower bound, but its optimality has not been concretely established.
+
+For two dimensions, the total length of wiring required as a function of the number of nodes is
+\begin{align*}
+w_2(n)
+&=
+\sum_{i=1}^{\log_4 n} \Big[
+  \frac{n}{4^i} % how many to draw
+  \times
+  2 \times 2^{i} % how big each one is
+\Big].
+\end{align*}
+
+For three dimensions, the total length of wiring required as a function of the number of nodes is
+\begin{align*}
+w_3(n)
+&=
+\sum_{i=1}^{\log_8 n} \Big[
+  \frac{n}{8^i} % how many to draw
+  \times
+  \frac{3}{2} \times 8 \times 2^{i} % how big each one is
+\Big].
+\end{align*}
+
+Evaluating the limits,
+\begin{align*}
+\lim_{n \rightarrow infty}
+\frac{w_2(n)}{n} = 2
+\end{align*}
+
+and
+\begin{align*}
+\lim_{n \rightarrow infty}
+\frac{w_3(n)}{n} = 4
+\end{align*}
+
+So, the total length of wiring in both cases
+\begin{align*}
+L \in \Omega \Big( n )
+\end{align*}
+
+For a $n$-node tree, the number of edges is given as
+\begin{align*}
+\sum_{l = 1}^{\log n} b^{l}
+&= b^{\log n + 1} - 1 \\
+&= b \times b^{\log n} \\
+&= b \times n - 1
+\end{align*}
+
+So, the average edge length is at least
+\begin{align*}
+\frac{n}{n} = c
+\end{align*}

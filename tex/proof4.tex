@@ -1,0 +1,19 @@
+\subsection{Node-to-Node Hops per Small World Graph Connection, Watts-Strogatz Construction}
+
+Suppose we have a graph constructed according to the Watts–Strogatz model.
+
+$n$ edges are rewired randomly with probability $0 \leq \beta \leq 1$.
+
+So, sum path length is
+
+\begin{align*}
+n \times \beta \times n + n \times (1 - \beta) \times c
+&= n^{2} \times \beta
+\end{align*}
+
+In this graph, the number of edges is proportional to the graph size $n$.
+
+So, the average edge length is given as proportional to
+\begin{align*}
+\frac{n^{2}}{n} = n
+\end{align*}
