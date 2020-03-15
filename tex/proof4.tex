@@ -1,19 +1,28 @@
-\subsection{Node-to-Node Hops per Small World Graph Connection, Watts-Strogatz Construction}
+\subsection{Wiring a Watts-Strogatz Graph}
 
-Suppose we have a graph constructed according to the Watts–Strogatz model.
+Suppose we have a small-world graph $G$ constructed over our usual computational mesh $N$ using the Watts–Strogatz algorithm.
+In this procedure, vertices in $V(G)$ corresponding to neighboring computational nodes in $V(N)$ are wired together to form a lattice with mean degree $k$.
+Then, for every vertex $v \in V(G)$, each edge $\{x, y\} \in E(G)$ containing $v$ is rewired with probability $0 < \beta < 1$ to connect $v$ to a randomly-chosen node $w \in V(G)$.
 
-$n$ edges are rewired randomly with probability $0 \leq \beta \leq 1$.
+Before rewiring, total wiring cost of $G$ with respect to hops over $N$ was proportional to $|V(G)|$.
 
-So, sum path length is
-
+Recall that, with mesh dimensionality $r$ we know that for a pair of arbitrary nodes $a,b \in V(N)$,
 \begin{align*}
-n \times \beta \times n + n \times (1 - \beta) \times c
-&= n^{2} \times \beta
+\bar{d}(a, b) \propto |V(N)|^{\frac{1}{r}}.
 \end{align*}
+
+So, after rewiring, $w$ total wiring cost of $G$ with respect to hops over $N$ can be calculated as
+\begin{align*}
+w = \beta |V(G)| \times |V(N)|^{\frac{1}{r}} + (1 - \beta) |V(G)|.
+\end{align*}
+
+So, $w \in \Omega \Big( |V(N)|^{\frac{r+1}{r}} \Big).$
 
 In this graph, the number of edges is proportional to the graph size $n$.
 
-So, the average edge length is given as proportional to
+With bounded mean degree, we have $|E(G)| \propto |V(G)|$ so we can establish the following lower bound on mean wiring cost per edge of $G$ with respect to hops over $N$,
 \begin{align*}
-\frac{n^{2}}{n} = n
+\Omega \Big( |V(G)|^{\frac{1}{r}}| \Big).
 \end{align*}
+
+Note that, with the introduction of log-time hierarchical hardware interconnects into $N$ the mean wiring cost per edge of $G$ with respect to hops over $N$ is bounded in the worst case by $\Omega \Big( \log |V(G)| \Big)$.
