@@ -11,29 +11,60 @@ Possibilities include the generative design of consumer products, art, video gam
 Preceding decades have witnessed advances towards defining --- quantitatively and philosophically --- the concept of open-ended evolution \citep{lehman2012beyond, dolson2019modes, bedau1998classification}, as well as investigating causal phenomena that promote it such as ecological dynamics, selection, and evolvability, and evolvability \citep{dolson2019constructive, soros2014identifying, huizinga2018emergence}.
 Together, methodological and theoretical advances have begun to yield evidence that the generative potential of artificial life systems is --- at least in part --- meaningfully constrained by available compute resources \citep{channon2019maximum}.
 
-Since approximately the dawn of the 21st century, advances in the performance of traditional serial processing have greatly slowed ---  hitting roadblock with respect to power use, thermal dissipation \citep{sutter2005free}.
-Injecting orders-of-magnitudes greater compute power into artifical life systems aiming to embody open-ended evolution will require taking advantage of parallel/distributed compute resources.
-Dave Ackley has led the crusade towards a distributed approach, laying out an ambitious vision of modular hardware at a scale limited by relativistic and BLAH concerns \citep{ackley2011pursue}.
-He shows that achieving this vision at an arbitrary scale will require local, relative interfaces, with fault tolerance, asynchrony, and spatial-grid interconnects.
-The kernel of the idea is that orders-of-magnitude differences in compute power will open up entirely new possibilities.
+Since approximately the turn of the century, advances in the performance clock speed of traditional serial processing have tailed off.
+At this point, existing technologies began to encounter fundamental constraints including power use and thermal dissipation \citep{sutter2005free}.
+Injecting orders-of-magnitudes greater compute power into artifical life systems designed to study open-ended evolution will require taking advantage of modern parallel and distributed compute technologies.
 
-(TODO I've heard similar discussion made before somewhere, cite it)
-Analogy to groundbreaking advances with artificial neural networks a decade prior illuminate a possible path towards this outcome.
-As with digital evolution, neural networks were traditionally a highly-versatile but auxiliary methodology --- "neural networks are the second best way to do almost anything" (\citep{miaoulis2008intelligent}; TODO cite for GA \citep{eiben2015introduction})
-However, the development of AlexNet, which united methodological advances such as massive datasets, dropout, and ReLU with the co-opting of GPU computing that allowed for orders-of-magnitude-larger networks to be practically trained \citep{krizhevsky2012imagenet}.
-By altering design to accomodate --- and taking advantage of commercially available hardware, AlexNet spurred the greater availability of compute resources to the research domain and eventually the introduction of custom hardware to expressly support deep learning.
-This is a process of SUCCESSIVELY EARNING, develop methodology/software (and eventually hardware) to take advantage of continuing advances of silicon design and manufacturing.
+In fact, digital evolution practitioners have a rich history of leveraging parallel and distributed hardware.
+It is common practice to distribute multiple self-isolated instantiations of an evolutionary runs over multiple hardware units.
+In scientific contexts, this practice yields replicate datasets that provide statistical power to answer a research question \citep{dolson2017spatial}.
+In applied contexts, the
+or,  to generate  the best solution from them (TODO cite).
 
-In addition to developing hardware-agnostic theory and methodology, pushing the envelope of OEE will analogously require expressly designing systems to effectively leverage existing commercially-available parallel/distributed compute resources.
-Available modern high-performance compute clusters can give hundreds to thousands time speedup/scaleup:
-* memory-sharing architectures allow for dozens of cores \citep{dagum1998openmp}
-* and low-latency high-throughput message-passing between nodes allow efficient distribution of work between nodes  (MPI) \citep{clarke1994mpi}
+It is also established practice to break isolation of populations evolving independently on distributed hardware by transplanting individuals between them.
+Under this island model, however, selection operations are otherwise performed independently on each CPU.
+Koza and collaborators' genetic programming work with a 1,000-cpu Beowulf cluster typifies this approach \citep{bennett1999building}.
 
-Lots of existing work parallelizing digital evolution --- e.g., independent subpopulations or independent evaluation of members of a subpopulation.
-However, should scale in a way not just where we evaluate evolutionary individuals on different pieces of hardware, but can evaluate a single evolutionary individual over a fleet of hardware.
-Ideas relating to evolutionary transitions in individuality can help out here by providing a framework to induce meaningful functional synthesis of programmatic components tied to individual compute elements.
+In recent years, Sentient Technologies spearheaded digital evolution projects on an unprecedented computational scale, comprising over a million CPUs and capable of a peak performance of 9 petaflops \citep{miikkulainen2019evolving} .
+According to its proponents, the scale and scalability of this DarkCycle system was a key aspect of its conceptualization \citep{gilbert_2015}.
+Much of the assembled infrastructure was pieced together from heterogeneous providers and employed on a time-available basis \citep{blondeau2012distributed}.
+It appears that, in some cases, this scheme involved the dynamic transfer of evaluation criteria between computational instances (in addition to individual genomes) \citep{hodjat2013distributed}.
 
-Based on nature (ecosystems, genetic regulatory networks, brain connectivity networks), we have reasonable  that interesting open-ended phenomena emerging on such compute platforms will involve small-world \citep{watts1998collective} connectivity dynamics \citep{bassett2017small} \citep{fox2014herbivores} \citep{gaiteri2014beyond}.
+Also notable from Sentient technologies was large-scale use of many massively-parallel hardware units (e.g., 100 GPUs) to evaluate the performance of candidate deep learning neural network architectures on image classification, language modeling, and image captioning problems.
+Hardware parallelism accelerated the deep learning training process used to evaluate individual solutions \citep{miikkulainen2019evolving}.
+Analogous work parallelizing the evaluation of an evolutionary individual over multiple test cases in the context of genetic programming using GPU hardware and vectorized CPU operations \citep{harding2007fast2, langdon2019continuous}.
+
+% \citep{langdon2010large} breast cancer
+
+With respect to incorporating parallel and distributed hardware in the context of open-ended evolution, we should likewise aim to distribute and concurrently evaluate computational elements constituting an evolutionary individual.
+However --- unlike most existing applications of parallel and distributed computing to digital evolution --- we should also prioritize dynamic interactions between and within individuals.
+Dynamic interaction between these concurrent components constituting an individual allows for generative developmental processes, understood as key to evolvability, and the production of emergent functionality among components.
+Importantly, our approach to incorporating parallel and distributed hardware should also provide for dynamic interactions between contemporary evolving individuals.
+Such interactions are understood as key to ecologies, co-evolution, and social interaction. %TODO
+
+Dave Ackley has led towards such an distributed approach, laying out an ambitious vision for modular hardware at a theoretically unlimited scale \citep{ackley2011pursue} and demonstrating an algorithmic substrate for emergent agents that can take advantage of it \citep{ackley2018digital}.
+
+%(TODO I've heard similar discussion made before somewhere, cite it)
+While by no means a certainty, the idea is that orders-of-magnitude differences in compute power will open up qualitatively different possibilities with respect to open-ended evolution is also not entirely unfounded.
+Analogy to spectacular advances achieved with artificial neural networks over the last decade illuminates a possible path towards this outcome.
+As with digital evolution, artificial neural networks (ANNs) were traditionally understood as a highly-versatile but auxiliary methodology --- both techniques been described along the lines of "the second best way to do almost anything" \citep{miaoulis2008intelligent, eiben2015introduction}.
+However, the utility and ubiquity of ANNs has since increased dramatically.
+The development AlexNet is widely considered pivotal to this transformation.
+AlexNet united methodological innovations from the field (such as big datasets, dropout, and ReLU) with GPU computing that enabled training of orders-of-magnitude-larger networks.
+In fact, some aspects of aspects of their deep learning architecture were expressly modified to accommodate multi-GPU training \citep{krizhevsky2012imagenet}.
+By adapting existing methodology to accommodate --- and take advantage of --- commercially available hardware AlexNet spurred the greater availability of compute resources to the research domain and eventually the introduction of custom hardware to expressly support deep learning \citep{jouppi2017datacenter}.
+
+AlexNet set into motion within the field a cycle of repeatedly earning continued investment and developing methodology, software, and eventually hardware to take advantage of additional resources as well as continuing advances of on-silicon design and manufacturing.
+In addition to developing hardware-agnostic theory and methodology, we believe that pushing the envelope of open-ended evolution will analogously require expressly designing systems to effectively leverage existing commercially-available parallel and distributed compute resources at circumstantially-feasible scales.
+Although in absolute terms lacking in fault tolerance, arbitrary extensibility, and steady asynchronous operation modern high-performance scientific computing clusters appear perhaps the best target to start down this path.
+These systems combine
+\begin{itemize}
+\item memory-sharing parallel architectures comprising dozens of cores (commonly targeted using OpenMP \citep{dagum1998openmp})
+\item and low-latency high-throughput message-passing between distributed nodes (commonly targeted using MPI\citep{clarke1994mpi}).
+\end{itemize}
+
+
+Based on nature (ecosystems, genetic regulatory networks, brain connectivity networks), we have reasonable expectation that interesting open-ended phenomena emerging on such compute platforms will involve small-world \citep{watts1998collective} connectivity dynamics \citep{bassett2017small} \citep{fox2014herbivores} \citep{gaiteri2014beyond}.
 However, as ideologically-pure-scalable approaches that rely solely on local connectivity scale, the inter-component messaging load will grow linearly (Section \ref{sec:scaling_toroidal} with size.
 The introduction of hierarchical interconnects, allows the number of messages that must be exchanged in small-world network to scale log-ly (? TODO some math) with size \ref{sec:scaling_interconnect}.
 Within the scale of currently available hardware --- or even, in the forseeable future, conceivably available given economic and physical constrains --- global log time interconnects are realizable.
@@ -46,11 +77,16 @@ The overall idea is to design systems in a way that exposes the underlying hardw
 It is not computationally feasible (even if we knew how) for an OEE simulation to start from a sparse fog of hydrogen and helium and transition to a biological-level era, so it is clearly necessary to skip over or engineer in at least some complex features that arose through major transitions in our universe. \citep{channon2019maximum}
 \end{displayquote}
 
+However, open to criticisms of fiddly-ness or vain attempt \citep{lehmanTODO}
+
 Modeling from more foundational low-level roots (artificial chemistry) will become ascendant when different orders of magnitude of more compute power --- to the extent available by Ackley --- become available, and current work sets the stage for that eventuality. \citep{ackley2018alife}
 This will address important questions in its own right about the computational (?) foundations of physical and biological reality.
 
 What could such a system, that facilitates system-managed interconnects (that under the hood  would rely on computationally-efficient hardware faculties) look like?
 Here, we present an extension to upcoming work incorporating genetic programming with the DISHTINY platform for transitions in individuality \citep{moreno2019toward}.
+Ideas relating to evolutionary transitions in individuality can help out here by providing a framework to induce meaningful functional synthesis of programmatic components tied to individual compute elements.
+
+
 This extension provides cells that are laid out on a grid with the capability --- through exploratory growth --- to establish explicit, direct interconnects with spatially distant cells.
 We report a case study of where adaptive resource-sharing and messaging emerged over these interconnects.
 This preliminary implementation uses shared-memory thread-level parallelism.
