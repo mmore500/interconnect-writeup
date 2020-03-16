@@ -1,189 +1,19 @@
-\section{Results and Discussion}
+\section{Results and Discussion} \label{sec:results}
 
-\subsection{Scaling Relationship of Node-to-Node Transfers per Connection of Small World Graph on Toroidal Grid} \label{sec:scaling_toroidal}
+\input{tex/proof1.tex}
 
-Consider a set of computational nodes arranged in a $n$-dimensional mesh.
-In each dimension, physical interconnects run between immediately adjacent pairs of nodes.
-Represent this physical hardware with a graph $N$.
-Vertices of $N$, $V(N)$, represent computational nodes.
-Edges of $N$, $E(N)$, represent physical interconnects between nodes.
+\input{tex/proof2.tex}
 
-Let $d(a,b)$ represent the typical number of physical interconnects traversed on a shortest path between a pair of arbitrary nodes $a, b \in V(N)$.
-This is conceptually equivalent to Manhattan distance.
+\input{tex/proof3.tex}
 
-In the case of a one-dimensional sequence of nodes, for a pair of arbitrary nodes $a,b \in V(N)$,
-\begin{align*}
-\bar{d}(a,b) \propto |V(N)|.
-\end{align*}
+\input{tex/proof4.tex}
 
-Consider next the case of a higher-dimensional grid topology, like a two-dimensional grid or a three-dimensional mesh.
-Because $d$ is a taxicab metric, the number of physical interconnects required to be traversed in each dimension on a shortest-path between two nodes is completely independent.
+% \input{fig/grid_progression.tex}
 
-Arranging the set of nodes $N$ in a $n$-dimensional cube, cube width in each dimensions scales proportionally to the $n$-th root of $|V(N)|$.
-From this point forward, we will assume a three-dimensional mesh.
-So, for a pair of arbitrary nodes $a,b \in V(N)$,
-\begin{align} \label{eqn:mesh_prop}
-\bar{d}(a, b) \propto |V(N)|^{\frac{1}{3}}
-\end{align}
+\subsection{Case Study} \label{sec:casestudy}
 
-We proceed to construct a small world directed graph $G$ using the set of nodes $N$ as vertices.
-In formal terms, a bijective relationship $f: V(N) \rightarrow V(G)$ unites these two sets.
-The inverse mapping, $f^{-1}: V(G) \rightarrow V(N)$, is also bijective.
+CASE STUDY about resource-sharing/messaging over interconnects in
 
-Edges in the graph $G$ do not represent a physical interconnect.
-Instead, edges $\{\hat{a}, \hat{b}\} \in E(G)$ represent a close-coordination relationship where node $\hat{a}$ frequently interacts with (i.e., dispatches messages to) the destination node $\hat{b}$.
-
-Let $\hat{d}(\hat{a},\hat{b})$ denote distance between vertices $\hat{a}$ and $\hat{b}$ with respect to the graph $G$.
-That is, the number of graph edges traversed on a shortest-path route between $\hat{a}$ and $\hat{b}$ over $G$.
-In a small-world network, typical graph distance scales proportionally with the logarithm of network size \citep{watts1998collective}.
-In our case, for arbitrary $\hat{a},\hat{b} \in V(G)$,
-\begin{align} \label{eqn:smallworld_prop}
-\bar{\hat{d}}(\hat{a},\hat{b}) \propto \log(|V(G)|).
-\end{align}
-
-Consider the sequence of edges in $G$ traversed on a shortest-path route $R_{\hat{a},\hat{b}}$ between $\hat{a}, \hat{b} \in V(G)$, $\{\{\hat{x}_1, \hat{y}_1\}, \{\hat{x}_3, \hat{y}_3\}, \ldots, \{\hat{x}_n, \hat{y}_n\} \}$.
-Because $d$ represents a shortest-path traversal of physical interconnects,
-\begin{align*}
-\sum_{\{\hat{x}, \hat{y}\} \in  R_{\hat{a},\hat{b}}} d\Big(f^{-1}(x), f^{-1}(y)\Big)
-\geq d\Big(f^{-1}(\hat{a}), f^{-1}(\hat{b})\Big).
-\end{align*}
-(Otherwise, we would have discovered a shorter-path traversal.)
-
-We establish a lower bound by applying Equation \ref{eqn:mesh_prop}, ,
-\begin{align*}
-\sum_{\{\hat{x}, \hat{y}\} \in  R_{\hat{a},\hat{b}}} d\Big(f^{-1}(\hat{x}), f^{-1}(\hat{y})\Big)
-&\in
-\Omega(
-  |V(N)|^{\frac{1}{3}}
-).
-\end{align*}
-
-
-Applying Equation \ref{eqn:smallworld_prop},
-\begin{align*}
-\log(|V(G)|) \times \bar{d}\Big(f^{-1}(\hat{x}), f^{-1}(\hat{y})\Big)
-&\in
-\Omega(
-  |V(N)|^{\frac{1}{3}}
-).
-\end{align*}
-
-Rearranging and simplifying, we arrive at a lower bound of the mean number of physical interconnects traversed for each connection in the interaction network $G$,
-\begin{align*}
-\bar{d}(x, y)
-&\in
-\Omega \Big(
-  \frac{|V(N)|^{\frac{1}{3}}}{\log(|V(N)|)}
-\Big).
-\end{align*}
-Note that edges $\{x,y\}$ are not sampled uniformly from $f^{-1}\Big(E(G)\Big)$.
-Instead, their sampling is weighted by edge betweenness centrality \citep{Lu2013}.
-
-Edge betweenness is associated with connectivity: a edge that, upon removal, subdivides a graph into disconnected components of equal size exhibits maximum edge betweenness.
-To account for this non-uniform sampling, we must consider the most extreme possibles case in uneven edge betweenness centrality.
-This is the perfectly hierarchical case: there is one edge that can be cut that cleaves the graph in two, there are two edges that can be cut that cleave a quarter of the graph off, there are four edges that can be cut that cleave an eight of the graph off, etcetera.
-
-Arrange this graph as a binary tree.
-
-The sum betweenness of each layer of edges $L$ of the tree of size $n$ is given as
-\footnote{
-In the case of the binary tree, where all connections are rendered impossible by the removal of any of their edges, the edge betweenness is equivalent to the fraction of connections disrupted.
-This formula is derived in terms of the total number of connections in the graph, minus the remaining connections below a removed edge, minus the remaining connections above a removed edge.
-Layers $L$ count, zero-indexed, from the bottom.
-}
-\begin{align*}
-\frac{n}{2^{L+1}}
-\times
-\Big(&\\
-  &\frac{
-    n \times (n-1)
-  }{
-    n \times (n -1)
-  }\\
-  &-
-  \frac{
-    (2^{L+1} - 1) \times (2^{L+1} - 2)
-  }{
-    n \times (n -1)
-  }\\
-  &-
-  \frac{
-    (n - 2^{L+1} + 1) \times (n - 2^{L+1})
-  }{
-    n \times (n -1)
-  }\\
-&\Big).
-\end{align*}
-
-Taking the limit as $n \rightarrow \infty$, this simplifies to
-\begin{align*}
-\lim_{n \rightarrow \infty}
-2
--
-\frac{
-  2^{L+1}
-}{
-  n
-}
-.
-\end{align*}
-
-Recall that $L$ ranges between 0 and $\log_2 n - 1$, so
-
-\begin{align*}
-1
-\leq
-\lim_{n \rightarrow \infty}
-2
--
-\frac{
-  2^{L+1}
-}{
-  n
-}
-\leq
-2
-\end{align*}
-
-Thus, each layer of the binary tree has the same total betweenness weight sum.
-So, each layer's fraction of total betweenness weight is proportional to $1/\log(n)$.
-
-So, each edge's fraction of total betweenness weight is proportional to
-\begin{align*}
-\frac{2^{L+1}}{n} \times \frac{1}{\log(n)}.
-\end{align*}
-
-Recalling, again, that $0 \geq L \geq \log(n) - 1$, each edge's fraction of total betweenness weight is upper bounded by
-\begin{align*}
-\frac{1}{\log(n)}.
-\end{align*}
-
-And that physical distance over any edge $e \in G$ are upper bounded by
-\begin{align*}
-d(e) \leq |V(N)|^{1/3}
-\end{align*}
-
-No finite set of edges can hold a finite fraction of total betweenness weight as $n \rightarrow \infty$ and no individual edges can experience a physical-interconnect-traversal distance greater than $|V(N)|^{1/3}$,
-For the unweighted mean to be of a lower complexity class than the weighted mean, one of these conditions would have to be true.
-??? is this correct not sure
-
-Hence, we attain a lower bound of the mean number of physical interconnects traversed for each connection sampled uniform interaction network $G$,
-\begin{align*}
-\bar{d}(x, y)
-&\in
-\Omega \Big(
-  \frac{|V(N)|^{\frac{1}{3}}}{\log(|V(N)|)}
-\Big).
-\end{align*}
-
-In contrast, hierarchical physical interconnects impose an upper constraint on the number of physical interconnects traversed by any message over a connection in the interaction network $G$ of
-\begin{align*}
-O\Big(\log(|V(N)|)\Big).
-\end{align*}
-
-\input{fig/grid_progression.tex}
-
-\subsection{TODO}
 
 Figure \ref{fig:grid_progression}
 

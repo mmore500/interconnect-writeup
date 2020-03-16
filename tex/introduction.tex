@@ -56,37 +56,58 @@ By adapting existing methodology to accommodate --- and take advantage of --- co
 
 AlexNet set into motion within the field a cycle of repeatedly earning continued investment and developing methodology, software, and eventually hardware to take advantage of additional resources as well as continuing advances of on-silicon design and manufacturing.
 In addition to developing hardware-agnostic theory and methodology, we believe that pushing the envelope of open-ended evolution will analogously require expressly designing systems to effectively leverage existing commercially-available parallel and distributed compute resources at circumstantially-feasible scales.
-Although in absolute terms lacking in fault tolerance, arbitrary extensibility, and steady asynchronous operation modern high-performance scientific computing clusters appear perhaps the best target to start down this path.
+Modern high-performance scientific computing clusters appear perhaps the best target to start down this path.
 These systems combine
 \begin{itemize}
 \item memory-sharing parallel architectures comprising dozens of cores (commonly targeted using OpenMP \citep{dagum1998openmp})
 \item and low-latency high-throughput message-passing between distributed nodes (commonly targeted using MPI\citep{clarke1994mpi}).
 \end{itemize}
 
+In absolute terms such clusters lack in key characteristics highlighted for indefinite scalability: fault tolerance, arbitrary extensibility, and steady asynchronous operation.
+However, at current scale --- and into the forseeable future --- they also offer opportunities not available in a indefinitely scalable framework: log-time interconnects.
+TODO cite this, is this true?
 
-Based on nature (ecosystems, genetic regulatory networks, brain connectivity networks), we have reasonable expectation that interesting open-ended phenomena emerging on such compute platforms will involve small-world \citep{watts1998collective} connectivity dynamics \citep{bassett2017small} \citep{fox2014herbivores} \citep{gaiteri2014beyond}.
-However, as ideologically-pure-scalable approaches that rely solely on local connectivity scale, the inter-component messaging load will grow linearly (Section \ref{sec:scaling_toroidal} with size.
-The introduction of hierarchical interconnects, allows the number of messages that must be exchanged in small-world network to scale log-ly (? TODO some math) with size \ref{sec:scaling_interconnect}.
-Within the scale of currently available hardware --- or even, in the forseeable future, conceivably available given economic and physical constrains --- global log time interconnects are realizable.
+Many natural systems --- such as ecosystems, genetic regulatory networks, and neural networks --- are known to exhibit small-world patterns of connectivity between components \citep{bassett2017small, fox2014herbivores, gaiteri2014beyond}.
+In small-world graphs, mean path length (the number of edges traversed on a shortest-route) between arbitrary components scales logarithmically with system size \citep{watts1998collective}.
+We anticipate that open-ended phenomena emerging across distributed hardware might also involve small-world connectivity dynamics.
+As such a system scales, what implications might such connectivity have with respect to load on individual hardware components?
+With respect to the latency and bandwidth of inter-component interactions as such a system scales?
 
-Designing some systems to take full advantage of these interconnects seems prudent now, and won't be made obsolete by scale well into the future.
-This approach ties together with working with manually-engineered self-replicator systems.
-The overall idea is to design systems in a way that exposes the underlying hardware reality (e.g., procedural expression of programs etc.) so that the hardware capabilities can be fully taken advantage of.
+In Section \ref{sec:results}, we analyze the scaling relationship between system size and expected node-to-node hops traversed between computational elements interacting as part of an emergent small-world network
+\footnote{
+TODO although relativistic come into play at much greater scales, node to node hops are relevant with current technologies at current scales
+}
+\begin{enumerate}
+\item with and without hierarchical physical interconnects between computational nodes, and
+\item with computational nodes embedded on one-, two-, or three-dimensional computational meshes.
+\end{enumerate}
+
+In Section \ref{sec:proof1}, we find that expected hops over edges weighted by edge betweenness centrality scales polynomially in all cases without hierarchical physical interconnects.
+With hierarchical physical interconnects, a logarithmic scaling relationship can be achieved.
+
+In Section \ref{sec:proof2} and \ref{sec:proof3} we find that hierarchical physical interconnects yield better best-case mean hops per edge in the one-dimensional case.
+Interestingly, asymptotically better outcomes in two- and three- dimensions cannot be guaranteed by hierarchical physical interconnects.
+
+In Section \ref{sec:proof4} we show that, with a specific traditional construction of small-world graphs, best-case mean hops per edge scales polynomially with graph size.
+With hierarchical physical interconnects, a logarithmic scaling relationship can be achieved.
+
+What could such a system, that facilitates system-managed interconnects (that under the hood  would rely on computationally-efficient hardware faculties) look like?
+Finally, in Section \ref{sec:casestudy}, we turn to a case study to look at how an artificial life system might establish small-world interactions between computational elements distributed on different hardware nodes and take advantage of hierarchical physical interconnects.
+
+We present an extension to upcoming work incorporating genetic programming with the DISHTINY platform for transitions in individuality \citep{moreno2019toward}.
+This extension provides cells that are laid out on a grid with the capability --- through exploratory growth --- to establish explicit, direct interconnects with spatially distant cells.
+We report a case study of where adaptive resource-sharing and messaging emerged over these interconnects.
+Our preliminary implementation uses shared-memory thread-level parallelism.
+
+DISHTINY is ... TODO
+Although designed for scalability largely along the lines outlined by Ackley, our approach exchanges a uniform, evolutionary-passive substrate for manually-engineered self-replicators.
+Evolutionary transitions in individuality provide a framework to unite self-replicators and induce meaningful functional synthesis of programmatic components tied to individual compute elements.
+The system is designed to expose the underlying hardware reality (e.g., procedural expression of programs, hierarchical interconnects) so that the hardware capabilities can be fully taken advantage of.
+As well as engineering-over complex features (interconnects, genetic transmission of information) along the lines of Channon
 
 \begin{displayquote}
 It is not computationally feasible (even if we knew how) for an OEE simulation to start from a sparse fog of hydrogen and helium and transition to a biological-level era, so it is clearly necessary to skip over or engineer in at least some complex features that arose through major transitions in our universe. \citep{channon2019maximum}
 \end{displayquote}
 
-However, open to criticisms of fiddly-ness or vain attempt \citep{lehmanTODO}
-
-Modeling from more foundational low-level roots (artificial chemistry) will become ascendant when different orders of magnitude of more compute power --- to the extent available by Ackley --- become available, and current work sets the stage for that eventuality. \citep{ackley2018alife}
+become ascendant when different orders of magnitude of more compute power --- to the extent available by Ackley --- become available, and current work sets the stage for that eventuality. \citep{ackley2018alife}
 This will address important questions in its own right about the computational (?) foundations of physical and biological reality.
-
-What could such a system, that facilitates system-managed interconnects (that under the hood  would rely on computationally-efficient hardware faculties) look like?
-Here, we present an extension to upcoming work incorporating genetic programming with the DISHTINY platform for transitions in individuality \citep{moreno2019toward}.
-Ideas relating to evolutionary transitions in individuality can help out here by providing a framework to induce meaningful functional synthesis of programmatic components tied to individual compute elements.
-
-
-This extension provides cells that are laid out on a grid with the capability --- through exploratory growth --- to establish explicit, direct interconnects with spatially distant cells.
-We report a case study of where adaptive resource-sharing and messaging emerged over these interconnects.
-This preliminary implementation uses shared-memory thread-level parallelism.
