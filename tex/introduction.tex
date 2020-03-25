@@ -124,11 +124,16 @@ What would the impact be of providing a system of hierarchical log-time hardware
 
 In Section \ref{sec:results}, we analyze the scaling relationship between system size and expected node-to-node hops traversed between computational elements interacting as part of an emergent small-world network
 \footnote{
-Although relativistic concerns do ultimately limit latency between spatially-distributed computational elements, with respect to current hardware co-located at a single physical site at foreseeable scales we see minimizing node-to-node hops as key.
-Additionally, although we focus on asymptotic analyses, in some cases better scaling coefficients might be achieved with long-distance hardware interconnects.
-Maximizing performance in this regard is also an important goal.
+Why do we consider man node-to-node hops per connection?
 
-In addition, the asymptotic analyses performed on mesh networks without long-distance hierarchical interconnects can also be interpreted in terms of Euclidean distance with respect to relativistic limitations.
+Although relativistic concerns do ultimately limit latency between spatially-distributed computational elements, with respect to contemporary hardware co-located at a single physical site at foreseeable scales, we expect node-to-node hops to represent an important bottleneck on system performance.
+
+At larger scales, consider the case where emergent connections are embodied via simulation state along the entire path of node-to-node hops traversed by the by the connection (along the line of axon wiring of biological neural networks).
+If mean emergent connections per simulation element remain constant as the system scales, then mean node-to-node hops per connection relates to the amount of state required per node to represent connections that pass through it.
+(Specifically, if mean node-to-node hops per connection remains constant than the amount of state required per node remains constant.)
+
+Finally, the asymptotic analyses performed on mesh networks without long-distance hierarchical interconnects can also be interpreted in terms of Euclidean distance.
+(Potentially of interest with respect to relativistic limitations.)
 }
 \begin{enumerate}
 \item with and without hierarchical log-time physical interconnects between computational nodes, and
@@ -146,7 +151,8 @@ In Section \ref{sec:proof4} we show that, with a specific traditional constructi
 With hierarchical physical interconnects, a logarithmic scaling relationship can be achieved.
 
 These theoretical analyses suggest that whether log-time physical interconnects deliver asymptotically better mean connection latency and hop-efficiency depend on the structure of the network overlaid on a spatially-distributed hardware system.
-In either case, log-time physical interconnects may nonetheless provide valuable performance gains. %TODO do I need to expand on/justify this?
+Although we focus on asymptotic analyses, better scaling coefficients might be achieved with long-distance hardware interconnects.
+Equivalent asymptotic behavior does not preclude important considerations with respect to performance.
 
 \subsection{Exploiting Log-Time Physical Interconnects: a Case Study}
 
