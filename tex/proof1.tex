@@ -1,6 +1,6 @@
 \subsection{Wiring a Generic Small World Graph} \label{sec:proof1}
 
-Consider a set of computational nodes arranged in a $r$-dimensional mesh.
+Consider a set of computational nodes arranged in an $r$-dimensional mesh.
 In each dimension, physical interconnects run between immediately adjacent pairs of nodes.
 Represent this physical hardware with a graph $N$.
 Vertices of $N$, $V(N)$, represent computational nodes.
@@ -15,21 +15,24 @@ In the case of a one-dimensional sequence of nodes, for a pair of arbitrary node
 \end{align*}
 
 Consider next the case of a higher-dimensional grid topology, like a two-dimensional grid or a three-dimensional mesh.
-Because $d$ is a Manhattan metric, the number of physical interconnects required to be traversed in each dimension on a shortest-path between two nodes is completely independent.
+Because $d$ is a Manhattan metric, the number of physical interconnects requiring traversal in each dimension on a shortest-path between two nodes is completely independent.
 
 Arranging the set of nodes $N$ in a $r$-dimensional cube, cube width in each dimensions scales proportionally to the $r$-th root of $|V(N)|$.
 
 So, for a pair of arbitrary nodes $a,b \in V(N)$,
 \begin{align} \label{eqn:mesh_prop}
-\bar{d}(a, b) \propto |V(N)|^{\frac{1}{r}}
+\bar{d}(a, b) \propto |V(N)|^{\frac{1}{r}} \times r
 \end{align}
 
 We proceed to construct a small world directed graph $G$ using the set of nodes $N$ as vertices.
 In formal terms, a bijective relationship $f: V(N) \rightarrow V(G)$ unites these two sets.
 The inverse mapping, $f^{-1}: V(G) \rightarrow V(N)$, is also bijective.
 
+\input{fig/nandg.tex}
+
 Edges in the graph $G$ do not represent a physical interconnect.
 Instead, edges $\{\hat{a}, \hat{b}\} \in E(G)$ represent a close-coordination relationship where node $\hat{a}$ frequently interacts with (i.e., dispatches messages to) the destination node $\hat{b}$.
+Figure \ref{fig:nandg} illustrates the relationship between $N$ and $G$.
 
 Let $\hat{d}(\hat{a},\hat{b})$ denote distance between vertices $\hat{a}$ and $\hat{b}$ with respect to the graph $G$.
 That is, the number of graph edges traversed on a shortest-path route between $\hat{a}$ and $\hat{b}$ over $G$.
@@ -39,7 +42,7 @@ In our case, for arbitrary $\hat{a},\hat{b} \in V(G)$,
 \bar{\hat{d}}(\hat{a},\hat{b}) \propto \log(|V(G)|).
 \end{align}
 
-Consider the sequence of edges in $G$ traversed on a shortest-path route $R_{\hat{a},\hat{b}}$ between $\hat{a}, \hat{b} \in V(G)$, $\{\{\hat{x}_1, \hat{y}_1\}, \{\hat{x}_3, \hat{y}_3\}, \ldots, \{\hat{x}_n, \hat{y}_n\} \}$.
+Consider the sequence of edges in $G$ traversed on a shortest-path route $R_{\hat{a},\hat{b}}$ between $\hat{a}, \hat{b} \in V(G)$, $\{\{\hat{x}_1, \hat{y}_1\}, \{\hat{x}_2, \hat{y}_2\}, \ldots, \{\hat{x}_n, \hat{y}_n\} \}$.
 Because $d$ represents a shortest-path traversal of the Manhattan network $N$,
 \begin{align} \label{eqn:path_hops_inequality}
 \sum_{\{\hat{x}, \hat{y}\} \in  R_{\hat{a},\hat{b}}}
@@ -47,18 +50,18 @@ Because $d$ represents a shortest-path traversal of the Manhattan network $N$,
 \geq
 d\Big(f^{-1}(\hat{a}), f^{-1}(\hat{b})\Big).
 \end{align}
-(Otherwise, we would violate the Manhattan metric's triangle inequality.)
+(Otherwise, we would have found a shorter path through $N$ between $f^{-1}(\hat{a})$ and $f^{-1}(\hat{b})$, violating the Manhattan metric's triangle inequality.)
 
 Recall that $\hat{a},\hat{b}$ are sampled uniformly from $V(G)$.
 So, $f^{-1}(\hat{a}),f^{-1}(\hat{b})$ are sampled uniformly from $V(N)$.
 Thus, Equation \ref{eqn:mesh_prop} allows us to establish the following lower bound,
-\begin{align} \label{eqn:path_hops_inequality}
+\begin{align*}
 d\Big(f^{-1}(\hat{a}), f^{-1}(\hat{b})\Big)
 &\in
 \Omega \Big(
-  |V(N)|^{\frac{1}{3}}
+  |V(N)|^{\frac{1}{r}} \times r
 \Big).
-\end{align}
+\end{align*}
 
 It follows from Inequality \ref{eqn:path_hops_inequality} that
 \begin{align*}
@@ -66,7 +69,7 @@ It follows from Inequality \ref{eqn:path_hops_inequality} that
 \Big[ d\Big(f^{-1}(\hat{x}), f^{-1}(\hat{y})\Big) \Big]
 &\in
 \Omega \Big(
-  |V(N)|^{\frac{1}{3}}
+  |V(N)|^{\frac{1}{r}} \times r
 \Big).
 \end{align*}
 
@@ -76,7 +79,7 @@ So, letting $\bar{d}$ represent the mean case,
 \log(|V(G)|) \times \bar{d}\Big(f^{-1}(\hat{x}), f^{-1}(\hat{y})\Big)
 &\in
 \Omega \Big(
-  |V(N)|^{\frac{1}{r}}
+  |V(N)|^{\frac{1}{r}} \times r
 \Big).
 \end{align*}
 
@@ -85,7 +88,11 @@ Rearranging and simplifying, we arrive at a lower bound of mean distance over th
 \bar{d}\Big(f^{-1}(\hat{x}), f^{-1}(\hat{y})\Big)
 &\in
 \Omega \Big(
-  \frac{|V(N)|^{\frac{1}{r}}}{\log(|V(N)|)}
+  \frac{
+    |V(N)|^{\frac{1}{r}} \times r
+  }{
+    \log(|V(N)|)
+  }
 \Big).
 \end{align*}
 

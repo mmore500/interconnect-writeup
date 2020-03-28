@@ -3,14 +3,17 @@
 Once more, we will work with a mesh of $n$ physical hardware nodes corresponding to a graph $N$ where $V(N)$ represents computational nodes and $E(N)$ represents physical interconnects between nodes.
 In this case, in addition to physical interconnects between spatially adjacent nodes we will assume a system of hierarchical physical interconnects that allows log-hop traversal between nodes.
 
+\input{fig/spacefilling.tex}
+
 Suppose we have a small-world graph $G$ with maximum vertex degree bounded by a finite constant $m$.
 The vertices of this graph $G$ are embedded one-to-one on $N$ such that $|V(G)| = |V(N)|$.
 We will specifically construct this graph as an ideal space-filling tree.
+Figure \ref{fig:spacefilling} illustrates the relationship between $N$ and $G$.
 
 As a property of this construction, $|E(N)| \propto |V(N)|$.
 
 In the best case, where edges in $E(G)$ happen to correspond exactly to hierarchical physical interconnects $E(N)$, the average hops required per edge is 1.
-However, in the worst case the average number of hops over $N$ required per edge in $E(G)$ is bounded by $n \log_m n$.
+However, in the worst case the average number of hops over $N$ required per edge in $E(G)$ is bounded by $\log_m n$.
 
 What if, instead of routing all traffic through log-time hierarchical interconnects, we routed traffic between nodes less than $\log_m n$ apart through local grid-mesh interconnects?
 
