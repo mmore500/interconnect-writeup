@@ -42,15 +42,16 @@ In our case, for arbitrary $\hat{a},\hat{b} \in V(G)$,
 \bar{\hat{d}}(\hat{a},\hat{b}) \propto \log(|V(G)|).
 \end{align}
 
-Consider the sequence of edges in $G$ traversed on a shortest-path route $R_{\hat{a},\hat{b}}$ between $\hat{a}, \hat{b} \in V(G)$, $\{\{\hat{x}_1, \hat{y}_1\}, \{\hat{x}_2, \hat{y}_2\}, \ldots, \{\hat{x}_n, \hat{y}_n\} \}$.
-Because $d$ represents a shortest-path traversal of the Manhattan network $N$,
+Consider the sequence of edges in $G$ traversed on a shortest-path route $R_{\hat{a},\hat{b}}$ between $\hat{a}, \hat{b} \in V(G)$, $\{\{\hat{v}_1, \hat{v}_2\}, \{\hat{v}_2, \hat{v}_3\}, \ldots, \{\hat{v}_{n-1}, \hat{v}_n\} \}$.
+If we traverse these same nodes over the graph $N$ this path would be at least as long as the direct path between $f^{-1}(\hat{a})$ and $f^{-1}(\hat{b})$ over $N$.
+(Otherwise, we would violate the Manhattan metric on $N$'s triangle inequality.)
+Therefore,
 \begin{align} \label{eqn:path_hops_inequality}
-\sum_{\{\hat{x}, \hat{y}\} \in  R_{\hat{a},\hat{b}}}
-\Big[ d\Big(f^{-1}(\hat{x}), f^{-1}(\hat{y})\Big) \Big]
+\sum_{\{\hat{v}_i, \hat{v}_{i+1}\} \in  R_{\hat{a},\hat{b}}}
+\Big[ d\Big(f^{-1}(\hat{v}_i), f^{-1}(\hat{v}_{i+1})\Big) \Big]
 \geq
 d\Big(f^{-1}(\hat{a}), f^{-1}(\hat{b})\Big).
 \end{align}
-(Otherwise, we would have found a shorter path through $N$ between $f^{-1}(\hat{a})$ and $f^{-1}(\hat{b})$, violating the Manhattan metric's triangle inequality.)
 
 Recall that $\hat{a},\hat{b}$ are sampled uniformly from $V(G)$.
 So, $f^{-1}(\hat{a}),f^{-1}(\hat{b})$ are sampled uniformly from $V(N)$.
