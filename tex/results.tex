@@ -10,12 +10,57 @@
 
 % \input{fig/grid_progression.tex}
 
-\subsection{Case Study} \label{sec:casestudy}
+\subsection{Case Study: Interconnect Resource Sharing}
 
-CASE STUDY about resource-sharing/messaging over interconnects in
+\input{fig/case_study_1042.tex}
 
+This case study was drawn from time point 24 of a batch of the initial set of runs.
+92 compute hours, TODO cellular generations elapsed.
+You can view this strain in a live in-browser simulation at \url{https://mmore500.com/hopto/8}
 
-Figure \ref{fig:grid_progression}
+Figure \ref{fig:case_study_1042}
 
-standard versus blind+even ($p < 0.05$; bootstrap test)
-small wave versus blind+even ($p < 0.01$; bootstrap test)
+knockout experiments
+\begin{itemize}
+  \item wt vs wt (8/16 successes; 16/16 coalesced; 1738 S.D. 217 cell gen; \url{https://mmore500.com/hopto/aj})
+  \item wt vs ko\_t19 (16/16 successes; 16/16 coalesced; 1996 S.D. 280 cell gen; \url{https://mmore500.com/hopto/ak})
+  \item wt vs m7\_i17 (16/16 successes; 16/16 coalesced; 1932 S.D. 223 cell gen;  \url{https://mmore500.com/hopto/al})
+  \item wt vs sm15\_i0,1,3,4,6,8,9,11 (16/16 successes; 16/16 coalesced; 1860 S.D. 370 cell gen; \url{https://mmore500.com/hopto/am})
+  \item interconect self msg (16/16 successes; 290 S.D 17 cell gen; 16/16 coalesced)
+  \item interconnect self share (16/16 successes; 289 S.D. 25 cell gen;  14/16 coalesced)
+  \item interconnect self msg and self share (16/16 successes; 300 S.D. 23 cell gen; 16/16 coalesced)
+\end{itemize}
+
+\subsection{Case Study: Interconnect Messaging}
+
+%TODO \input{fig/case_study_2032.tex}
+
+This case study was drawn from time point 18 of a batch of the secondary set of runs.
+72 compute hours, TODO cellular generations elapsed.
+You can view this strain in a live in-browser simulation at \url{https://mmore500.com/hopto/7}.
+
+knockout experiments
+\begin{itemize}
+  \item wt vs wt (5/16 successes; \url{https://mmore500.com/hopto/9}; 12/16 coalesced; 408 S.D. 43 cell gen)
+  \item m5/i8 knockout (16/16 success; \url{https://mmore500.com/hopto/aa}; 16/16 coalesced; 416 S.D. 58 cell gen)
+  \item m14/i0 (16/16 success; \url{https://mmore500.com/hopto/ab}; 16/16 coalesced; 401 S.D. 29 cell gen)
+  \item self-messaging (16/16 and 16/16; 5/16 coalesced and 2/16 coalesced; 54 S.D. 2 cell gen and 52 S.D. 3 cell gen)
+  \item m5/i8 replace with
+  \begin{itemize}
+	\item call (16/16; \url{https://mmore500.com/hopto/ac}; 16/16 coalesced; 378 S.D. 42 cell gen)
+    \item fork (16/16; \url{https://mmore500.com/hopto/ad} 16/16 coalesced; 377 S.D. 37 cell gen)
+    \item sendinternal (16/16; \url{https://mmore500.com/hopto/ae}; 16/16 coalesced; 406 S.D 39 cell gen)
+    \item bcstinternal (16/16; \url{https://mmore500.com/hopto/af}; 16/16 coalesced; 422 S.D 30 cell gen)
+    \item sendexternal (16/16; \url{https://mmore500.com/hopto/ag}; 16/16 coalesced; 377 S.D. 37 cell gen)
+    \item bcstexternal (16/16; \url{https://mmore500.com/hopto/ah}; 16/16 coalesced; 440 S.D. 32 cell gen)
+    \item bcstfwdspiker (10/16; \url{https://mmore500.com/hopto/ai}; 14/16 coalesced; 410 S.D. 50 cell gen)
+  \end{itemize}
+  \item t5 always (16/16; 16/16 coalesced; 48 S.D. 3 cell gen)
+  \item t5 invert (16/16; 16/16 coalesced; 48 S.D 3 cell gen)
+  \item t5 never (16/16; 16/16 coalesced; 52 S.D. 3 cell gen)
+  \item trigger 5 stochastic (observe trigger frequency of 22729/(22729+82571) between 1000 and 1100 updates in a monoculture population) (16/16; 16/16 coalesced; 62 S.D. 3 cell gen)
+  \item remapping trigger 5 to activate module stochastic triggering of module 14 only on pointer between 1000 (238940 hits) and 1100 (267392 hits) updates -> 28452 / (12*45*45*4) = 0.292716 (16/16; 16/16 coalesced; 58 S.D. 2 cell gen)
+\end{itemize}
+
+%TODO Figure \ref{fig:case_study_1042}
+
