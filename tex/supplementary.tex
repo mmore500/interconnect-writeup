@@ -1,7 +1,7 @@
 \subsection{Standard SignalGP Instruction Library}
 
 To counteract crowding of the mutational landscape by the volume of custom instructions provided, a second identical copy of each standard SignalGP instruction was included in the library.
-These instructions were included in both the neighbor hardware and network hardware instruction libraries.
+These instructions were included in both the neighbor-manager hardware and interconnect-manager hardware instruction libraries.
 
 \begin{itemize}
 \item \textbf{Increment}
@@ -80,7 +80,7 @@ Adjust the program module regulator of the currently-executing program module a 
 Copy the program module regulator value of the program module that best matches (without regulation) the instruction's affinity into a designated register.
 \end{itemize}
 
-\subsection{Custom Instruction Library: Neighbor-Manager Hardware}
+\subsection{Neighbor-Manager Hardware Custom Instruction Library}
 
 \begin{itemize}
 \item \textbf{Send Intracellular Message}
@@ -99,10 +99,14 @@ Place a tag in the external membrane that, with default arguments, blocks incomi
 Send a message to a single cellular neighbor.
 \item \textbf{Broadcast Intercellular Message}
 Send a message to all cellular neighbors.
-\item \textbf{Broadcast Network Message}
-Send a message to all network-connected hardware.
-\item \textbf{Broadcast Reverse Network Message}
-Send a message to all hardware networ-connected to a cell.
+\item \textbf{Broadcast Interconnect Message}
+Send a message to all the neighbor-manager and interconnect-manager hardware components of all cells the executing cell has established an interconnect to.
+All interconnect broadcast messages incoming to a cell during a delivery interval are de-duplicated.
+(If several identical messages are broadcast to a cell via interconnect during a delivery interval, only one message is delivered to each hardware component of the cell.)
+\item \textbf{Broadcast Reverse Interconnect Message}
+Send a message to all the neighbor-manager and interconnect-manager hardware components of all cells that have established interconnects to the executing cell.
+All interconnect broadcast messages incoming to a cell during a delivery interval are de-duplicated.
+(If several identical messages are broadcast to a cell via interconnect during a delivery interval, only one message is delivered to each hardware component of the cell.)
 \item \textbf{Share Resource}
 Send a proportion of the cell's stockpiled resource to a neighboring cell.
 One instruction defaults to sending a large proportion of available resource (50\%) to the neighboring cell.
@@ -176,18 +180,19 @@ A variant of this instruction is provided for each wave/channel-signaling level.
 \item \textbf{Query Neighbor's Stockpile}
 This instruction sets a designated register to the amount of resource present in the neighbor's stockpile.
 \item \textbf{Add Fledgling Connection}
-If the number of outgoing connections is less than both the system-defined connection count cap and an argument-defined connection count cap, start a new fledgling network connection.
+If the number of outgoing interconnects is less than both the system-defined connection count cap and an argument-defined connection count cap, start a new fledgling interconnect.
 \item \textbf{Add Fledgling Search Query}
-Add a tag query that, depending on argument value, either promotes or represses the cell's fledgling network connections to mature into established network connections with other cells containing tag signals it matches with.
+Add a tag query that, depending on argument value, either promotes or represses the cell's fledgling interconnects to mature into established interconnects with other cells containing tag signals (discussed below) that the query matches with.
 \item \textbf{Add Fledgling Search Signal}
-Add a tag signal that, depending on argument value, either promotes or represses other cell's fledgling network connections with tag queries it matches with to mature into established network connections.
+Add a tag signal that, depending on argument value, either promotes or represses other cell's fledgling interconnects to mature into established interconnects.
+Only other cells with search queries (discussed above) that match the signal tag are influenced.
 \item \textbf{Prune Outgoing Connection}
-Remove an outgoing established network connection.
+Remove an outgoing established interconnect.
 \item \textbf{Prune Outgoing Connection}
-Remove an incoming established network connection.
+Remove an incoming established interconnect.
 \end{itemize}
 
-\subsection{Network-Manager Hardware Environmental Cue Library}
+\subsection{Interconnect-Manager Hardware Environmental Cue Library}
 
 Environmental cues were triggered every eight updates.
 
@@ -232,7 +237,7 @@ This event is triggered if a SignalGP instance's cell experiences a resource col
 A different event is provided for each resource wave/channel-signaling level.
 \end{itemize}
 
-\subsection{Custom Instruction Library: Network-Manager Hardware}
+\subsection{Interconnect-Manager Hardware Custom Instruction Library}
 
 \begin{itemize}
 \item \textbf{Broadcast Intracellular Message}
@@ -247,16 +252,22 @@ Place a tag in the external membrane that, with default arguments, admits incomi
 Place a tag in the external membrane that, with default arguments, blocks incoming external messages it matches with.
 \item \textbf{Broadcast Intercellular Message}
 Send a message to all cellular neighbors.
-\item \textbf{Send Network Message}
-Send a message to all network-connected network-manager hardware.
-\item \textbf{Broadcast Network Message}
-Send a message to all network-connected hardware.
-\item \textbf{Send Reverse Network Message}
-Send a message to all network-manager hardware network-connected to a cell.
-\item \textbf{Broadcast Reverse Network Message}
-Send a message to all hardware network-connected to a cell.
+\item \textbf{Send Interconnect Message}
+Send a message to the interconnect-manager hardware component of all cells the executing cell has established an interconnect to.
+\item \textbf{Broadcast Interconnect Message}
+Send a message to all the neighbor-manager and interconnect-manager hardware components of all cells the executing cell has established an interconnect to.
+All interconnect broadcast messages incoming to a cell during a delivery interval are de-duplicated.
+(If several identical messages are broadcast to a cell via interconnect during a delivery interval, only one message is delivered to each hardware component of the cell.)
+\item \textbf{Send Reverse Interconnect Message}
+Send a message to the interconnect-manager hardware component of all cells that have established an interconnect to the executing cell.
+\item \textbf{Broadcast Reverse Interconnect Message}
+Send a message to all the neighbor-manager and interconnect-manager hardware components of all cells that have established interconnects to the executing cell.
+All interconnect broadcast messages incoming to a cell during a delivery interval are de-duplicated.
+(If several identical messages are broadcast to a cell via interconnect during a delivery interval, only one message is delivered to each hardware component of the cell.)
 \item \textbf{Share Resource}
-Send a proportion of the cell's stockpiled resource to a neighboring cell.
+Send a proportion of the cell's stockpiled resource to all cells the executing cell has established an interconnect to.
+The proportion utgoing resource is split among cells the executing cell has established an interconnect to.
+If no outgoing interconnect has been established, no operation takes place.
 One instruction defaults to sending a large proportion of available resource (50\%) to the neighboring cell.
 A second instruction defaults to sending a small proportion of available resource (5\%) to the neighboring cell.
 The proportion of available resource can be adjusted by a register-based argument.
@@ -264,7 +275,7 @@ The proportion of available resource can be adjusted by a register-based argumen
 Designate a quantity of stockpiled resource as ineligible for sharing.
 The amount may be modified by a register-based argument.
 \item \textbf{Clear Stockpile Sharing Reserve}
-Designate all stockpiled resource as eligble for sharing.
+Designate all stockpiled resource as eligible for sharing.
 \item \textbf{Restrict Outgoing Shared Resource}
 Reduce outgoing sharing efficacy.
 Unsent resource is retained by the sending cell (with no resource lost).
@@ -306,26 +317,26 @@ This instruction writes the current number of incoming connections and the curre
 \item \textbf{Query Outgoing Connections}
 This instruction writes the current number of outgoing connections and the current mean length of outgoing connections into two separate genetically-determined registers.
 \item \textbf{Add Fledgling Connection}
-If the number of outgoing connections is less than both the system-defined connection count cap and an argument-defined connection count cap, start a new fledgling network connection.
+If the number of outgoing connections is less than both the system-defined connection count cap and an argument-defined connection count cap, start a new fledgling interconnect.
 \item \textbf{Add Fledgling Search Query}
-Add a tag query that, depending on argument value, either promotes or represses the cell's fledgling network connections to mature into established network connections with other cells containing tag signals it matches with.
+Add a tag query that, depending on argument value, either promotes or represses the cell's fledgling interconnects to mature into established interconnects with other cells containing tag signals it matches with.
 \item \textbf{Add Fledgling Search Signal}
-Add a tag signal that, depending on argument value, either promotes or represses other cell's fledgling network connections with tag queries it matches with to mature into established network connections.
+Add a tag signal that, depending on argument value, either promotes or represses other cell's fledgling interconnects with tag queries it matches with to mature into an established interconnect.
 \item \textbf{Prune Outgoing Connection}
-Remove an outgoing established network connection.
+Remove an outgoing established interconnect.
 \item \textbf{Prune Outgoing Connection}
-Remove an incoming established network connection.
+Remove an incoming established interconnect.
 \item \textbf{Set Fledgling Connection Aging Parameter}
-Set a parameter that controls the baseline rate at which fledgling connections mature towards established connections.
+Set a parameter that controls the baseline rate at which fledgling interconnects mature towards becoming an established interconnect.
 \item \textbf{Set Fledgling Connection Search Exploitation Parameter}
-Set a parameter that controls the baseline rate at which less-successful fledgling connection probes reset to more-successful fledgling connection probes.
+Set a parameter that controls the baseline rate at which less-successful fledgling interconnect probes reset to more-successful fledgling interconnect  probes.
 \item \textbf{Set Fledgling Connection Threshold Parameter}
-Set a parameter that controls the threshold at which fledgling connections mature into established connections.
+Set a parameter that controls the threshold at which fledgling interconnects mature into established interconnects.
 \item \textbf{Set Fledgling Connection Query Sensitivity Parameter}
-Set a parameter that controls the fledgling connection's sensitivity to favorable and unfavorable tagged query/signal matches.
+Set a parameter that controls the fledgling interconnect's sensitivity to favorable and unfavorable tagged query/signal matches.
 \end{itemize}
 
-\subsection{Network-Manager Hardware Environmental Cue Library}
+\subsection{Interconnect-Manager Hardware Environmental Cue Library}
 
 Environmental cues were triggered every eight updates.
 
@@ -337,7 +348,7 @@ If an imprinted tag was set by the cell's parent, this event is triggered every 
 \item \textbf{Just Born}
 This event is triggered once after a cell is born.
 \item \textbf{Connection Length}
-Separate events are triggered if a cell's mean outgoing network connection length falls between 0 and 4 cell widths, 2 and 6 cell widths, 4 and 8 cell widths, 6 and 10 cell widths, or above 8 cell widths.
+Separate events are triggered if a cell's mean outgoing interconnect length falls between 0 and 4 cell widths, 2 and 6 cell widths, 4 and 8 cell widths, 6 and 10 cell widths, or above 8 cell widths.
 \item \textbf{Channel Generation Counter Is Unexpired}
 This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the expiration threshold.
 A different event is provided for each resource wave/channel-signaling level.
