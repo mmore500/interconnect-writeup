@@ -14,24 +14,35 @@
 
 \input{fig/case_study_1042.tex}
 
-overview animation \url{https://mmore500.com/hopto/ao}
+This case study was drawn from epoch 24 of batch 1042 of the initial set of evolutionary runs.
+We initially considered it for further study due to the presence of widespread over-interconnect resource sharing.
+After preliminary knockout experiments confirmed the adaptive significance of both over-interconnect resource-sharing and over-interconnect messaging, we set aside the strain for a case study.
+The evolutionary history preceding this case study consumed approximately 96 hours of wall-clock time and 736 compute-core hours.
+Approximately TODO simulation updates and TODO cellular generations elapsed.
+You can view the strain this case study characterizes in a live in-browser simulation at \url{https://mmore500.com/hopto/8}
 
-This case study was drawn from time point 24 of a batch of the initial set of runs.
-92 compute hours, TODO cellular generations elapsed.
-You can view this strain in a live in-browser simulation at \url{https://mmore500.com/hopto/8}
+Our first step was to evaluate whether intercellular nature of over-interconnect messaging and resource sharing contributed to the strain's fitness.
+(It is possible that messaging and/or resource sharing behaviors might generate stimuli on the recipient or side-effects on the sender that have adaptive consequences whether or not the sender and recipient are distinct cells;
+in such a scenario, cells would be just as well off sending messages and/or resource to themselves.)
+We performed several competition experiments between between the wild-type strain and variants where interconnect messaging and resource sharing was altered to be intracellular instead of intercellular.
+At the end of competition experiments, we evaluated the relative abundances of wild-type and variant strains.
+In the first variant strain we tested, all outgoing over-interconnect messages were delivered to the sending cell.
+In 16 out of 16 one-hour competition runs that were seeded half-and-half with the wild-type and variant strains, the wild-type strain drove the variant strain to extinction (one-tailed Binomial Test; $p < 0.0001$; 290 S.D 17 cell gens elapsed).
+We observed a similar outcome with a second variant strain where all outgoing over-interconnect resource sharing was rerouted back to the sending cell (14/16 variant strain extinctions; 16/16 wild-type prevalence; 289 S.D. 25 cell gens elapsed).
+Finally, a third variant strain where both over-interconnect messaging and over-interconnect resource sharing were returned to the sending cell exhibited the same outcome (16/16 variant strain extinctions; 300 S.D. 23 cell gens elapsed).
+In this strain, the intercellular nature of over-interconnect messaging and resource sharing both contribute to fitness.
 
-Figure \ref{fig:case_study_1042}
+Next, we took a closer look at the evolved cellular mechanisms controlling over-interconnect messaging and resource sharing.
+We monitored hardware execution of the wild-type strain in a monoculture population to detect which signals, messages, and fork/call instructions activated each SignalGP module.
+We manually cross-referenced this information with a human-readable printout of the strain's genetic program to construct hypothesized mechanism shown in Figure \ref{fig:case_study_1042}.
+We hypothesize that cells at the periphery of a registered kin groups send messages backwards over incoming interconnects that induce interconnect-originating cells to send them resource.
 
-knockout experiments
-\begin{itemize}
-  \item wt vs wt (8/16 successes; 16/16 coalesced; 1738 S.D. 217 cell gen; \url{https://mmore500.com/hopto/aj})
-  \item wt vs ko\_t19 (16/16 successes; 16/16 coalesced; 1996 S.D. 280 cell gen; \url{https://mmore500.com/hopto/ak})
-  \item wt vs m7\_i17 (16/16 successes; 16/16 coalesced; 1932 S.D. 223 cell gen;  \url{https://mmore500.com/hopto/al})
-  \item wt vs sm15\_i0,1,3,4,6,8,9,11 (16/16 successes; 16/16 coalesced; 1860 S.D. 370 cell gen; \url{https://mmore500.com/hopto/am})
-  \item interconect self msg (16/16 successes; 290 S.D 17 cell gen; 16/16 coalesced)
-  \item interconnect self share (16/16 successes; 289 S.D. 25 cell gen;  14/16 coalesced)
-  \item interconnect self msg and self share (16/16 successes; 300 S.D. 23 cell gen; 16/16 coalesced)
-\end{itemize}
+We performed a series of four-hour competition experiments between wild type and knockout strains to confirm the adaptive nature of each component of this mechanism.
+We began by re-routing Trigger 19, which alerts cells to a non-registered-kin neighbor, to activate a known no-op module (16/16 knockout strain extinctions; $p < 0.0001$; 1996 S.D. 280 cell gens elapsed; \url{https://mmore500.com/hopto/ak}).
+Next, we replaced the over-interconnect messaging instruction that triggers over-interconnect resource-sharing with a no-op instruction (16/16 knockout strain extinctions; $p < 0.0001$; 1932 S.D. 223 cell gens elapsed; \url{https://mmore500.com/hopto/al}).
+We then replaced all eight copies of the over-interconnect resource-sharing instruction triggered by the over-interconnect messaging with no-op instructions (16/16 successes; 16/16 coalesced; $p < 0.0001$; 1860 S.D. 370 cell gens elapsed; \url{https://mmore500.com/hopto/am}).
+Finally, we confirmed the soundness of our fitness competition methodology by running control wild-type versus wild-type competitions.
+As expected, we observed no effect of strain ID on competition dominance (8/16 knockout strain extinctions; 8/16 wild-type strain extinctions; $p = 0.60$; 1738 S.D. 217 cell gens elapsed; \url{https://mmore500.com/hopto/aj})
 
 \subsection{Case Study: Interconnect Messaging}
 
