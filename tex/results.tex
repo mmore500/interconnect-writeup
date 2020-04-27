@@ -51,34 +51,157 @@ As expected, we observed no effect of strain ID on competition dominance (8/16 k
 
 \input{fig/case_study_2032.tex}
 
-overview animation \url{https://mmore500.com/hopto/an}
+This case study was drawn from epoch 18 of batch 32 from the secondary set of evolutionary runs.
+We set this strain aside for case study after preliminary screening suggested that over-interconnect messaging played an adaptive role and that the intercellular nature the messaging of was necessary to that adaptation.
+The evolutionary history preceeding this case study consumed approximately 72 hours of wall-clock time and 576 compute-core hours.
+Approximately 2197976 simulation updates and 8884 cellular generations elapsed.
+You can view this case study strain in a live in-browser simulation at \url{https://mmore500.com/hopto/7}.
+% 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [00:00<00:00, 406.39it/s]
+% Output saved to title=mastergenerations+_data_hathash_hash=4b3da18cbeb2bc0d+_script_fullcat_hash=5e6b7a64514cbb09+_source_hash=29a51b3-clean+ext=.csv
+% level 0
+% Generations Elapsed mean 8884.38084673059
+% Generations Elapsed std nan
+% Generations Elapsed min 8884.38084673059
+% Generations Elapsed max 8884.38084673059
+% level 1
+% Generations Elapsed mean 5674.207208163186
+% Generations Elapsed std nan
+% Generations Elapsed min 5674.207208163186
+% Generations Elapsed max 5674.207208163186
+% level 2
+% Generations Elapsed mean 1196.6607671890404
+% Generations Elapsed std nan
+% Generations Elapsed min 1196.6607671890404
+% Generations Elapsed max 1196.6607671890404
+% EXPIRATION_UPDATE 513408
+% EXPIRATION_UPDATE 233216
+% EXPIRATION_UPDATE 184096
+% EXPIRATION_UPDATE 211488
+% EXPIRATION_UPDATE 182368
+% EXPIRATION_UPDATE 175840
+% EXPIRATION_UPDATE 189952
+% EXPIRATION_UPDATE 202496
+% EXPIRATION_UPDATE 136992
+% EXPIRATION_UPDATE 140576
+% EXPIRATION_UPDATE 143712
+% EXPIRATION_UPDATE 128512
+% EXPIRATION_UPDATE 114048
+% EXPIRATION_UPDATE 123136
+% EXPIRATION_UPDATE 110176
+% EXPIRATION_UPDATE 111296
+% EXPIRATION_UPDATE 116832
+% EXPIRATION_UPDATE 103264
+% EXPIRATION_UPDATE 114208
+% EXPIRATION_UPDATE 119136
+% EXPIRATION_UPDATE 86560
+% EXPIRATION_UPDATE 91104
+% EXPIRATION_UPDATE 85984
+% EXPIRATION_UPDATE 94688
+% EXPIRATION_UPDATE 85856
+% EXPIRATION_UPDATE 111200
+% EXPIRATION_UPDATE 101536
+% EXPIRATION_UPDATE 131456
+% EXPIRATION_UPDATE 77440
+% EXPIRATION_UPDATE 88352
+% EXPIRATION_UPDATE 74944
+% EXPIRATION_UPDATE 89280
+% EXPIRATION_UPDATE 88512
+% EXPIRATION_UPDATE 82240
+% EXPIRATION_UPDATE 80576
+% EXPIRATION_UPDATE 84192
+% EXPIRATION_UPDATE 89344
+% EXPIRATION_UPDATE 91104
+% EXPIRATION_UPDATE 91456
+% EXPIRATION_UPDATE 88384
+% EXPIRATION_UPDATE 82656
+% EXPIRATION_UPDATE 87296
+% EXPIRATION_UPDATE 75200
+% EXPIRATION_UPDATE 84992
+% EXPIRATION_UPDATE 99328
+% EXPIRATION_UPDATE 102176
+% EXPIRATION_UPDATE 113568
+% EXPIRATION_UPDATE 97760
+% EXPIRATION_UPDATE 108864
+% EXPIRATION_UPDATE 104736
+% EXPIRATION_UPDATE 104416
+% EXPIRATION_UPDATE 99872
+% EXPIRATION_UPDATE 98880
+% EXPIRATION_UPDATE 110176
+% EXPIRATION_UPDATE 100224
+% EXPIRATION_UPDATE 93440
+% EXPIRATION_UPDATE 97888
+% EXPIRATION_UPDATE 97952
+% EXPIRATION_UPDATE 106880
+% EXPIRATION_UPDATE 95776
+% EXPIRATION_UPDATE 103424
+% EXPIRATION_UPDATE 99584
+% EXPIRATION_UPDATE 100576
+% EXPIRATION_UPDATE 101216
+% EXPIRATION_UPDATE 107904
+% EXPIRATION_UPDATE 112608
+% EXPIRATION_UPDATE 101408
+% EXPIRATION_UPDATE 110976
+% EXPIRATION_UPDATE 110560
+% EXPIRATION_UPDATE 101472
+% EXPIRATION_UPDATE 102336
+% EXPIRATION_UPDATE 96864
+% EXPIRATION_UPDATE 105472
+% EXPIRATION_UPDATE 97664
+% EXPIRATION_UPDATE 97280
+% EXPIRATION_UPDATE 111520
 
-This case study was drawn from time point 18 of a batch of the secondary set of runs.
-72 compute hours, TODO cellular generations elapsed.
-You can view this strain in a live in-browser simulation at \url{https://mmore500.com/hopto/7}.
+As before, we began by testing the adaptiveness of the intercellular nature of over-interconnect interaction.
+We performed a competition experiment between the wild-type strain and a variant where over-interconnect messages were re-routed back to the sender.\footnote{
+This was an independent replication of the initial experiment (performed as part of a wider screen) that singled out the case study strain for further analysis.
+}
+The wild-type strain was present in greater abundance at the end of all 16 competitions (one-tailed binomial test; $p < 0.0001$; 2/16 variant strain extinctions; 52 S.D. 3 cell gens elapsed).
+So the adaptiveness of over-interconnect messaging does depend on the intercellular nature that messaging in this strain.
 
-knockout experiments
+We proceeded to tease apart the evolved cellular mechanisms this messaging interacts with.
+We monitored hardware execution of the wild-type strain in a monoculture population to detect which signals, messages, and fork/call instructions activated each SignalGP module.
+Referring to a human-readable printout of the strain's evolved genetic programming, we pieced together the hypothesized mechanism shown in Figure \ref{fig:case_study_2032}.
+It appears that neighboring a direct cellular offspring stimulates dispatch of an over-interconnect message that induces the recipient to pause somatic reproduction.
+
+Four-hour competition experiments between wild type and knockout strains allowed us to assess the adaptiveness of each component of this mechanism.
+We replaced the instruction responsible for over-interconnect messaging with a no-op instruction and observed a corresponding fitness penalty (16/16 knockout strain extinctions; one-tailed binomial test; $p < 0.0001$; 416 S.D. 58 cell gens elapsed; \url{https://mmore500.com/hopto/aa}).
+We also replaced the reproduction-pausing instruction executed in response to over-interconnect messagingg with a no-op.
+This caused a similar fitness penalty (16/16 knockout strain extinctions; 401 S.D. 29 cell gens elapsed).
+
+To double-check whether the messaging specifically over interconnects was key to adaptivity we also competed the wild-type strain against variants with the focal over-interconnect messaging instruction substituted for all other possible module-activating instructions:
 \begin{itemize}
-  \item wt vs wt (5/16 successes; \url{https://mmore500.com/hopto/9}; 12/16 coalesced; 408 S.D. 43 cell gen)
-  \item m5/i8 knockout (16/16 success; \url{https://mmore500.com/hopto/aa}; 16/16 coalesced; 416 S.D. 58 cell gen)
-  \item m14/i0 (16/16 success; \url{https://mmore500.com/hopto/ab}; 16/16 coalesced; 401 S.D. 29 cell gen)
-  \item self-messaging (16/16 and 16/16; 5/16 coalesced and 2/16 coalesced; 54 S.D. 2 cell gen and 52 S.D. 3 cell gen)
-  \item m5/i8 replace with
-  \begin{itemize}
-	\item call (16/16; \url{https://mmore500.com/hopto/ac}; 16/16 coalesced; 378 S.D. 42 cell gen)
-    \item fork (16/16; \url{https://mmore500.com/hopto/ad} 16/16 coalesced; 377 S.D. 37 cell gen)
-    \item sendinternal (16/16; \url{https://mmore500.com/hopto/ae}; 16/16 coalesced; 406 S.D 39 cell gen)
-    \item bcstinternal (16/16; \url{https://mmore500.com/hopto/af}; 16/16 coalesced; 422 S.D 30 cell gen)
-    \item sendexternal (16/16; \url{https://mmore500.com/hopto/ag}; 16/16 coalesced; 377 S.D. 37 cell gen)
-    \item bcstexternal (16/16; \url{https://mmore500.com/hopto/ah}; 16/16 coalesced; 440 S.D. 32 cell gen)
-    \item bcstfwdspiker (10/16; \url{https://mmore500.com/hopto/ai}; 14/16 coalesced; 410 S.D. 50 cell gen)
-  \end{itemize}
-  \item t5 always (16/16; 16/16 coalesced; 48 S.D. 3 cell gen)
-  \item t5 invert (16/16; 16/16 coalesced; 48 S.D 3 cell gen)
-  \item t5 never (16/16; 16/16 coalesced; 52 S.D. 3 cell gen)
-  \item trigger 5 stochastic (observe trigger frequency of 22729/(22729+82571) between 1000 and 1100 updates in a monoculture population) (16/16; 16/16 coalesced; 62 S.D. 3 cell gen)
-  \item remapping trigger 5 to activate module stochastic triggering of module 14 only on pointer between 1000 (238940 hits) and 1100 (267392 hits) updates -> 28452 / (12*45*45*4) = 0.292716 (16/16; 16/16 coalesced; 58 S.D. 2 cell gen)
+  \item call (378 S.D. 42 cell gens elapsed; \url{https://mmore500.com/hopto/ac})
+  \item fork (377 S.D. 37 cell gens elapsed; \url{https://mmore500.com/hopto/ad})
+  \item internal message send (1406 S.D 39 cell gens elapsed; \url{https://mmore500.com/hopto/ae})
+  \item internal message send-to-all (1422 S.D 30 cell gens elapsed; \url{https://mmore500.com/hopto/af})
+  \item external message send (377 S.D. 37 cell gens elapsed; \url{https://mmore500.com/hopto/ag})
+  \item external message send-to-all (440 S.D. 32 cell gens elapsed; \url{https://mmore500.com/hopto/ah})
 \end{itemize}
+In each case the substitution variant strain was driven to extinction across all 16 replicate experiments (one-tailed binomial test; $p < 0.0001$).
+
+The directionality of messaging over the interconnect, however, does not appear to affect fitness.
+We tried substituting the wild-type instruction, which dispatches a message from the terminus of an interconnect to its origin, with an instruction that instead dispatches a message from the origin of an interconnect to its terminus.
+In competition against wild-type, the wild type strain was more abundant in only ten of 16 replicate competitions (one-tailed binomial test; $p = 0.2272$; 14/16 coalesced to a single strain; 410 S.D. 50 cell gen; \url{https://mmore500.com/hopto/ai}).
+
+Satisfied that, indeed, interconnect-transmission of messages contributes to fitness, we set out to characterize the relationship between fitness the distribution of message dispatch and delivery over space and time.
+We began by investigating whether non-uniform distribution of message delivery --- and the corresponding reproductive pause activity --- contributed to fitness.
+We created a variant strain where instead of activating module 5 and dispatching an over-interconnect message, stimulus 5 directly activates the reproductive pause instructions in module 14.
+In this variant strain, we alter stimulus 5 to no longer be triggered by a cell-offspring neighbor.
+Instead, we dispatch stimulus 5 with uniform probability based on the empirical module 14 activation rate observed in a monoculture population of the wild-type strain.
+% between updates 1000 (238940 hits) and 1100 (267392 hits) updates -> 28452 / (12*45*45*4) = 0.292716
+In effect, this manipulation decouples reproductive pause from the distribution of over-interconnect message delivery and instead couples it to a comparable uniform distribution.
+Indeed, in competition experiments against the wild-type strain this variant fares poorly (16/16 variant strain extinctions; one-tailed binomial test; $p < 0.0001$; 58 S.D. 2 cell gen).
+This suggests that, together, the conjunction of stimulus 5 on a cell and the presence (via a developmental process) of an interconnect to that cell induces a meaningfully (with respect to fitness) non-uniform distribution of message delivery and, subsequently, module 14 activation.
+
+Does the specific distribution of stimulus 5 on message-generating cells contribute to fitness?
+As a rough initial exploration of this question, we performed competition experiments with variants where stimulus 5 was always activated, was never activated, and had inverted activation.
+In each case, the variant strain was driven to extinction in all 16 replicate runs (one-tailed binomial test; $p < 0.0001$; 48 S.D. 3 cell gens elapsed; 52 S.D. 3 cell gens elapsed; 48 S.D. 3 cell gens elapsed).
+Next, we prepared a variant to test if a uniform stimulus distribution with comparable frequency to wild type would exhibit full fitness.
+We empirically measured the stimulus 5 activation rate in a monoculture population of the wild-type strain.
+%(observe trigger frequency of 22729/(22729+82571) between 1000 and 1100 updates in a monoculture population)
+This variant strain also underperformed wild type, being driven to extinction in all 16 replicate competition runs (62 S.D. 3 cell gens elapsed).
+
+It is also possible that the developmental and  process contributes other information to the mix
+To randomly select (or select from a distribution).
 
 %TODO Figure \ref{fig:case_study_1042}
 
