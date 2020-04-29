@@ -15,7 +15,7 @@ Together, methodological and theoretical advances have begun to yield evidence t
 
 Since approximately the turn of the century, advances in the clock speed of traditional serial processing have trailed off \citep{sutter2005free}.
 Since that time, existing technologies have begun to encounter fundamental constraints including power use and thermal dissipation \citep{markov2014limits}.
-Instead, hardware innovation began to revolve around multiprocessing  \citep[p.55]{hennessy2011computer} and hardware acceleration (e.g., GPU; TODO cite).
+Instead, hardware innovation began to revolve around multiprocessing  \citep[p.55]{hennessy2011computer} and hardware acceleration (e.g., GPU, FPGA, etc.) \citep{che2008accelerating}.
 For scientific and engineering applications, individual multiprocessors and accelerators are joined together with fast interconnects to yield so-called high performance computing clusters \citep[p.436]{hennessy2011computer}.
 Scaling up artificial life systems designed to study open-ended evolution will require taking advantage of modern parallel and distributed compute technologies.
 
@@ -104,7 +104,7 @@ AlexNet united methodological innovations from the field (such as big datasets, 
 In fact, some aspects of their deep learning architecture were expressly modified to accommodate multi-GPU training \citep{krizhevsky2012imagenet}.
 By adapting existing methodology to accommodate --- and take advantage of --- commercially available hardware, AlexNet spurred the greater availability of compute resources to the research domain and eventually the introduction of custom hardware to expressly support deep learning \citep{jouppi2017datacenter}.
 
-AlexNet set into motion a positive feedback loop of
+Similarly, progress toward realizing artificial life systems with true indefinite scalability seems likely to unfold as a positive feedback loop of
 \begin{itemize}
 \item incremental achievements that spurred additional interest and resources, and
 \item development of methodology, software, and eventually specialized hardware to take advantage of those resources.
@@ -117,11 +117,8 @@ These systems combine
 \item and low-latency high-throughput message-passing between distributed nodes (commonly targeted using MPI\citep{clarke1994mpi}).
 \end{itemize}
 
-Contemporary scientific computing clusters lack key characteristics highlighted for indefinite scalability: fault tolerance, arbitrary extensibility, and steady asynchronous operation. %TODO check on these last ones.
+Contemporary scientific computing clusters lack key characteristics highlighted for indefinite scalability: fault tolerance and arbitrary extensibility.
 However, they also may offer an opportunity not available in an indefinitely scalable framework: log-time interconnects \citep{mollah2018comparative}.
-\footnote{
-The availability of log-time interconnects seems likely to continue in the foreseeable future.
-}
 
 \subsection{Instantiating Small-World Networks on Parallel and Distributed Hardware}
 
@@ -171,8 +168,8 @@ In existing work with the system, cells situated on a two-dimensional grid inter
 This extension introduces explicitly-registered direct interconnects between (potentially distant) cells for messaging and resource-sharing.
 Cells may establish these interconnects through a genetically-mediated exploratory growth process.
 
-In Section \ref{sec:casestudy1}, we report a case study where adaptive resource-sharing and messaging emerged over these interconnects.
-In Supplementary Section \ref{sec:casestudy2}, TODO \citep{Moreno_Ofria_2020}.
+We report a case study of an evolved strain which adaptively employs over-interconnect resource sharing and messaging to selectively distribute resource to the multicell periphery.
+In Supplementary Section \ref{sec:case_study_2032}, we report another case study of an evolve strain which adaptively employs over-interconnect messaging to selectively suppress somatic cell reproduction \citep{Moreno_Ofria_2020}.
 
 In future implementations, explicitly-registered cell-cell interconnects may use log-time physical interconnects.
 Our prototype implementation exploits shared-memory thread-level parallelism on a single multiprocessor.
@@ -187,8 +184,8 @@ This approach mirrors the philosophy of practicality and feasibility laid out by
 It is not computationally feasible (even if we knew how) for an OEE simulation to start from a sparse fog of hydrogen and helium and transition to a biological-level era, so it is clearly necessary to skip over or engineer in at least some complex features that arose through major transitions in our universe.
 \end{displayquote}
 
-Here, we engineer-over complex features (e.g., genetic transmission of variation, explicitly-registered cell-cell interconnects), aiming to reflect hardware capabilities (e.g., procedural expression of programs, log-time physical interconnects) so they can be fully taken advantage of.
+DISHTINY engineers-over complex features (e.g., genetic transmission of variation, explicitly-registered cell-cell interconnects) in a manner that aimis to reflect underlying hardware capabilities (e.g., procedural expression of programs, log-time physical interconnects) so they can be fully taken advantage of.
 
-More granular, less prescriptional approaches very well may become ascendant when orders of magnitude of more compute power --- toward the extent envisioned by Ackley --- become available.
+More granular, less prescriptional approache seem likely to become ascendant when orders of magnitude of more compute power --- toward the extent envisioned by Ackley --- become available.
 Such systems will address important questions in their own right about the computational foundations of physical and biological reality.
 Current work developing those systems sets the stage for that eventuality \citep{ackley2018alife}.
