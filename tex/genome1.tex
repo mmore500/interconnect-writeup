@@ -1,0 +1,341 @@
+\subsection{Case Study 1 Genome Printout}
+
+\begin{verbatim}
+Neighbor Manager
+Fn-0 10010011111101101111011010000100:
+  DuplicateTerminal8 1
+
+Fn-1 01000110110101101100010111010110:
+  DuplicateInput 2 1
+
+Fn-2 00100100001101101001101011110011:
+  SetGiveSharingFalse 0 2 3
+
+Fn-3 11110000011110010010101100010101:
+  Terminal0.125 8
+  QueryChannelMate-Lev0 1 1
+
+Fn-4 00000000011000011000010110011111:
+  QueryChannel-Lev0 1 6
+  QueryChannelMate-Lev1 5 1
+
+Fn-5 00011110100010101100001110011000:
+  While 3
+
+Fn-6 11000001111100110101111110001101:
+  Fork 10000101001010010000100000101111
+
+Fn-7 01100000000101001000010110001010:
+  Inc 8
+  SendMsgExternal 00101100000001011100000110100100 7
+  Div 1 0 1
+  Nop
+  QueryIsExpired1 6 6
+  Not 7
+  TryReproduce-Lev0 6
+  DuplicateSetMem 1 8
+  DuplicateWhile 6
+    DuplicateTerminal8 8
+    SetReproductionReserve 7 2
+    CopyMem 5 2
+    Return
+    Dec 3
+    Close
+  QueryIsExpired1 7 3
+  SetAcceptSharingFalse 5 1 6
+  BcstSpikeReverseMsg 01110001101101011011100110001101
+  Dec 6
+  CopyMem 4 6
+  SwapMem 8 1
+  QueryIsCellParent 3 0
+  TryReproduce-Lev1 2
+  PutInternalMembraneBlocker 00010000000000011100001100011010 3 0
+  Dec 4
+  QueryIsOlderThan 8 3
+  QueryIsPoorerThan 5 5
+  Div 1 2 7
+  Mult 0 3 4
+  TryAddFledglingConnection 3 7
+  DuplicateTestEqu 3 7 0
+  TestLess 3 1 8
+
+Fn-8 01110000000110101100100110101011:
+  DuplicateTerminal1 8
+
+Fn-9 10000100100011100100010010110011:
+  PauseRepr-Lev2 1
+  PauseRepr-Lev2 3
+  Terminal1073741824 7
+  SendBigFracResource 7 0
+
+Fn-10 01010010111101101110010111101000:
+  DuplicateTerminal8 0
+  DuplicateInput 2 1
+
+Fn-11 10111010000000000001100011100100:
+  QueryChannelMate-Lev1 0 7
+
+Fn-12 01011100101011101010111110001111:
+  PutInternalMembraneBringer 01011001000111000111011100100000 5 1
+
+Fn-13 11001100101011101011100001111110:
+  SetReproductionReserve 5 5
+
+Fn-14 01011011000010111010101001111001:
+  PutInternalMembraneBlocker 10101100111001011100110010010101 7 8
+  PutInternalMembraneBringer 10111100000101011110010101100001 0 1
+
+Fn-15 11000010001100001111000000110110:
+  Inc 3
+
+Fn-16 00011101011101110101000000101110:
+  SendMsgInternal 11110110111110011011100011110101 4 3
+  SendBigFracResource 3 0
+
+Fn-17 11011100010010100101001010011000:
+  PutInternalMembraneBringer 01000001110000110101010100010101 3 1
+
+Fn-18 01000000000100011000110110011011:
+  Fork 00010001101101011110101100010010
+  SendMsgExternal 00100100111111011000001011101110 7
+  Div 6 0 1
+  Mult 4 1 2
+  QueryIsExpired1 6 6
+  Not 7
+  Div 3 5 5
+  QueryIsPropaguleParent 6 4
+  DuplicateSetMem 1 4
+  QueryChannel-Lev1 6 1
+  DuplicateMult 3 4 8
+  QueryChannelMate-Lev1 8 0
+  SetReproductionReserve 7 2
+  CopyMem 5 4
+  Return
+  Dec 3
+  Close
+  QueryChannel-Lev1 5 3
+  SetAcceptSharingFalse 5 1 6
+  BcstSpikeReverseMsg 01110110100101010111000110101101
+  Dec 6
+  CopyMem 4 6
+  SwapMem 8 1
+  TestLess 3 0 0
+  PutInternalMembraneBlocker 00010000000100011110111000010010 3 2
+  Dec 4
+  QueryIsPoorerThan 5 5
+  DuplicateWhile 3
+    Mult 7 3 4
+    DuplicateTestEqu 3 1 5
+    DuplicateNop
+    TestLess 3 1 8
+
+Fn-19 01100000000100011000010110011010:
+  SendMsgExternal 00101100001111011100010111111100 7
+  Div 1 0 5
+  Nop
+  Mult 4 1 2
+  QueryIsExpired1 6 6
+  Not 7
+  TryReproduce-Lev0 6
+  DuplicateSetMem 1 8
+  DuplicateWhile 6
+    SendMsgInternal 10000100110100111010001011110010 8 0
+    SetReproductionReserve 7 2
+    CopyMem 5 4
+    Return
+    Dec 3
+    Close
+  QueryIsExpired1 7 3
+  SetAcceptSharingFalse 5 1 6
+  BcstSpikeReverseMsg 01110010101100011111100110101101
+  Dec 6
+  CopyMem 4 6
+  SwapMem 8 1
+  QueryIsCellParent 3 0
+  TryReproduce-Lev1 2
+  DuplicateAdjRegulator 3 0
+  Dec 4
+  QueryIsPoorerThan 5 5
+  Div 1 2 7
+  Mult 0 3 4
+  TryAddFledglingConnection 3 7
+  DuplicateTestEqu 3 7 0
+  TestLess 3 1 8
+
+Fn-20 00011100101011101010101100011111:
+  PutInternalMembraneBringer 01111001000110101111011100101000 5 1
+
+Fn-21 10010000001010001000100110001111:
+  TestLess 2 2 8
+  QueryChannelMate-Lev1 5 6
+  QueryChannelMate-Lev1 5 5
+  Countdown 2
+    PutInternalMembraneBringer 01011001000101001110011100110000 5 1
+
+Fn-22 00010100001000101100100000111001:
+  SetCellAgeBooster-Lev1 5 1 3
+
+Fn-23 10010000110100011101111110001001:
+  DuplicateMult 6 0 7
+  Inc 1
+  Terminal1073741824 8
+  DuplicateTestEqu 5 6 8
+  DuplicateTerminal8 1
+  SetReproductionReserve 2 1
+
+Fn-24 11011000101100100101100010111001:
+  DuplicateMod 5 5 3
+
+Fn-25 00110000001010001000100110111001:
+  QueryChannel-Lev1 8 1
+
+Fn-26 10010100000110100000110010110111:
+  DuplicateSetMem 4 5
+  SendBigFracResource 7 0
+
+Fn-27 10101100101011101011100001011101:
+  PruneIncomingConnection 5 4
+  SetReproductionReserve 5 6
+
+Fn-28 00010101001010000100100000111010:
+  PutExternalMembraneBringer 01100101011110011001011011111000 6 4
+  QueryIsPoorerThan 4 3
+
+Fn-29 00101111001101101001101011010101:
+  SetGiveSharingFalse 0 5 0
+
+Fn-30 00011100101011101110101110011111:
+  PutInternalMembraneBringer 01011001000111100111011100101000 5 1
+
+Fn-31 11011000101100100100100000111011:
+  DuplicateMod 5 5 3
+
+
+Interconnect Manager
+Fn-0 01000111011101011101001111111011:
+  Terminal5 6
+
+Fn-1 10010000010011100100101101100011:
+  DuplicateIf 7
+
+Fn-2 11111100101001101010110111010111:
+  Terminal5 7
+
+Fn-3 01010111111111111010111001011110:
+  DuplicateClose
+  Nop
+  Pull 7 4
+  Input 7 3
+  SenseRegulator 4
+  DuplicateCopyMem 5 1
+  SetAcceptSharingFalse 1 5 3
+  DuplicateSwapMem 7 7
+  TryAddFledglingConnection 5 6
+
+Fn-4 01000111011101011101101111111101:
+  DuplicateRng 0
+  Terminal5 4
+
+Fn-5 10010100010110101011100101010100:
+  DuplicateTerminal5 3
+
+Fn-6 11111010101101110101111110111100:
+  DuplicateWhile 5
+    DuplicateWhile 5
+      Not 5
+
+Fn-7 01110101110111010110100111001010:
+  DuplicateTerminal5 1
+
+Fn-8 10010011011011110011001101100010:
+  BcstSpikeMsg 10100100111111011111010010111111
+
+Fn-9 00011011110111100111111000101101:
+  Nop
+
+Fn-10 00001011101011010000101010010100:
+  SendSpikeReverseMsg 01010101000000111010100111100011
+  DuplicateDec 7
+  DuplicateSetMem 7 0
+
+Fn-11 11000011001110010001111010110000:
+  Terminal5 7
+
+Fn-12 01010111010110101101111010000011:
+  Dec 7
+
+Fn-13 01000111011101011101111111111111:
+  Mult 0 7 8
+  Terminal5 7
+
+Fn-14 01110011100100111110010101001100:
+  DuplicateDec 1
+
+Fn-15 10101000111101011010001110000000:
+  SendBigFracResource 6 8
+  SendBigFracResource 3 4
+  BcstMsgInternal 10011111011011001110110011100010
+  SendBigFracResource 0 1
+  SendBigFracResource 6 8
+  BcstMsgInternal 10010110111010101110010011100001
+  SendBigFracResource 0 1
+  BcstMsgInternal 10011110011011001110110011100010
+  SendBigFracResource 0 1
+  SendBigFracResource 6 8
+  BcstMsgInternal 10010110111010101110010011100001
+  SendBigFracResource 6 1
+  PutInternalMembraneBringer 01001100001000110011011000100011 7 4
+  Close
+
+Fn-16 01000100000001100011111011101101:
+  Inc 5
+  DuplicateSub 4 1 2
+
+Fn-17 11110111010101100111001110010100:
+  CopyMem 0 4
+  Terminal5 4
+
+Fn-18 10110010010111000111101111010101:
+  Terminal5 4
+
+Fn-19 01100101010001000000100111011011:
+  Terminate
+
+Fn-20 01110100001001111010100111100111:
+  Terminal5 7
+
+Fn-21 01001111001111000011011101111110:
+  QueryIncomingConnections 4
+  Terminate
+  Add 7 0 8
+  QueryIncomingConnections 4
+  Pull 5 6
+
+Fn-22 11010000011101011000000111100111:
+  DuplicateWhile 4
+
+Fn-23 01100001101111001110011011111010:
+  DuplicateFork 01011111101111010101111100001100
+
+Fn-24 10100011111001111111011001111010:
+  Terminal5 4
+
+Fn-25 01110101010010100001111011111111:
+  Terminal5 4
+
+Fn-26 01010111110110101101111000001011:
+  TryAddFledglingConnection 7 6
+
+Fn-27 11010100111111001111011101110011:
+  SetConnectionAgingParam 2
+  DuplicateFork 01011110100111000101101110001100
+
+Fn-28 01101010010100011010010110001100:
+  DuplicateDec 1
+
+Fn-29 10001011001101101010010001001000:
+  Dec 1
+
+Fn-30 01000111011101011101001111111011:
+  DuplicateTerminal5 6
+\end{verbatim}

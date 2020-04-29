@@ -1,0 +1,306 @@
+\subsection{Case Study 2 Genome Printout}
+
+\begin{verbatim}
+Neighbor Manager
+Fn-0 10110101001011000000110011010011:
+  DuplicateRng 4
+  QueryChannelGen-Lev0 4
+  SetRegulator 11000101010110100111010010111100 5
+  QueryChannelGen-Lev0 4
+  SetRegulator 11000101011110100111010010111100 5
+  SetReproductionReserve 8 3
+  DuplicateSwapMem 8 5
+  AddDevoDownQuery 10100011000010101111001111101110 6 5
+  DuplicateNop
+
+Fn-1 00000100101101010110010110010001:
+  Break
+  Dec 4
+  Break
+  DuplicateCall 10011101111011101001000001100001
+  Break
+  Mult 1 0 2
+
+Fn-2 11111111001111110110110000111000:
+  DuplicateBreak
+
+Fn-3 00010010110111010111000111001011:
+  QueryIsPoorerThan 5 8
+  AddDevoUpQuery 00001110100000001111111101001001 2 0
+
+Fn-4 11111110101111000111101011001101:
+  DuplicateNot 5
+  QueryChannel-Lev0 4 0
+  QueryIsPropaguleParent 3 3
+  TryAddFledglingConnection 5 1
+  While 7
+    Pull 2 3
+    DuplicateTerminate
+    SendMsgExternal 01111100110010011011011110000000 6
+    QueryStockpile 7 5
+    Rng 0
+
+Fn-5 00000100101111101010100100001110:
+  TryReproduce-Lev1 1
+  PruneOutgoingConnection 0 1
+  SetReproductionReserve 5 5
+  TestNEqu 4 4 3
+  QueryIsCellChild 4 3
+  QueryIsLive 2 5
+  Nop
+  DuplicateRng 1
+  BcstSpikeReverseMsg 01111010110111000110100011010011
+  DuplicateTerminal8 5
+  DuplicateRng 4
+  SetOwnRegulator 6
+  TestLess 4 0 3
+  Break
+  Close
+  PruneOutgoingConnection 0 5
+  SetReproductionReserve 1 5
+  QueryIsPropaguleChild 6 4
+  BcstSpikeReverseMsg 01010010000001111101001010010100
+  DuplicateWhile 4
+    DuplicateDec 0
+    BcstSpikeReverseMsg 11100111111100100111100011011110
+    DuplicateDiv 7 4 6
+    Terminal0.125 3
+    Nop
+    PauseRepr-Lev2 2
+    QueryIsExpired1 1 3
+    Terminal8 1
+
+Fn-6 10110011111111100111011011101001:
+  Fork 10010011001100100101111111101101
+  DuplicateAdd 2 4 0
+  DuplicateAdd 3 4 0
+  PruneIncomingConnection 3 4
+
+Fn-7 00011110101011101100001000100100:
+  TryReproduce-Lev0 4
+
+Fn-8 01011111000000001101010010110000:
+  SendBigFracResource 7 2
+  Close
+  SendBigFracResource 7 2
+  PutExternalMembraneBlocker 11010001111001111011011101000000 2 0
+  PutDevoMembraneBringer 01111101111111111110011010111001 2 6
+  Terminal0.125 1
+  SendBigFracResource 3 0
+  QueryChannel-Lev0 8 3
+  DuplicateTestLess 2 0 3
+  Close
+  SendBigFracResource 7 3
+  PauseRepr-Lev2 1
+  DuplicateAdd 0 6 4
+  Terminal0.125 1
+  SetRegulator 01000000111010011101101000010011 1
+  QueryChannel-Lev0 8 3
+  DuplicateTestLess 2 0 3
+  Close
+  QueryChannel-Lev1 3 6
+  Close
+  SendBigFracResource 7 3
+  PauseRepr-Lev2 1
+  DuplicateAdd 0 6 4
+  Terminal0.125 2
+
+Fn-9 11101001100000101100110011010011:
+  SwapMem 0 7
+  Commit 2 3
+  DuplicateIf 2
+    SwapMem 0 4
+    Commit 2 3
+    QueryChannel-Lev1 2 1
+    Countdown 7
+      QueryIsPoorerThan 7 5
+      AdjOwnRegulator 2 2
+      Commit 2 1
+      QueryIsOlderThan 0 8
+      DuplicateIf 2
+        QueryIsOlderThan 0 4
+        DuplicateBreak
+        QueryChannel-Lev1 2 1
+        Countdown 7
+          QueryIsPoorerThan 7 5
+          AdjOwnRegulator 2 2
+          Commit 2 1
+          QueryIsOlderThan 0 8
+          QueryIsPropaguleParent 5 6
+          QueryIsOlderThan 0 6
+          QueryIsPropaguleParent 5 2
+          DuplicateCommit 7 7
+
+Fn-10 10101001001011111001011011010011:
+  SetRegulator 11001000001101110011010110110000 5
+  SetRegulator 00001001001110110111010010011001 5
+  SetMem 1 2
+
+Fn-11 00010000010110000000101011110101:
+  QueryOwnStockpile 2
+
+Fn-12 01101100000111100010000111100011:
+  DuplicateCountdown 0
+
+Fn-13 11010010000000101101010000010011:
+  Terminal0.125 1
+
+Fn-14 01001000011101110000100011010010:
+  PauseRepr-Lev0 2
+
+Fn-15 11010010000000011001010000010010:
+  BcstMsgExternal 11001000101101100000100001100101
+  QueryIsPoorerThan 6 4
+  Not 6
+  Rng 6
+  QueryIsCellParent 4 3
+  QueryIsPoorerThan 6 4
+  Rng 4
+  DuplicateSetMem 2 1
+  DuplicateTerminal8 0
+  Terminate
+  Terminal0.125 4
+
+Fn-16 00010101101011110110001011100101:
+  Input 8 8
+  PutInternalMembraneBlocker 00000100010101011110011010100111 7 3
+  PutInternalMembraneBlocker 00110111000001101111001010110101 7 3
+  QueryChannel-Lev1 0 6
+  PutInternalMembraneBlocker 00000100000001011011001110000101 7 3
+  PutInternalMembraneBlocker 00010111000000111101000001110101 7 3
+  QueryChannelMate-Lev0 0 3
+
+Fn-17 00001011001111001010111111100010:
+  PutDevoMembraneBlocker 01010110100011000001010101010111 1 1
+  DuplicateTerminal1073741824 1
+  DuplicateTerminal1073741824 1
+  DuplicateTerminal1073741824 1
+  DuplicateTerminal1073741824 1
+  AdjOwnRegulator 6 0
+
+Fn-18 01001010010100100110010010110010:
+  DuplicateCopyMem 1 7
+  DuplicateSub 7 4 5
+  DuplicateSub 3 6 0
+  Sub 2 1 6
+  Close
+  Mult 4 4 2
+  QueryChannelMate-Lev1 1 0
+  DuplicateAdd 6 8 5
+  SendBigFracResource 2 2
+  QueryOwnStockpile 2
+  SendBigFracResource 6 2
+  Close
+  Terminal0.125 1
+
+Fn-19 00000111111011111100011001100101:
+  DuplicateCommit 4 3
+
+Fn-20 10001010101100110001110101011000:
+  Return
+
+Fn-21 11101101110010100101000011010100:
+  SwapMem 0 4
+  Commit 0 6
+  Commit 0 0
+  DuplicateInput 1 7
+  DuplicateTerminal1 4
+  DuplicateCommit 6 5
+
+Fn-22 00000111001010100010100010001110:
+  DuplicateTerminal8 3
+  DuplicateSetRegulator 11100001111010111101011110001101 6
+  BcstSpikeReverseMsg 00000000010110010100011100010101
+  AddDevoDownQuery 00001010000100111001001011011101 6 3
+  DuplicateDiv 1 5 5
+  QueryChannelMate-Lev0 3 5
+  DuplicateOutput 0 3
+  SetRegulator 00111100110001001011100000000000 6
+
+Fn-23 10011101110000100011000001000010:
+  BcstMsgInternal 01110110101000101010000101111011
+
+Fn-24 11001000101000010100110100110101:
+  SendMsgInternal 00001001101011000000001100010111 2 7
+  PutDevoMembraneBlocker 01000011000010010110111101110100 0 2
+  DuplicateTestLess 0 4 4
+
+Fn-25 10001110111110110001010100011000:
+  Return
+
+Fn-26 10000000110100010100110101111000:
+  While 6
+    While 6
+      DuplicateTestLess 0 0 4
+
+Fn-27 01001001100000101110001100010101:
+  QueryIsPoorerThan 7 4
+  QueryIsPoorerThan 0 4
+  PruneIncomingConnection 2 1
+  PutInternalMembraneBringer 10011001000110011001001100101101 6 1
+  PutInternalMembraneBringer 10011001000110011001001000101101 6 1
+  Inc 8
+  QueryChannelGen-Lev0 6
+  AddDevoUpQuery 00100001010010000001110000100100 4 4
+
+Fn-28 00000110111010101000011011000101:
+  DuplicateCountdown 0
+
+Fn-29 10001110111110110001010100011000:
+  Return
+
+Fn-30 10101001001011111101010011010011:
+  SetRegulator 10001000001100110011000110010000 5
+  SetRegulator 01001001001110110111000110111000 5
+  SetMem 1 2
+
+
+Interconnect Manager
+Fn-0 10011100110111110000110001011101:
+  SetConnectionAgingParam 8
+  SendSpikeMsg 01101100001101001000010011000101
+
+Fn-1 00001000100001111110101001101001:
+  Mult 1 7 2
+  Mult 1 7 2
+  QueryOwnStockpile 4
+  DuplicateBreak
+  DuplicateInput 4 1
+
+Fn-2 00010000010010010110000110000001:
+  DuplicateSub 2 1 4
+  SendSpikeMsg 01100011010100101111010001000010
+  Mult 8 7 6
+
+Fn-3 00010000010111010011110011000000:
+  DuplicateAdjRegulator 00011101011110011110101010001111 3 0
+  Mult 0 3 2
+  PutDevoMembraneBringer 10100100100101111010100110010111 4 1
+  DuplicateCopyMem 2 6
+  SetGiveSharingFalse 5 6 8
+  TryAddFledglingConnection 4 5
+  DuplicateSetMem 2 1
+  DuplicateMult 0 1 8
+  Return
+  Mult 4 3 7
+  Mult 6 1 1
+
+Fn-4 01111011100100011100101010001101:
+  TestLess 4 1 2
+  DuplicateSetOwnRegulator 2
+
+Fn-5 10101111111011100110001010010000:
+  Sub 7 0 0
+
+Fn-6 00100000100010000000001100110010:
+  SetConnectionExploitParam 0
+
+Fn-7 10001110000000100100110000011010:
+  If 4
+
+Fn-8 00001000010001100110001001100101:
+  Mult 1 7 2
+  Mult 1 7 2
+  QueryOwnStockpile 4
+  TestLess 4 1 7
+\end{verbatim}
