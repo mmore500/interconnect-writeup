@@ -10,6 +10,8 @@
 
 % \input{fig/grid_progression.tex}
 
+We will step through a series of case studies... TODO
+
 \subsection{Case Study: Interconnect Resource Sharing}
 
 \input{fig/case_study_1042.tex}
@@ -18,7 +20,7 @@ This case study was drawn from epoch 24 of batch 42 of the initial set of evolut
 We initially considered it for further study due to the presence of widespread over-interconnect resource sharing.
 After preliminary knockout experiments confirmed the adaptive significance of both over-interconnect resource-sharing and over-interconnect messaging, we set aside the strain for a case study.
 The evolutionary history preceding this case study consumed approximately 96 hours of wall-clock time and 736 compute-core hours.
-Approximately 29,873,088 simulation updates and 41,439 cellular generations elapsed.
+Approximately 30 million simulation updates and 40,000 cellular generations elapsed.
 You can view the strain this case study characterizes in a live in-browser simulation at \url{https://mmore500.com/hopto/8}
 
 % 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 25/25 [00:00<00:00, 292.67it/s]
@@ -141,12 +143,12 @@ You can view the strain this case study characterizes in a live in-browser simul
 % EXPIRATION_UPDATE 384832
 
 
-Our first step was to evaluate whether intercellular nature of over-interconnect messaging and resource sharing contributed to the strain's fitness.
+Our first step was to evaluate whether the intercellular nature of over-interconnect messaging and resource sharing contributed to this strain's fitness.
 (It is possible that messaging and/or resource sharing behaviors might generate stimuli on the recipient or side-effects on the sender that have adaptive consequences whether or not the sender and recipient are distinct cells;
 in such a scenario, cells would be just as well off sending messages and/or resource to themselves.)
 We performed several competition experiments between between the wild-type strain and variants where interconnect messaging and resource sharing was altered to be intracellular instead of intercellular.
 At the end of competition experiments, we evaluated the relative abundances of wild-type and variant strains.
-In the first variant strain we tested, all outgoing over-interconnect messages were delivered to the sending cell.
+In the first variant strain we tested, all outgoing over-interconnect messages were delivered to the sending cell. %TODO insteawd
 In 16 out of 16 one-hour competition runs that were seeded half-and-half with the wild-type and variant strains, the wild-type strain drove the variant strain to extinction (one-tailed binomial test; $p < 0.0001$; 290 S.D 17 cell gens elapsed).
 We observed a similar outcome with a second variant strain where all outgoing over-interconnect resource sharing was rerouted back to the sending cell (14/16 variant strain extinctions; 16/16 wild-type prevalence; 289 S.D. 25 cell gens elapsed).
 Finally, a third variant strain where both over-interconnect messaging and over-interconnect resource sharing were returned to the sending cell exhibited the same outcome (16/16 variant strain extinctions; 300 S.D. 23 cell gens elapsed).
@@ -154,12 +156,15 @@ The intercellular natures of both over-interconnect messaging and resource shari
 
 Next, we took a closer look at the evolved cellular mechanisms controlling over-interconnect messaging and resource sharing.
 We monitored hardware execution of the wild-type strain in a monoculture population to detect which signals, messages, and fork/call instructions activated each SignalGP module.
-We manually cross-referenced this information with a human-readable printout of the strain's genetic program to construct hypothesized mechanism shown in Figure \ref{fig:case_study_1042}.
+We manually cross-referenced this information with a human-readable printout of the strain's genetic program to construct a hypothesized mechanism shown in Figure \ref{fig:case_study_1042}.
+%TODO include printout in supplementary material
+% TODO draw an arrow on the interconnect
 We hypothesize that cells at the periphery of a registered kin groups send messages backwards over incoming interconnects that induce interconnect-originating cells to send them resource.
 Such a mechanism could preferentially increase resource availability at the group periphery, a region where cell-cell conflict is likely elevated.
 
-We performed a series of four-hour competition experiments between wild type and knockout strains to confirm the adaptive nature of each component of this mechanism.
-We began by re-routing stimulus 19, which alerts cells to a non-registered-kin neighbor, to activate a known no-op module.
+We performed a series of four-hour competition experiments between wild type and knockout strains to confirm the adaptive significance of each component of this mechanism.
+%TODO reprhase non-kin neighbor
+We began by re-routing stimulus 19, which alerts cells to a non-registered-kin  neighbor, to activate a known no-op module.
 This knockout strain experienced decreased fitness compared to the wild-type strain (16/16 knockout strain extinctions; one-tailed binomial test; $p < 0.0001$; 1996 S.D. 280 cell gens elapsed; \url{https://mmore500.com/hopto/ak}).
 Next, we replaced the over-interconnect messaging instruction that triggers over-interconnect resource-sharing with a no-op instruction.
 This knockout strain also experienced decreased fitness (16/16 knockout strain extinctions; 1932 S.D. 223 cell gens elapsed; \url{https://mmore500.com/hopto/al}).
@@ -167,11 +172,14 @@ We then replaced all eight copies of the over-interconnect resource-sharing inst
 Finally, we confirmed the soundness of our fitness competition methodology by running control wild-type versus wild-type competitions.
 As expected, we observed no effect of strain ID on competition dominance (8/16 knockout strain extinctions; 8/16 wild-type strain extinctions; one-tailed binomial test; $p = 0.60$; 1738 S.D. 217 cell gens elapsed; \url{https://mmore500.com/hopto/aj})
 
+%TODO add a transition sentence
+
 \subsection{Case Study: Interconnect Messaging}
 
 \input{fig/case_study_2032.tex}
 
 This case study was drawn from epoch 18 of batch 32 from the secondary set of evolutionary runs.
+%TODO try to rephrase as an inclusive statement to get two birds with one stone
 We set this strain aside for case study after preliminary screening suggested that over-interconnect messaging played an adaptive role and that the intercellular nature the messaging of was necessary to that adaptation.
 The evolutionary history preceeding this case study consumed approximately 72 hours of wall-clock time and 576 compute-core hours.
 Approximately 2,197,976 simulation updates and 8,884 cellular generations elapsed.
@@ -270,24 +278,25 @@ You can view this case study strain in a live in-browser simulation at \url{http
 % EXPIRATION_UPDATE 97280
 % EXPIRATION_UPDATE 111520
 
-As before, we began by testing the adaptiveness of the intercellular nature of over-interconnect interaction.
+As before, we began by testing the adaptiveness of the intercellular nature of over-interconnect interaction. %TODO rephrase
 We performed a competition experiment between the wild-type strain and a variant where over-interconnect messages were re-routed back to the sender.\footnote{
 This was an independent replication of the initial experiment (performed as part of a wider screen) that singled out the case study strain for further analysis.
 }
 The wild-type strain was present in greater abundance at the end of all 16 competitions (one-tailed binomial test; $p < 0.0001$; 2/16 variant strain extinctions; 52 S.D. 3 cell gens elapsed).
-So the adaptiveness of over-interconnect messaging does depend on the intercellular nature that messaging in this strain.
+So the adaptiveness of over-interconnect messaging does depend on the intercellular nature of that messaging in this strain.
 
 We proceeded to tease apart the evolved cellular mechanisms this messaging interacts with.
-We monitored hardware execution of the wild-type strain in a monoculture population to detect which signals, messages, and fork/call instructions activated each SignalGP module.
+We monitored hardware execution of the wild-type strain in a monoculture population to detect which signals, messages, and fork/call instructions activated each SignalGP module. %shorten because we already said it
+% put in common things into case study introduction
 Referring to a human-readable printout of the strain's evolved genetic programming, we pieced together the hypothesized mechanism shown in Figure \ref{fig:case_study_2032}.
 It appears that neighboring a direct cellular offspring stimulates dispatch of an over-interconnect message that induces the recipient to pause somatic reproduction.
 
 Four-hour competition experiments between wild type and knockout strains allowed us to assess the adaptiveness of each component of this mechanism.
 We replaced the instruction responsible for over-interconnect messaging with a no-op instruction and observed a corresponding fitness penalty (16/16 knockout strain extinctions; one-tailed binomial test; $p < 0.0001$; 416 S.D. 58 cell gens elapsed; \url{https://mmore500.com/hopto/aa}).
-We also replaced the reproduction-pausing instruction executed in response to over-interconnect messagingg with a no-op.
+We also replaced the reproduction-pausing instruction executed in response to over-interconnect messaging with a no-op.
 This caused a similar fitness penalty (16/16 knockout strain extinctions; 401 S.D. 29 cell gens elapsed).
 
-To double-check whether the messaging specifically over interconnects was key to adaptivity we also competed the wild-type strain against variants with the focal over-interconnect messaging instruction substituted for all other possible module-activating instructions:
+To double-check whether messaging specifically over interconnects was key to adaptivity we also competed the wild-type strain against variants with the focal over-interconnect messaging instruction substituted for all other possible module-activating instructions:
 \begin{itemize}
   \item call (378 S.D. 42 cell gens elapsed; \url{https://mmore500.com/hopto/ac})
   \item fork (377 S.D. 37 cell gens elapsed; \url{https://mmore500.com/hopto/ad})
@@ -298,11 +307,13 @@ To double-check whether the messaging specifically over interconnects was key to
 \end{itemize}
 In each case the substitution variant strain was driven to extinction across all 16 replicate experiments (one-tailed binomial test; $p < 0.0001$).
 
+%Channel versus interconnect viz
+
 The directionality of messaging over the interconnect, however, does not appear to affect fitness.
 We tried substituting the wild-type instruction, which dispatches a message from the terminus of an interconnect to its origin, with an instruction that instead dispatches a message from the origin of an interconnect to its terminus.
 In competition against wild-type, the wild type strain was more abundant in only ten of 16 replicate competitions (one-tailed binomial test; $p = 0.2272$; 14/16 coalesced to a single strain; 410 S.D. 50 cell gen; \url{https://mmore500.com/hopto/ai}).
 
-Satisfied that, indeed, interconnect-transmission of messages contributes to fitness, we set out to characterize the relationship between fitness the distribution of message dispatch and delivery over space and time.
+Satisfied that, indeed, interconnect-transmission of messages contributes to fitness, we set out to characterize the relationship between fitness and the distribution of message dispatch and delivery with respect to space and time.
 We began by investigating whether non-uniform distribution of message delivery --- and the corresponding reproductive pause activity --- contributed to fitness.
 We created a variant strain where instead of activating module 5 and dispatching an over-interconnect message, stimulus 5 directly activates the reproductive pause instructions in module 14.
 In this variant strain, we alter stimulus 5 to no longer be triggered by a cell-offspring neighbor.
@@ -311,12 +322,14 @@ Instead, we dispatch stimulus 5 with uniform probability based on the empirical 
 In effect, this manipulation decouples reproductive pause from the distribution of over-interconnect message delivery and instead couples it to a comparable uniform distribution.
 Indeed, in competition experiments against the wild-type strain this variant fares poorly (16/16 variant strain extinctions; one-tailed binomial test; $p < 0.0001$; 58 S.D. 2 cell gen).
 This suggests that, together, the conjunction of stimulus 5 on a cell and the presence (via a developmental process) of an interconnect to that cell induces a meaningfully (with respect to fitness) non-uniform distribution of message delivery and, subsequently, module 14 activation.
+% break this up into more sentences
 
+next we asked TODO
 Does the specific distribution of stimulus 5 on message-generating cells contribute to fitness?
 As a rough initial exploration of this question, we performed competition experiments with variants where stimulus 5 was always activated, was never activated, and had inverted activation.
 In each case, the variant strain was driven to extinction in all 16 replicate runs (one-tailed binomial test; $p < 0.0001$; 48 S.D. 3 cell gens elapsed; 52 S.D. 3 cell gens elapsed; 48 S.D. 3 cell gens elapsed).
 Next, we prepared a variant to test if a uniform stimulus distribution with comparable frequency to wild type would exhibit full fitness.
-We empirically measured the stimulus 5 activation rate in a monoculture population of the wild-type strain.
+We empirically measured the stimulus 5 activation rate in a monoculture population of the wild-type strain. TODO
 %(observe trigger frequency of 22729/(22729+82571) between 1000 and 1100 updates in a monoculture population)
 This variant strain also underperformed wild type, being driven to extinction in all 16 replicate competition runs (62 S.D. 3 cell gens elapsed).
 
