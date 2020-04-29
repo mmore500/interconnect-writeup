@@ -2,10 +2,17 @@
 
 \input{fig/case_study_2032.tex}
 
-This case study was drawn from epoch 18 of batch 32 from the secondary set of evolutionary runs.
+This case study was drawn from epoch 18 of batch 32 from a secondary set of 64 evolutionary runs.
+These runs were identical to the first, except:
+\begin{itemize}
+  \item increasing the default outgoing connection cap,
+  \item making cells default-accept instead of default-reject intracellular messages from same-channel cells, and
+  \item removing system-mediated parent-kin-group recognition to promote kin group turnover.
+\end{itemize}
+
 %TODO try to rephrase as an inclusive statement to get two birds with one stone
 We set this strain aside for case study after preliminary screening suggested that over-interconnect messaging played an adaptive role and that the intercellular nature the messaging of was necessary to that adaptation.
-The evolutionary history preceeding this case study consumed approximately 72 hours of wall-clock time and 576 compute-core hours.
+The evolutionary history preceding this case study consumed approximately 72 hours of wall-clock time and 576 compute-core hours.
 Approximately 2,197,976 simulation updates and 8,884 cellular generations elapsed.
 You can view this case study strain in a live in-browser simulation at \url{https://mmore500.com/hopto/7}.
 % 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 19/19 [00:00<00:00, 406.39it/s]
@@ -140,71 +147,41 @@ In competition against wild-type, the wild type strain was more abundant in only
 Next we assessed the adaptiveness of the particular spatio-temporal pattern of stimulation induced by incoming over-interconnect  messages.
 Does this pattern differ from spatially and temporally random stimulation?
 If it does, is the non-uniformity of stimulation adaptive?
-To assess these questions, we measured the frequency of module 14 activation in a monoculture wild-type population.
+To assess these questions, we measured the fraction of cells expressing module 14 in a monoculture wild-type population.
 Then, we created a variant strain where outgoing over-interconnect messages from module 5 were disabled and, instead, module 14 activated randomly with probability based on the empirical wild-type activation rate.
 \footnote{
 Because over-interconnect broadcast messages activate all hardware units of a cell, we selected entire cells randomly and activated module 14 on all hardware units.
 }
-% between updates 1000 (238940 hits) and 1100 (267392 hits) updates -> 28452 / (12*45*45*4) = 0.292716
+% between updates 1000 and 1100 updates 40659 paused, 64641 not paused
+% 40659/105200 0.3864 paused
 In effect, this manipulation decouples reproductive pause from the distribution of over-interconnect message delivery and instead couples it to a comparable uniform random distribution.
-Indeed, in competition experiments against the wild-type strain this variant fares poorly (16/16 variant strain extinctions; one-tailed binomial test; $p < 0.0001$; 58 S.D. 2 cell gen), suggesting that the pattern of stimulation induced by over-interconnect messaging is meaningfully non-unform.
+Indeed, in competition experiments against the wild-type strain this variant fares poorly (15/16 wild-type strain prevalent; 0 variant strain extinctions; one-tailed binomial test; $p < 0.001$; 36 S.D. 2 cell gens elapsed), suggesting that the pattern of stimulation induced by over-interconnect messaging is meaningfully non-uniform.
+We confirmed this result with a larger-scale set of competition trials (58/64 wild-type strain prevalent; 0 strain extinctions; one-tailed binomial test; $p < 0.0001$; 33 S.D. 2 cell gens elapsed).
 
 Does the adaptively non-uniform pattern of stimulation induced by over-interconnect messages depend on non-uniform dispatch of messages from sending cells?
 To assess, this question, we measured the per-cell frequency of module 5 activation in a monoculture wild-type population.
-We created a variant strain where outgoing over-interconnect messages from module 5 were disabled.
-Instead, the over-interconnect message instruction was randomly executed per-cell with uniform probability based on the empirical wild-type execution rate.
-This variant strain held its own against the wild-type strain (TODO).
+We then created a variant strain where outgoing over-interconnect messages from module 5 were disabled.
+Instead, the over-interconnect message instruction was randomly executed with uniform per-cell probability based on the empirical wild-type execution rate.
+This variant strain held its own against the wild-type strain (5/16 wild-type strain prevalent; 0 strain extinctions; one-tailed binomial test; $p = 0.9$; 30 S.D 1 cell gens elapsed).
 So, this strain's non-uniform pattern of stimulation seems likely to a result from the actual pattern of cell-cell interconnection rather than selective message dispatch.
 
-We did not find evidence that cells were using tag-based developmental attractors or repulsers to bias connectivity (TODO).
+We did not find evidence that cells were using tag-based developmental attractors or repulsors to bias connectivity (5/16 wild-type strain prevalent; 0 strain extinctions; $p=0.9$; 35 S.D. 8 cell gens elapsed).
 However, we did notice frequent interconnect turnover via execution of both remove-incoming and remove-outgoing interconnect instructions.
-Substituting these instructions for no-ops yielded a knockout strain with lower fitness than wild-type (TODO).
+Substituting these instructions for no-ops yielded a knockout strain with lower fitness than wild-type (13/16 wild-type strain prevalent; 0 strain extinctions; one-tailed binomial test; $p < 0.05$; 30 S.D. 11 cell gens elapsed).
+We confirmed this result with a larger-scale set of competition trials (60/64 wild-type strain prevalent; 0 strain extinctions; one-tailed binomial test; $p < 0.0001$; 39 S.D. 5 cell gens elapsed).
 Is this remodeling of connectivity adaptively non-uniform?
 We measured the interconnect removal rate in a monoculture wild-type population.
 Then, we created a variant strain where interconnect-removal instructions were disabled.
 Instead, interconnects in this strain were removed randomly with uniform probability.
-In head-to-head competitions this variant strain exhibited equivalent fitness to wild type (TODO).
+In head-to-head competitions, this variant strain did not exhibit diminished fitness (20/64 wild-type strain prevalent; 0 strain extinctions; one-tailed binomial test; $p = 1.0$; 30 S.D. 2 cell gens elapsed).
 
+The adaptive mechanism of over-interconnect messaging at play in this strain remains somewhat unclear.
+Over-interconnect messaging induces an adaptively non-uniform pattern of module 14 activation.
+The transmission of messages \textit{between} cells over the interconnects, in particular, contributes to fitness.
+When messages that would be delivered over interconnects are instead re-routed to the sending cell, fitness decreases.
+Substituting over-interconnect messaging for local messaging also decreases fitness.
+However, message dispatch is effectively random.
+This strain employs an adaptive during-lifetime interconnect-remodeling scheme.
+However, this remodeling scheme is also effectively random.
 
-Although the adaptive mechanism remains hazy, this strain appears to somehow be to meaningfully incorporate into
-
-One possible explanation for the adaptiveness of over-interconnect messaging would be as a proxy for cell age.
-Older cells are more likely to have an established interconnect through which to receive stimulation of module 14.
-So over-interconnect messaging is adaptive insofar as it associates module 14 activation with cell age.
-However, no purely-temporal hypotheses seems likely to fully explain the adaptiveness of over-interconnect messaging:
-self-messaging, which experienced .
-Although, perhaps through the random-walk developmental process, some sort of spatial information about
-
-Under this line of reasoning,
-The distribution of on individual cells, too,
-The random-walk developmental process.
-However,
-
-However, the established
-the random-walk process that interconnects cells.
-not just cell age: self-connect
-% between updates 1000 and 1100, before ttoal 16613 after total 10883
-Incorporates information about multicellular-context of a cell
-However,
-By the random walk , cell age (and the probability of establishing an interconnect)
-
-
-This suggests that, together, the conjunction of stimulus 5 on a cell and the presence (via a developmental process) of an interconnect to that cell induces a meaningfully (with respect to fitness) non-uniform distribution of message delivery and, subsequently, module 14 activation.
-% break this up into more sentences
-
-next we asked TODO
-Does the specific distribution of stimulus 5 on message-generating cells contribute to fitness?
-As a rough initial exploration of this question, we performed competition experiments with variants where stimulus 5 was always activated, was never activated, and had inverted activation.
-In each case, the variant strain was driven to extinction in all 16 replicate runs (one-tailed binomial test; $p < 0.0001$; 48 S.D. 3 cell gens elapsed; 52 S.D. 3 cell gens elapsed; 48 S.D. 3 cell gens elapsed).
-Next, we prepared a variant to test if a uniform stimulus distribution with comparable frequency to wild type would exhibit full fitness.
-We empirically measured the stimulus 5 activation rate in a monoculture population of the wild-type strain. TODO
-%(observe trigger frequency of 22729/(22729+82571) between 1000 and 1100 updates in a monoculture population)
-This variant strain also underperformed wild type, being driven to extinction in all 16 replicate competition runs (62 S.D. 3 cell gens elapsed).
-
-Finally, we
-It is also possible that the developmental and process contributes other information to the mix
-To randomly select (or select from a distribution).
-
-%TODO Figure \ref{fig:case_study_1042}
-
-
+Although the process of interconnect development and retention might contribute some sort of spatial and/or temporal bias to module 14 activation, a full characterization of the nature of this bias and the mechanism inducing remains elusive.
