@@ -1,0 +1,113 @@
+\subsection{Neighbor-Manager Hardware Custom Instruction Library}
+
+\begin{itemize}
+\item \textbf{Send Intracellular Message}
+Send a message to a single other SignalGP instance within the cell specified by a designated register's value.
+\item \textbf{Broadcast Intracellular Message}
+Send a message to all SignalGP instances within the cell, excluding self.
+\item \textbf{Put Internal Membrane Bringer}
+Place a tag in the internal membrane that, with default arguments, admits incoming internal messages it matches with.
+\item \textbf{Put Internal Membrane Blocker}
+Place a tag in the internal membrane that, with default arguments, blocks incoming internal messages it matches with.
+\item \textbf{Put External Membrane Bringer}
+Place a tag in the external membrane that, with default arguments, admits incoming external messages it matches with.
+\item \textbf{Put External Membrane Blocker}
+Place a tag in the external membrane that, with default arguments, blocks incoming external messages it matches with.
+\item \textbf{Send Intercellular Message}
+Send a message to a single cellular neighbor.
+\item \textbf{Broadcast Intercellular Message}
+Send a message to all cellular neighbors.
+\item \textbf{Broadcast Interconnect Message}
+Send a message to all the neighbor-manager and interconnect-manager hardware components of all cells the executing cell has established an interconnect to.
+All interconnect broadcast messages incoming to a cell during a delivery interval are de-duplicated.
+(If several identical messages are broadcast to a cell via interconnect during a delivery interval, only one message is delivered to each hardware component of the cell.)
+\item \textbf{Broadcast Reverse Interconnect Message}
+Send a message to all the neighbor-manager and interconnect-manager hardware components of all cells that have established interconnects to the executing cell.
+All interconnect broadcast messages incoming to a cell during a delivery interval are de-duplicated.
+(If several identical messages are broadcast to a cell via interconnect during a delivery interval, only one message is delivered to each hardware component of the cell.)
+\item \textbf{Share Resource}
+Send a proportion of the cell's stockpiled resource to a neighboring cell.
+One instruction defaults to sending a large proportion of available resource (50\%) to the neighboring cell.
+A second instruction defaults to sending a small proportion of available resource (5\%) to the neighboring cell.
+The proportion of available resource can be adjusted by a register-based argument.
+\item \textbf{Set Stockpile Sharing Reserve}
+Designate a quantity of stockpiled resource as ineligible for sharing.
+The amount may be modified by a register-based argument.
+\item \textbf{Clear Stockpile Sharing Reserve}
+Designate all stockpiled resource as eligble for sharing.
+\item \textbf{Restrict Outgoing Shared Resource}
+Reduce outgoing sharing efficacy.
+Unsent resource is retained by the sending cell (with no resource lost).
+The fraction reduced is determined by a register-based argument.
+\item \textbf{Restrict Incoming Shared Resource}
+Reduce incoming sharing efficacy.
+Declined resource is retained by the sending cell (with no resource lost).
+The fraction reduced is determined by a register-based argument.
+\item \textbf{Reproduce}
+Attempt to spawn a child cell in a particular direction, paid for out of the parent cell's resource stockpile.
+If sufficient resource is not available in the cell's stockpile, no resource is action is taken.
+Variants of this instruction are defined for each channel ID inheritance level: from endowing the daughter cell with the parental channel IDs across all levels, to endowing the daughter cell with a new level-one channel ID but the parent's level-two channel ID, to endowing the daughter cell with all-new channel IDs.
+If a channel generation counter limit has been reached, reproduction is simply attempted at the next highest level; even with channel generation counters maxed out, cells may generate offspring with all-new channel IDs.
+\item \textbf{Mark Daughter Imprint}
+Depending on argument values, register or clear a tag imprint to apply to daughter cells.
+\item \textbf{Pause Reproduction}
+Pause cellular reproduction in a single direction for the remainder of the current update and for the entire next update.
+Variants of this instruction pause reproduction at a certain wave/channel-signaling level or across all channel ID inheritance levels.
+\item \textbf{Set Stockpile Reproduction Reserve}
+Designate a quantity of stockpiled resource as ineligible for use to reproduce.
+The amount may be modified by a register-based argument.
+\item \textbf{Clear Stockpile Sharing Reserve}
+Designate all stockpiled resource as eligible for use to reproduce.
+\item \textbf{Apoptosis}
+The cell is killed at the end of the current update.
+\item \textbf{Designate Heir} A dying cell's own stockpile is split evenly among neighboring cells that are designated at the time of death.
+On apoptosis, 50\% of the reproduction cost to establish a cell is also split between designated neighboring cells.
+These instructions mark or un-mark a neighbor as a heir.
+\item \textbf{Increase Channel Generation Counter}
+Increases the cell's channel generation counter.
+The amount the cell's generation counter is increased by can be adjusted by register-based argument.
+\item \textbf{Query Own Stockpile}
+Sets a designated register to the amount of resource present in the cell's stockpile.
+\item \textbf{Query Own Channel Generation Counter}
+This instruction sets a designated register to the value of the cell's channel generation counter.
+A variant of this instruction is provided for each wave/channel-signaling level.
+\item \textbf{Query ``Is Neighbor Live?''}
+This instruction sets a designated register to 1 if the neighboring tile contains a live cell and 0 otherwise.
+\item \textbf{Query ``Is Neighbor My Cellular Child?''}
+This instruction sets a designated register to 1 if the neighboring cell is the daughter of the querying cell and 0 otherwise.
+\item \textbf{Query ``Is Neighbor My Cellular Parent?''}
+This instruction sets a designated register to 1 if the neighboring cell is the parent of the querying cell and 0 otherwise.
+\item \textbf{Query ``Does Neighbor's Channel ID Match Mine?''}
+This instruction sets a designated register to 1 if the neighboring cell has the same channel ID as the querying cell and 0 otherwise.
+A variant of this instruction is provided for each wave/channel-signaling level.
+\item \textbf{Query ``Does Neighbor's Channel ID Descend From Mine?''}
+This instruction sets a designated register to 1 if the neighboring cell's highest-level channel ID is different from the querying cell's highest-level channel ID, but is descended from the querying cell's channel ID via an explicit propagule-generating reproduction call.
+This instruction allows a querying cell to sense whether its neighbor is a member of a same-channel group that is a propagule of the querying cell's same-channel group.
+\item \textbf{Query ``Does My Channel ID Descend From Neighbor's?''}
+This instruction sets a designated register to 1 if the querying cell's highest-level channel ID is different from the neighboring cell's highest-level channel ID, but is descended from the neighboring cell's channel ID  via an explicit propagule-generating reproduction call.
+This instruction allows a querying cell to sense whether it is a member of a same-channel group that is a propagule of the neighboring cell's same-channel group.
+\item \textbf{Query ``Is Neighbor Poorer?''}
+This instruction sets a designated register to 1 if the querying cell's resource stockpile is larger than the neighboring cell's.
+\item \textbf{Query ``Is Neighbor Older?''}
+This instruction sets a designated register to 1 if the querying cell's cell age is less than the neighboring cell's.
+\item \textbf{Query ``Is Neighbor Expired?''}
+This instruction sets a designated register to 1 if a neighboring cell's channel generation counter has exceeded the expiration threshold.
+\item \textbf{Query Neighbor's Channel ID}
+This instruction sets a designated register to the neighbor's channel ID.
+A variant of this instruction is provided for each wave/channel-signaling level.
+\item \textbf{Query Neighbor's Stockpile}
+This instruction sets a designated register to the amount of resource present in the neighbor's stockpile.
+\item \textbf{Add Fledgling Connection}
+If the number of outgoing interconnects is less than both the system-defined connection count cap and an argument-defined connection count cap, start a new fledgling interconnect.
+\item \textbf{Add Fledgling Search Query}
+Add a tag query that, depending on argument value, either promotes or represses the cell's fledgling interconnects to mature into established interconnects with other cells containing tag signals (discussed below) that the query matches with.
+\item \textbf{Add Fledgling Search Signal}
+Add a tag signal that, depending on argument value, either promotes or represses other cell's fledgling interconnects to mature into established interconnects.
+Only other cells with search queries (discussed above) that match the signal tag are influenced.
+\item \textbf{Prune Outgoing Connection}
+Remove an outgoing established interconnect.
+\item \textbf{Prune Outgoing Connection}
+Remove an incoming established interconnect.
+\end{itemize}
+
+

@@ -1,0 +1,27 @@
+\subsection{Interconnect-Manager Hardware Environmental Cue Library}
+
+Environmental cues were triggered every eight updates.
+
+\begin{itemize}
+\item \textbf{On Update}
+This event is triggered every eight updates.
+\item \textbf{Imprinted Tag}
+If an imprinted tag was set by the cell's parent, this event is triggered every eight updates.
+\item \textbf{Just Born}
+This event is triggered once after a cell is born.
+\item \textbf{Connection Length}
+Separate events are triggered if a cell's mean outgoing interconnect length falls between 0 and 4 cell widths, 2 and 6 cell widths, 4 and 8 cell widths, 6 and 10 cell widths, or above 8 cell widths.
+\item \textbf{Channel Generation Counter Is Unexpired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the expiration threshold.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expiring}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where somatic propagation capacity, but not resource accumulation capacity, is lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where both somatic propagation capacity and resource accumulation capacity are lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{No-reward Resource Activation}
+This event is triggered if a SignalGP instance's cell experiences a resource collection activation where no resource reward is achieved (e.g., the cell lies extent of the resource wave).
+A different event is provided for each resource wave/channel-signaling level.
+\end{itemize}
+

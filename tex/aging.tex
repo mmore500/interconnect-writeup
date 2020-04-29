@@ -1,0 +1,30 @@
+\subsection{Channel Group Life Cycle} \label{sup:channel_group_life_cycle}
+
+Mature same-channel resource collecting groups enjoy a considerable advantage over fledging propagules.
+Because of the isometric scaling relationship between surface area and perimeter, cooperative same-channel resource collecting groups can marshal more resource at their periphery.
+In addition, because of their greater surface area, mature same-channel resource collecting groups are able to seed resource-wave events and collect resource at a higher per-cell rate.
+
+In order to ensure channel group turnover and facilitate channel group propagation, we impose a timed phase-out of somatic reproduction and resource wave harvests.
+For each cell, we track a channel generation counter at each resource wave level.
+At the genesis of a new channel group, these counters are set to zero.
+Daughter cells that expand a channel group's soma are initialized to a counter value one greater than their parent.
+Additionally, all channel generation counters are incremented every 512 updates to ensure that soma ages even in the absence of reproduction.
+When a cell's channel generation counter reaches 1.5 times the wave radius of its level, it can no longer produce somatic daughter cells.
+Then, after two additional counter steps, cells lose their ability to seed resource wave events and collect resource.
+Thus, as channel groups age over time, their constituent cells lose the ability regenerate somatic tissue and then, soon after, to collect resource.
+To prevent complete stagnation in the case where all cells' channel generation counters expire we provide a uniform inflow of $+0.0051$, sufficient for one reproduction approximately every thousand updates.
+
+Interaction between nested channel groups produces a notable selective byproduct.
+Because smaller, level-one channel groups tend to have intrinsically shorter lifespans, in order to achieve the full potential productive somatic lifespan of a larger, level-two channel group its constituent small channel groups must be intermittently regenerated.
+Otherwise, the soma's capacity to seed resource-wave events and to collect resource will be prematurely lost once its constituent smaller, level-one channel groups expire.
+
+This aging scheme's design ultimately stems from a desire
+\begin{enumerate}
+\item to facilitate evolution through regular turnover of emergent individuals and
+\item to scaffold workable propagation for primitive cellular strategies while furnishing opportunities for more sophisticated adaptations to the imposed life cycle constraints.
+\end{enumerate}
+However, in some sense the aging scheme is heavy-handed, in effect enforcing rather than enabling a birth-death life cycle.
+The evolutionary basis of aging and mortality --- in particular, the possibility of intrinsic evolutionary adaptations promoting these phenomena in addition to extrinsic factors  --- remains an active topic of scientific discussion \cite{baig2014evolution}.
+In future work, we are interested in evaluating the outcomes of relaxing constraints of this aging scheme under different evolutionary conditions (such as cosmic ray mutations or irregular population structure) in light of theory attributing mortality and aging to evolvability, mutational accumulation, and costly somatic maintenance.
+
+\

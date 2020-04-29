@@ -1,0 +1,46 @@
+\subsection{Interconnect-Manager Hardware Environmental Cue Library}
+
+Environmental cues were triggered every eight updates.
+
+\begin{itemize}
+\item \textbf{On Update}
+This event is triggered every eight updates.
+\item \textbf{Imprinted Tag}
+If an imprinted tag was set by the cell's parent, this event is triggered every eight updates.
+\item \textbf{Just Born}
+This event is triggered once after a cell is born.
+\item \textbf{Richer Neighbor}
+This event is triggered if a neighbor cell has more stockpiled resource than the focal cell.
+\item \textbf{Poorer Neighbor}
+This event is triggered if a neighbor cell has less stockpiled resource than the focal cell.
+\item \textbf{Facing Cellular Child}
+This event is triggered if the SignalGP instance is facing a neighboring cell that is the querying cell's daughter.
+\item \textbf{Facing Cellular Parent}
+This event is triggered if the SignalGP instance is facing a neighboring cell that is the querying cell's parent.
+\item \textbf{Neighbor's Channel ID Descends From Mine}
+This event is triggered if the neighboring cell's highest-level channel ID is different from the querying cell's highest-level channel ID, but is descended from the querying cell's channel ID via an explicit propagule-generating reproduction call.
+This event allows a querying cell to sense whether its neighbor is a member of a same-channel group that is a propagule of the querying cell's same-channel group.
+\item \textbf{My Channel ID Descends From Neighbor's}
+This event is triggered if the focal cell's highest-level channel ID is different from the neighboring cell's highest-level channel ID, but is descended from the neighboring cell's channel ID via an explicit propagule-generating reproduction call.
+This event allows a neighboring cell to sense whether its neighbor is a member of a same-channel group that is a propagule of the neighboring cell's same-channel group.
+\item \textbf{Neighbor's Channel ID Matches Mine}
+This event is triggered if a SignalGP instance is facing a neighbor cell that shares its channel ID.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Neighbor's Channel ID Does Not Match Mine}
+This event is triggered if a SignalGP instance is facing a neighbor cell that does not share its channel ID.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Unexpired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the expiration threshold.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expiring}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where somatic propagation capacity, but not resource accumulation capacity, is lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{Channel Generation Counter Is Expired}
+This event is triggered if a SignalGP instance's cell's channel generation counter has not yet reached the threshold where both somatic propagation capacity and resource accumulation capacity are lost.
+A different event is provided for each resource wave/channel-signaling level.
+\item \textbf{No-reward Resource Activation}
+This event is triggered if a SignalGP instance's cell experiences a resource collection activation where no resource reward is achieved (e.g., the cell lies extent of the resource wave).
+A different event is provided for each resource wave/channel-signaling level.
+\end{itemize}
+
+

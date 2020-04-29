@@ -1,0 +1,30 @@
+\subsection{Resource Collection Process} \label{sup:resource_collection_process}
+
+Resource appears at a single point then spreads outwards update-by-update in a diamond-shaped wave. The expanding wave halts at a predefined limit.
+Cells must enter an ``activated'' state to harvest resource as it passes overhead.
+The cell at the starting position of a resource wave is automatically activated, and will propagate the activation signal to neighboring cells on the same signaling channel.
+The newly activated cells, in turn, activate their own neighbors registered to the same signaling channel.
+Neighbors registered to other signaling channels do not activate.
+Each cell, after sending the activation signal, enters a temporary quiescent state.
+In this manner, cells sharing a signaling channel track and harvest an expanding resource wave.
+The rate of resource collection for a cell is determined by the size and shape of of its same-channel signaling network;
+small or fragmented same-channel signaling networks will frequently miss out on resource as it passes by.
+
+Resource waves have a limited extent.
+Cells that activate outside the extent of a resource wave collect no resource.
+A long quiescent period ensures that erroneously activated cells miss several subsequent opportunities to collect resource and therefore will tend to collect resource at a slower rate.
+In this manner, ``Goldilocks'' --- not to small and not too big --- signaling networks enjoy superior fitness.
+
+Resource wave starting points (seeds) are tiled over the toroidal grid from a randomly chosen starting location such that the extents of the resource waves do not overlap.
+All resource waves begin and proceed synchronously;
+when they complete, the next resource waves are seeded.
+This process provides efficient and spatially-uniform selection for ``Goldilocks'' same-channel signaling networks.
+
+Cells control the size and shape of their same-channel signaling group through strategic reproduction.
+Three choices are afforded: whether to reproduce at all, where among the four adjoining tiles of the toroidal grid to place their offspring, and whether the offspring should be registered to the parent's signaling channel or be given a random channel ID (in the range 1 to $2^{64} - 1$).
+The probability of channel collision is miniscule: $60 \times 60 \times 2^{20}$ (the grid dimensions times the number of simulation updates) independent channel values will collide with probability less than $1 \times 10^{-9}$.
+No guarantees are made about the uniqueness of a newly-generated channel ID, but chance collisions are rare.
+
+In addition to ``signaling channel''-based resource collection, we provide a uniform inflow of $+0.0051$, sufficient for one reproduction approximately every thousand updates.
+
+

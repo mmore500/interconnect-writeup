@@ -1,0 +1,83 @@
+\subsection{Standard SignalGP Instruction Library}
+
+To counteract crowding of the mutational landscape by the volume of custom instructions provided, a second identical copy of each standard SignalGP instruction was included in the library.
+These instructions were included in both the neighbor-manager hardware and interconnect-manager hardware instruction libraries.
+
+\begin{itemize}
+\item \textbf{Increment}
+Increment value in a designated register.
+\item \textbf{Decrement}
+Decrement value in a designated register.
+\item \textbf{Not}
+Logically toggle value in a designated register.
+\item \textbf{Add}
+Add values from two designated registers into a third designated register.
+\item \textbf{Subtract}
+Subtract values from two designated registers into a third designated register.
+\item \textbf{Subtract}
+Subtract values from two designated registers into a third designated register.
+\item \textbf{Multiply}
+Multiply values from two designated registers into a third designated register.
+\item \textbf{Divide}
+Divide values from two designated registers into a third designated register.
+\item \textbf{Modulus}
+Calculate the modulus from two designated registers and place result into a third designated register.
+\item \textbf{Test Equal}
+Compare values in two designated registers and place equality result into a third designated register.
+\item \textbf{Test Non-equality}
+Compare values in two designated registers and place opposite equality result into a third designated register.
+\item \textbf{Test Less}
+Compare values in two designated registers and place less-than result into a third designated register.
+\item \textbf{If}
+If a designated register is non-zero, proceed.
+Otherwise, skip block.
+\item \textbf{While}
+While a designated register is non-zero, loop over a program block.
+Otherwise, skip block.
+\item \textbf{Countdown}
+While a designated register is non-zero, loop over a program block and decrement the value in the designated register.
+Otherwise, skip block.
+\item \textbf{Close}
+If a preceding program block is, close it.
+\item \textbf{Break}
+Break to the end of the current program block.
+\item \textbf{Call}
+Call the SignalGP program module that best matches instruction's affinity.
+\item \textbf{Return}
+If possible, return from the current function.
+\item \textbf{Set Memory}
+% also covers terminal
+Set a designated register's value to genetically-determined value.
+\item \textbf{Copy Memory}
+Copy the value of a designated register to a second designated register.
+\item \textbf{Swap Memory}
+Swap the values of two designated registers.
+\item \textbf{Input}
+Copy a designated element of input memory into a designated register.
+\item \textbf{Output}
+Copy to a designated element of output memory from a designated register.
+\item \textbf{Commit}
+Copy a designated register into a designated element of global memory.
+\item \textbf{Pull}
+Copy a designated element of global memory into a designated register.
+\item \textbf{Fork}
+Fork a new thread with the SignalGP program module that best matches the instruction's affinity.
+\item \textbf{Terminate}
+Terminate the current thread.
+\item \textbf{Nop}
+No operation.
+\item \textbf{RNG Draw}
+Draw a random value between 0.0 and 1.0 from random number generator and store result in a register.
+\item \textbf{Set Regulator}
+Set the program module regulator that best matches (without regulation) the instruction's affinity to the value of a designated register.
+\item \textbf{Set Own Regulator}
+Set the program module regulator of the currently-executing program module to value of a designated register.
+\item \textbf{Adjust Regulator}
+Adjust the program module regulator of the program module that best matches (without regulation) the instruction's affinity a designated fraction toward a designated register's value.
+\item \textbf{Adjust Own Regulator}
+Adjust the program module regulator of the currently-executing program module a designated fraction toward a designated register's value.
+\item \textbf{Sense Regulator}
+Copy the program module regulator value of the program module that best matches (without regulation) the instruction's affinity into a designated register.
+\end{itemize}
+
+
