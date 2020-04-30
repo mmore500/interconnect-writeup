@@ -134,7 +134,7 @@ Our first step was to evaluate whether the intercellular nature of over-intercon
 in such a scenario, cells would be just as well off sending messages and/or resource to themselves.)
 We performed several competition experiments between between the wild-type strain and variants where interconnect messaging and resource sharing was altered to be intracellular instead of intercellular.
 At the end of competition experiments, we evaluated the relative abundances of wild-type and variant strains.
-In the first variant strain we tested, all outgoing over-interconnect messages were delivered to the sending cell. %TODO insteawd
+In the first variant strain we tested, all outgoing over-interconnect messages were instead delivered to the sending cell.
 In 16 out of 16 one-hour competition runs that were seeded half-and-half with the wild-type and variant strains, the wild-type strain drove the variant strain to extinction (one-tailed binomial test; $p < 0.0001$; 290 S.D 17 cell gens elapsed).
 We observed a similar outcome with a second variant strain where all outgoing over-interconnect resource sharing was rerouted back to the sending cell (14/16 variant strain extinctions; 16/16 wild-type prevalence; 289 S.D. 25 cell gens elapsed).
 Finally, a third variant strain where both over-interconnect messaging and over-interconnect resource sharing were returned to the sending cell exhibited the same outcome (16/16 variant strain extinctions; 300 S.D. 23 cell gens elapsed).
@@ -143,21 +143,15 @@ The intercellular natures of both over-interconnect messaging and resource shari
 Next, we took a closer look at the evolved cellular mechanisms controlling over-interconnect messaging and resource sharing.
 We monitored hardware execution of the wild-type strain in a monoculture population to detect which signals, messages, and fork/call instructions activated each SignalGP module.
 We manually cross-referenced this information with a human-readable printout of the strain's genetic program to construct a hypothesized mechanism shown in Figure \ref{fig:case_study_1042}.
-%TODO include printout in supplementary material
-% TODO draw an arrow on the interconnect
 We hypothesize that cells at the periphery of a registered kin groups send messages backwards over incoming interconnects that induce interconnect-originating cells to send them resource.
 Such a mechanism could preferentially increase resource availability at the group periphery, a region where cell-cell conflict is likely elevated.
 
 We performed a series of four-hour competition experiments between wild type and knockout strains to confirm the adaptive significance of each component of this mechanism.
-%TODO reprhase non-kin neighbor
-We began by re-routing stimulus 19, which alerts cells to a non-registered-kin  neighbor, to activate a known no-op module.
+We began by re-routing stimulus 19, which alerts cells to neighbors that are members of a foreign kin group, to activate a known no-op module.
 This knockout strain experienced decreased fitness compared to the wild-type strain (16/16 knockout strain extinctions; one-tailed binomial test; $p < 0.0001$; 1996 S.D. 280 cell gens elapsed; \url{https://mmore500.com/hopto/ak}).
 Next, we replaced the over-interconnect messaging instruction that triggers over-interconnect resource-sharing with a no-op instruction.
 This knockout strain also experienced decreased fitness (16/16 knockout strain extinctions; 1932 S.D. 223 cell gens elapsed; \url{https://mmore500.com/hopto/al}).
 We then replaced all eight copies of the over-interconnect resource-sharing instruction triggered by the over-interconnect messaging with no-op instructions, once more yielding a strain with diminished fitness (16/16 knockout strain extinctions; 1860 S.D. 370 cell gens elapsed; \url{https://mmore500.com/hopto/am}).
 Finally, we confirmed the soundness of our fitness competition methodology by running control wild-type versus wild-type competitions.
 As expected, we observed no effect of strain ID on competition dominance (8/16 knockout strain extinctions; 8/16 wild-type strain extinctions; one-tailed binomial test; $p = 0.60$; 1738 S.D. 217 cell gens elapsed; \url{https://mmore500.com/hopto/aj})
-
-%TODO add a transition sentence
-
 
