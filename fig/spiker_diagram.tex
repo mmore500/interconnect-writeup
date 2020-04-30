@@ -1,37 +1,53 @@
 \begin{figure}[!htbp]
 \begin{center}
-\begin{subfigure}[b]{0.45\linewidth}
+
+\begin{minipage}{\linewidth}
+\begin{center}
+\begin{subfigure}[t]{0.25\linewidth}
   \includegraphics[width=\linewidth,trim={0 100 100 0},clip]{spiker-diagram/spiker-generate}
   \caption{cell buds developmental search prongs}
-  \label{fig:budprongs}
+  \label{fig:spiker-generate}
 \end{subfigure}
-\begin{subfigure}[b]{0.45\linewidth}
+	\hspace{2ex}
+\begin{subfigure}[t]{0.25\linewidth}
   \includegraphics[width=\linewidth,trim={0 100 100 0},clip]{spiker-diagram/spiker-walk}
   \caption{search prongs perform random walk}
-  \label{fig:randomwalk}
+  \label{fig:spiker-walk}
 \end{subfigure}
-\begin{subfigure}[b]{0.45\linewidth}
+  \hspace{2ex}
+\begin{subfigure}[t]{0.25\linewidth}
   \includegraphics[width=\linewidth,trim={0 100 100 0},clip]{spiker-diagram/spiker-swap}
   \caption{poorly-performing prong resets to better-performing prong}
-  \label{fig:prongreset}
+  \label{fig:spiker-swap}
 \end{subfigure}
-\begin{subfigure}[b]{0.45\linewidth}
+\end{center}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+\begin{center}
+\begin{subfigure}[t]{0.25\linewidth}
   \includegraphics[width=\linewidth,trim={0 100 100 0},clip]{spiker-diagram/spiker-connect}
   \caption{search prong matures into established connection}
-  \label{fig:pringmature}
+  \label{fig:spiker-connect}
 \end{subfigure}
-\begin{subfigure}[b]{0.45\linewidth}
+  \hspace{2ex}
+\begin{subfigure}[t]{0.25\linewidth}
   \includegraphics[width=\linewidth,trim={0 100 100 0},clip]{spiker-diagram/spiker-transmit}
   \caption{cells exchange messages over established interconnect}
-  \label{fig:interconnectexchange}
+  \label{fig:spiker-transmit}
 \end{subfigure}
-\begin{subfigure}[b]{0.45\linewidth}
+   \hspace{2ex}
+\begin{subfigure}[t]{0.25\linewidth}
   \includegraphics[width=\linewidth,trim={0 100 100 0},clip]{spiker-diagram/spiker-remove}
   \caption{established interconnects may be removed by either participating cell}
-  \label{fig:interconnectremove}
+  \label{fig:spiker-remove}
 \end{subfigure}
+\end{center}
+\end{minipage}
+
 \caption{
 Illustration of the developmental process used to establish long-distance interconnects.
+You can see this developmental process in action in an evolved strain at \url{https://mmore500.com/hopto/ap}.
 }
 \label{fig:spiker_diagram}
 \end{center}
