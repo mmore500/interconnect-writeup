@@ -1,27 +1,31 @@
 \section{Methods}
 
-TODO
+Our evolutionary case studies employ an extension to the DISHTINY framework for studying fraternal transitions in individuality.
+Initial work with this system characterized selective pressures for cooperation with kin \citep{moreno2019toward}.
+Upcoming work extends the system to use the SignalGP event-driven genetic programming techniaue \citep{lalejini2018evolving} to control cell behaviors.
+Diverse multicellular life histories evolved in SignalGP-enabled DISHTINY evolutionary trials, involving reproductive division of labor, resource sharing (including, in some treatments, endowment of offspring  groups), asymmetrical within-group and inter-group phenomena mediated by cell-cell messaging, morphological patterning, gene-regulation mediated life cycles, and adaptive apoptosis \citep{TODOcitedishtinygp}.
 
-\subsection{TODO}
+DISHTINY simulates individual cells, each of which occupies a tile on a toroidal grid.
+Cells can reproduce, placing daughter cells into adjoining tiles.
+We allow cells the opportunity to engage with kin in a cooperative resource-collection task (Supplementary Section \ref{sec:resourcecollection}), which can increase their individual cellular reproduction rates.
+Kin groups are explicitly registered: on birth, a cell is either added to its parents group or expelled to establish a new group (Supplementary Section \ref{sec:hierarchicalnesting}).
 
+Cells can differentiate between neighbors that are members of their kin group and neighbors that are not and alter their behavior accordingly.
+Each cell consists of four SignalGP instances (all executing the same genetic program), one of which controls cell behavior with respect to each neighbor.
+These instances may communicate with one another by means of intracellular messaging.
+In this work, we add a fifth SignalGP instance to the DISHTINY cell.
+This instance can execute special instructions to establish long-distance interconnects with other cells and engage in resource-sharing and/or message passing with those cells.
+Figure \ref{fig:spiker_pointer_hardware} summarizes how SignalGP hardware is arranged within DISHTINY cells.
 
-As described in \citep{TODOcitedishtinygp}.
+Long-distance interconnects are established through a developmental process, summarized in Figure \ref{fig:spiker_diagram}.
+The process begins with the placement of two independent search prongs at the originating cell \ref{fig:spiker-generate}.
+Each prong performs a random walk over the originating cell's kin group, accumulating positive or negative feedback based on tags expressed by underfoot cells \ref{fig:spiker-walk}.
+If a prongs accumulates positive feedback too slowly, it is reset to the location of the better-scoring prong \ref{fig:spiker-reset}.
+Once a positive feedback threshold has been reached, the best-scoring prong develops into a full-fledged connection \ref{fig:spiker-connect}.
+At this point, the originating cell can begin exchanging messages and/or resource over the connection \ref{fig:spiker-transmit}.
+Established interconnects may be subsequently removed by either participating cell \ref{fig:spiker-remove}.
 
-Fledgling interconnects with two prongs.
-Each prong performs a random walk over kin groups, accumulating positive or negative based on tag-matching with tags expressed by underfoot cells.
-Prongs that get too far behind jump to the location of the better-scoring prong.
-Once a score threshold has been reached, the best-scoring prong develops into a full-fledged connection.
-At this point, the originating cell can begin sending messages and/or resource over the connection to the TARGEt cell.
-The TARGet cell can also send messages back to the originating cell.
-These behaviors are triggered by execution of special instructions.
-(A full listing of instructions is available in supplementary todo ref.)
-
-Each cell contains four SignalGP instances that manage behavior with respect to each direction.
-For these experiments, we added a fifth SignalGP instance to manage behavior with respect to interconnect.
-Directional SignalGP instances may also broadcast messages over the interconnects.
-Broadcast messages received over the interconnect are de-duplicated before being distributed instances within a receiving cell.
-
-You can see this developmental process in action in an evolved strain at \url{https://mmore500.com/hopto/ap}.
+Full details on hardware-level instructions and event-driven environmental cues available to cells are provided in Supplementary Sections \ref{sec:neighborinstlib}, \ref{sec:neighboreventlib}, \ref{sec:interconnectinstlib}, and \ref{sec:interconnecteventlib}.
 
 \input{fig/spiker_pointer_hardware.tex}
 
@@ -29,27 +33,22 @@ You can see this developmental process in action in an evolved strain at \url{ht
 
 \subsection{Evolutionary Screens}
 
-We running 64 replicate batches in 4-hour steps.
-Each batch consisted of four isolated subpopulations, which were completely intermixed in between four-hour steps.
+Our evolutionary screens consisted of 64 independent evolutionary batches.
+Each batch was processed in four-hour epoch to enable efficient job scheduling.
+Each batch consisted of four isolated 45-by-45 toroidal subpopulations.
+Subpopulations were completely intermixed in between four-hour steps.
+To facilitate evolutionary search, in addition to a base mutation rate applied to cell division, additional mutation was applied to cells seeding a toroidal grid at the outset of an epoch or budding to form new kin groups during an epoch.
 
 We screened across four-hour checkpoints of replicate batches to see if messages or resource were being sent over interconnects.
-We sampled from these populations, performing screens for knockouts of interconnect messaging or resource sharing.
-We found several evolved genotypes that used interconnects adaptively.
-We then further screened to ensure that the intra-cellular nature of the interconnects were vital by testing to see whether connecting interconnects to the originating cells themselves after the developmental process affected fitness.
+We sampled from these populations, performing screens for knockouts of over-interconnect messaging or resource sharing.
+Strains with adaptive over-interconnect messaging or resource sharing were then secondarily screened to determine if re-routing messages or shared resource decreased fitness.
 
-We continued this process until we found a strain where interconnects were used for resource sharing and a strain where interconnects were used for cell-cell messaging.
-
-We did not find a strain where resource sharing was used outside of the context of interconnect resource sharing in the main set of set or runs.
-So we performed a secondary set of runs with several adjustments and different seeds, including:
-\begin{enumerate}
-  \item increasing the default outgoing connection cap and
-  \item making cells default-accept instead of default-reject intracellular messages from same-channel cells.
-\end{enumerate}
-
-We repeated the screening process on the secondary process, finding a strain where interconnects were used for adaptive cell-cell messaging outside the context of resource sharing over the interconnect.
+Fitness was measured relatively using competition experiments between strains.
+For many competition experiments reported in the case studies, we provide hyperlinks to load a in-browser DISHTINY simulation with the actual strains that were used.
+In this web viewer, wild-type strains carry phylogentic root ID 1 and knockout strains carry ID 2.
 
 \subsection{Implementation}
 
-We implemented our experimental system using the Empirical library for scientific software development in C++, available at \url{https://github.com/devosoft/Empirical} \citep{TODOcite}.
+We implemented our experimental system using the Empirical library for scientific software development in C++, available at \url{https://github.com/devosoft/Empirical} \citep{charles_ofria_2019_2575607}.
 We used OpenMP to parallelize our main evolutionary replicates, distributing work over two threads.
-The code used to perform and analyze our experiments, our figures, data from our experiments, and a live in-browser demo of our system is available via the Open Science Framework at \url{https://osf.io/TODO/}.
+The code used to perform and analyze our experiments, our figures, data from our experiments, and a live in-browser demo of our system is available via the Open Science Framework at \url{https://osf.io/53vgh/} \citep{foster2017open}.
