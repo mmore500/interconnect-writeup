@@ -1,6 +1,11 @@
 \documentclass[letterpaper]{article}
 
-\usepackage{natbib,alifeconf}  %% The order is important
+\usepackage[authoryear]{natbib}  %% The order is important
+
+\usepackage[resetlabels]{multibib}
+\newcites{inappendix}{Supplementary References}
+
+\usepackage{alifeconf}
 
 \usepackage{hyperref}
 
@@ -11,6 +16,9 @@
 \usepackage{hhline}
 
 \usepackage{amsmath}
+
+\usepackage{bibspacing}
+\setlength{\bibsep}{0pt plus 0.3ex}
 
 \ifdefined\mydraft
 \mydraft
@@ -110,5 +118,8 @@ mmore500@msu.edu} % email of corresponding author
 
 \input{tex/supplementary.tex}
 
+\footnotesize
+\bibliographystyleinappendix{apalike}
+\bibliographyinappendix{bibl} % replace by the name of your .bib file
 
 \end{document}

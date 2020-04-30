@@ -34,7 +34,7 @@ Figure \ref{fig:nandg} illustrates the relationship between $N$ and $G$.
 
 Let $\hat{d}(\hat{a},\hat{b})$ denote distance between vertices $\hat{a}$ and $\hat{b}$ with respect to the graph $G$.
 That is, the number of graph edges traversed on a shortest-path route between $\hat{a}$ and $\hat{b}$ over $G$.
-In a small-world network, typical graph distance scales proportionally with the logarithm of network size \citep{watts1998collective}.
+In a small-world network, typical graph distance scales proportionally with the logarithm of network size \citeinappendix{watts1998collective}.
 In our case, for arbitrary $\hat{a},\hat{b} \in V(G)$,
 \begin{align} \label{eqn:smallworld_prop}
 \bar{\hat{d}}(\hat{a},\hat{b}) \propto \log(|V(G)|).
@@ -100,7 +100,7 @@ Instead, their sampling is weighted by edge betweenness centrality.
 \footnote{
 Consider all pairings of nodes in a graph.
 Now, construct a multiset of paths that, for each possible node pairing, contains the shortest path between those two nodes.
-Edge betweenness is the fraction of the paths in this mulitset that passes through a particular edge \citep{Lu2013}.
+Edge betweenness is the fraction of the paths in this mulitset that passes through a particular edge \citeinappendix{Lu2013}.
 }
 
 % Edge betweenness is associated with connectivity: a edge that, upon removal, subdivides a graph into disconnected components of equal size exhibits maximum edge betweenness.
