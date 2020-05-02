@@ -3,7 +3,7 @@
 The challenge, and promise, of open-ended evolution has animated decades of inquiry and discussion within the artificial life community \citep{packard2019overview}.
 The difficulty of devising models that produce characteristic outcomes of open-ended evolution suggests profound philosophical or scientific blind spots in our understanding of the natural processes that gave rise to contemporary organisms and ecosystems.
 Already, pursuit of open-ended evolution has yielded paradigm-shifting insights.
-For example, novelty search, which demonstrated how processes promoting non-adaptive diversification can ultimately yield adaptive outcomes that were previously unattainable \citep{lehman2011abandoning}.
+For example, novelty search demonstrated how processes promoting non-adaptive diversification can ultimately yield adaptive outcomes that were previously unattainable \citep{lehman2011abandoning}.
 Such work lends insight to fundamental questions in evolutionary biology, such as the relevance --- or irrelevance -- of natural selection with respect to increases in complexity \citep{lehman2012evolution, lynch2007frailty} and the origins of evolvability \citep{lehman2013evolvability, kirschner1998evolvability}.
 Evolutionary algorithms devised in support of open-ended evolution models also promise to deliver tangible broader impacts on society.
 Possibilities include the generative design of engineering solutions, consumer products, art, video games, and AI systems \citep{nguyen2015innovation, stanley2017open}.
@@ -13,18 +13,23 @@ Together, methodological and theoretical advances have begun to yield evidence t
 
 \subsection{Advances in Modern Compute Resources Rely on Distribution and Parallelism}
 
-Since approximately the turn of the century, advances in the clock speed of traditional serial processing have trailed off \citep{sutter2005free}.
-Since that time, existing technologies have begun to encounter fundamental constraints including power use and thermal dissipation \citep{markov2014limits}.
+Since %approximately
+the turn of the century, advances in the clock speed of traditional serial processors have trailed off \citep{sutter2005free}.
+%Since that time, 
+Existing technologies have begun to encounter fundamental constraints including power use and thermal dissipation \citep{markov2014limits}.
 Instead, hardware innovation began to revolve around multiprocessing  \citep[p.55]{hennessy2011computer} and hardware acceleration (e.g., GPU, FPGA, etc.) \citep{che2008accelerating}.
-For scientific and engineering applications, individual multiprocessors and accelerators are joined together with fast interconnects to yield so-called high performance computing clusters \citep[p.436]{hennessy2011computer}.
-Scaling up artificial life systems designed to study open-ended evolution will require taking advantage of modern parallel and distributed compute technologies.
+For scientific and engineering applications, individual multiprocessors and accelerators are joined together with fast interconnects to yield so-called high-performance computing clusters \citep[p.436]{hennessy2011computer}.
+%Scaling up artificial life systems designed to study open-ended evolution will require taking advantage of modern parallel and distributed compute technologies.
+Until fundamental changes to computing technology transpire, scaling up artificial life compute power will require taking advantage of these existing parallel and distributed systems.
 
-\subsection{Leveraging Parallel and Distributed Hardware in Digital Evolution}
+%\subsection{Leveraging Parallel and Distributed Hardware in Digital Evolution}
+\subsection{Distributed Hardware in Digital Evolution}
 
-In fact, digital evolution practitioners have a rich history of leveraging parallel and distributed hardware.
+Digital evolution practitioners have a rich history of leveraging %parallel and 
+distributed hardware.
 It is common practice to distribute multiple self-isolated instantiations of evolutionary runs over multiple hardware units.
-In scientific contexts, this practice yields replicate datasets that provide statistical power to answer a research question \citep{dolson2017spatial}.
-In applied contexts, this practice yields many converged populations that can be scavenged for the very best solutions \citep{hornby2006automated}.
+In scientific contexts, this practice yields replicate datasets that provide statistical power to answer research questions \citep{dolson2017spatial}.
+In applied contexts, this practice yields many converged populations that can be scavenged for the best solutions overall \citep{hornby2006automated}.
 
 Another established practice is to use ``island models'' where individuals are transplanted between populations that are otherwise independently evolving across distributed hardware.
 Koza and collaborators' genetic programming work with a 1,000-cpu Beowulf cluster typifies this approach \citep{bennett1999building}.
@@ -32,27 +37,35 @@ Koza and collaborators' genetic programming work with a 1,000-cpu Beowulf cluste
 In recent years, Sentient Technologies spearheaded digital evolution projects on an unprecedented computational scale, comprising over a million CPUs and capable of a peak performance of 9 petaflops \citep{miikkulainen2019evolving}.
 According to its proponents, the scale and scalability of this DarkCycle system was a key aspect of its conceptualization \citep{gilbert_2015}.
 Much of the assembled infrastructure was pieced together from heterogeneous providers and employed on a time-available basis \citep{blondeau2012distributed}.
-Unlike the island model where selection events are performed independently on each CPU, this scheme involved the dynamic transfer of evaluation criteria between computational instances (in addition to individual genomes) \citep{hodjat2013distributed}.
+Unlike island model where selection events are performed independently on each CPU, this scheme transferred evaluation criteria between computational instances (in addition to individual genomes) \citep{hodjat2013distributed}.
 
-Also notable from Sentient Technologies was large-scale use of many massively-parallel hardware accelerators (e.g., 100 GPUs) to evaluate the performance of candidate deep learning neural network architectures on image classification, language modeling, and image captioning problems.
-In this case, hardware parallelism accelerated the deep learning training process used to evaluate individual solutions \citep{miikkulainen2019evolving}.
+Sentient Technologies also accelerated the deep learning training process by using many massively-parallel hardware accelerators (e.g., 100 GPUs) to evaluate the performance of candidate neural network architectures on image classification, language modeling, and image captioning problems
+%In this case, hardware parallelism accelerated the deep learning training process used to evaluate individual solutions 
+\citep{miikkulainen2019evolving}.
 Analogous work parallelizing the evaluation of an evolutionary individual over multiple test cases in the context of genetic programming has used GPU hardware and vectorized CPU operations \citep{harding2007fast2, langdon2019continuous}.
  %TODO check this sentence
 
 % \citep{langdon2010large} breast cancer
 
-Existing applications of parallel and distributed computing to digital evolution distribute and concurrently process populations, evolutionary individuals, or even single evolutionary individuals.
-Simulation elements spread over distributed hardware components interact minimally.
-Task independence, which facilitates simple, efficient implementation, is typically a key reason researchers choose to target a system for parallelization. %TODO cite?
-However, distributed simulation elements are not necessarily entirely independent.
-Island models transfer genomes (and sometimes evaluation criteria) between populations.
-Parallelizing evaluation of a single evolutionary individual often emphasizes data-parallelism over test or training cases, which must be consolidated into a single fitness profile or deep learning weight update. %TODO tryna include lexicase
+%Existing applications of parallel and distributed computing to digital evolution distribute and concurrently process populations, evolutionary individuals, or even single evolutionary individuals.
+%Simulation elements spread over distributed hardware components interact minimally.
+Existing applications of concurrent approaches to digital evolution distribute populations or individuals across hardware to process them with minimal interaction.
+%Task independence, which facilitates simple, efficient implementation, is typically a key reason researchers choose to target a system for parallelization. %TODO cite?
+%However, distributed simulation elements are not necessarily entirely independent.
+Task independence facilitates this simple, efficient implementation strategy, but precludes application on elements that are not independent.
+%Island models transfer genomes (and sometimes evaluation criteria) between populations.
+Parallelizing evaluation of a single %evolutionary
+individual often emphasizes data-parallelism over 
+independent test cases, which are subsequently consolidated into a single fitness profile. 
+%accounted for during selection
+%or deep learning weight update. %TODO tryna include lexicase
 With respect to model parallelism, Harding has notably applied GPU acceleration to cellular automata models of artificial development systems, which involve intensive interaction between spatially-distributed instantiation of a genetic program  \citep{harding2007fast}.
 However, in systems where evolutionary individuals themselves are parallelized they are typically completely isolated from each other.
 
-We will argue that, in a manner explicitly accommodating capabilities and limitations of available hardware, open-ended evolution should prioritize dynamic interactions between simulation elements situated across physical distributed hardware components.
+We argue that, in a manner explicitly accommodating capabilities and limitations of available hardware, open-ended evolution should prioritize dynamic interactions between simulation elements situated across physically distributed hardware components.
 
-\subsection{Leveraging Parallel and Distributed Hardware for Open-Ended Evolution}
+%\subsection{Leveraging Parallel and Distributed Hardware for Open-Ended Evolution}
+\subsection{Leveraging Distributed Hardware for Open-Ended Evolution}
 
 %TODO the system should be capable of distributing individuals?
 % individuals evolving in environments where they have to deal with the issues of being distributed (but not necessarily distributed on hardware although they could be)
@@ -65,20 +78,27 @@ We will argue that, in a manner explicitly accommodating capabilities and limita
 % generative developmental processes (very broad, think about)
 % reading from one genome in multiple instances allows for repetitions, symmetries, hierarchy (cite Clune?)
 
-Unlike most existing applications of parallel and distributed computing to digital evolution, open-ended evolution researchers should prioritize dynamic interactions between distributed simulation elements.
-
+%Unlike most existing applications of parallel and distributed computing to digital evolution, open-ended evolution researchers should prioritize dynamic interactions between distributed simulation elements.
+Unlike most existing applications of distributed computing in digital evolution, open-ended evolution researchers should prioritize dynamic interactions among distributed simulation elements.
 Parallel and distributed computing enables larger populations and metapopulations.
-However, ecologies, co-evolutionary dynamics, social behavior, and culture necessitate dynamic interactions between contemporary evolving individuals.
+%However, ecologies, co-evolutionary dynamics, social behavior, and culture necessitate dynamic interactions between contemporary evolving individuals.
+However, ecologies, co-evolutionary dynamics, and social behavior all necessitate dynamic interactions among individuals.
 
-Parallel and distributed computing might also enable more computationally intensive (potentially but not necessarily more complex) evolutionary individuals.
-However, developmental processes and emergent functionality necessitate dynamic interactions between components of an evolving individual. %emergent consolidated functionality?
-Even at a scale where evolutionary individuals remain computationally tractable on a single hardware component,\footnote{
-Modeling individuals as collections of discrete simulation components has the added benefit of leaving the door open to larger-scale individuals in the future.
-}
-modeling individuals as a collection of discrete components configured through generative development (i.e., with indirect genetic representation) may promote germane properties \citep{lipson2007principles} such as modularity, regularity, and hierarchy \citep{hornby2005measuring, clune2011performance}.
+Distributed computing should also enable more computationally intensive %(potentially but not necessarily more complex) evolutionary 
+or complex individuals.
+%However, 
+Developmental processes and emergent functionality necessitate dynamic interactions among components of an evolving individual. %emergent consolidated functionality?
+Even at a scale where %evolutionary
+individuals remain computationally tractable on a single hardware component,
+% \footnote{
+% Modeling individuals as collections of discrete simulation components has the added benefit of leaving the door open to larger-scale individuals in the future.
+% }
+modeling them as a collection of discrete components configured through generative development (i.e., with indirect genetic representation) can promote %germane
+scalable properties \citep{lipson2007principles} such as modularity, regularity, and hierarchy \citep{hornby2005measuring, clune2011performance}.
 Developmental processes may also promote canalization \citep{stanley2003taxonomy}, for example through exploratory processes and compensatory adjustments \citep{gerhart2007theory}.
 %TODO MORE things here??
-David Ackley has led toward such a distributed approach, laying out an ambitious vision for modular hardware at a theoretically unlimited scale \citep{ackley2011pursue} and demonstrating an algorithmic substrate for emergent agents that can take advantage of it \citep{ackley2018digital}.
+%David Ackley has led toward such a distributed approach, laying out an ambitious vision for modular hardware at a theoretically unlimited scale \citep{ackley2011pursue} and demonstrating an algorithmic substrate for emergent agents that can 
+To reach this goal, David Ackley has envisioned an ambitious design for modular distributed hardware at a theoretically unlimited scale \citep{ackley2011pursue} and demonstrated an algorithmic substrate for emergent agents that can take advantage of it \citep{ackley2018digital}.
 % text from blog post!
 
 \subsection{A Path of Expanding Computational Scale}
@@ -95,97 +115,118 @@ David Ackley has led toward such a distributed approach, laying out an ambitious
 % interim
 
 %(TODO I've heard similar discussion made before somewhere, cite it)
-While by no means a certainty, the idea that orders-of-magnitude differences in compute power will open up qualitatively different possibilities with respect to open-ended evolution is not entirely unfounded.
-Spectacular advances achieved with artificial neural networks over the last decade illuminates a possible path toward this outcome.
-As with digital evolution, artificial neural networks (ANNs) were traditionally understood as a highly-versatile but auxiliary methodology --- both techniques been described along the lines of ``the second best way to do almost anything'' \citep{miaoulis2008intelligent, eiben2015introduction}.
+While by no means certain, the idea that orders-of-magnitude increases in compute power will open up qualitatively different possibilities with respect to open-ended evolution is %not entirely unfounded.
+well founded.
+Spectacular advances achieved with artificial neural networks over the last decade illuminate a possible path toward this outcome.
+As with digital evolution, artificial neural networks (ANNs) were traditionally understood as a versatile, but auxiliary methodology --- both techniques were described %along the lines of
+as ``the second best way to do almost anything'' \citep{miaoulis2008intelligent, eiben2015introduction}.
 However, the utility and ubiquity of ANNs has since increased dramatically.
-The development AlexNet is widely considered pivotal to this transformation.
+The development of AlexNet is widely considered pivotal to this transformation.
 AlexNet united methodological innovations from the field (such as big datasets, dropout, and ReLU) with GPU computing that enabled training of orders-of-magnitude-larger networks.
 In fact, some aspects of their deep learning architecture were expressly modified to accommodate multi-GPU training \citep{krizhevsky2012imagenet}.
-By adapting existing methodology to accommodate --- and take advantage of --- commercially available hardware, AlexNet spurred the greater availability of compute resources to the research domain and eventually the introduction of custom hardware to expressly support deep learning \citep{jouppi2017datacenter}.
+By adapting existing methodology to 
+%accommodate --- and take advantage of --- 
+exploit commercially available hardware, AlexNet spurred the greater availability of compute resources to the research domain and eventually the introduction of custom hardware to expressly support deep learning \citep{jouppi2017datacenter}.
 
-Similarly, progress toward realizing artificial life systems with true indefinite scalability seems likely to unfold as a positive feedback loop of
-\begin{itemize}
-\item incremental achievements that spurred additional interest and resources, and
-\item development of methodology, software, and eventually specialized hardware to take advantage of those resources.
-\end{itemize}
-In addition to developing hardware-agnostic theory and methodology, we believe that pushing the envelope of open-ended evolution will analogously require expressly designing systems to effectively leverage existing commercially-available parallel and distributed compute resources at circumstantially-feasible scales.
+Similarly, progress toward realizing artificial life systems with %true
+indefinite scalability seems likely to unfold as 
+%\begin{itemize}
+%\item incremental achievements that spurred additional interest and resources, and
+%\item development of methodology, software, and eventually specialized hardware to take advantage of those resources.
+%\end{itemize}
+incremental achievements that spur additional interest and resources in a positive feedback loop with the development of methodology, software, and eventually specialized hardware to take advantage of those resources.
+In addition to developing hardware-agnostic theory and methodology, we believe that pushing the envelope of open-ended evolution will analogously require %expressly
+designing systems %to effectively
+that leverage existing commercially-available parallel and distributed compute resources at circumstantially-feasible scales.
 Modern high-performance scientific computing clusters appear perhaps the best target to start down this path.
 These systems combine
-\begin{itemize}
-\item memory-sharing parallel architectures comprising dozens of cores (commonly targeted using OpenMP \citep{dagum1998openmp})
-\item and low-latency high-throughput message-passing between distributed nodes (commonly targeted using MPI\citep{clarke1994mpi}).
-\end{itemize}
+%\begin{itemize}
+%\item memory-sharing parallel architectures comprising dozens of cores (commonly targeted using OpenMP \citep{dagum1998openmp})
+%\item and low-latency high-throughput message-passing between distributed nodes (commonly targeted using MPI\citep{clarke1994mpi}).
+%\end{itemize}
+memory-sharing parallel architectures comprising dozens of cores (commonly targeted using OpenMP \citep{dagum1998openmp}) and low-latency high-throughput message-passing between distributed nodes (commonly targeted using MPI\citep{clarke1994mpi}).
 
-Contemporary scientific computing clusters lack key characteristics highlighted for indefinite scalability: fault tolerance and arbitrary extensibility.
+Contemporary scientific computing clusters lack key characteristics %highlighted
+required for indefinite scalability: fault tolerance and arbitrary extensibility.
 However, they also may offer an opportunity not available in an indefinitely scalable framework: log-time interconnects \citep{mollah2018comparative}.
 
-\subsection{Instantiating Small-World Networks on Parallel and Distributed Hardware}
+% \subsection{Instantiating Small-World Networks on Parallel and Distributed Hardware}
 
-Many natural systems --- such as ecosystems, genetic regulatory networks, and neural networks --- are known to exhibit small-world patterns of connectivity or interaction between components \citep{bassett2017small, fox2014herbivores, gaiteri2014beyond}.
-In small-world graphs, mean path length (the number of edges traversed on a shortest-route) between arbitrary components scales logarithmically with system size \citep{watts1998collective}.
-We anticipate that open-ended phenomena emerging across distributed hardware might also involve small-world connectivity dynamics.
-What would the impact be of providing a system of hierarchical log-time hardware interconnects as opposed to relying solely on local hardware interconnects?
+% Many natural systems --- such as ecosystems, genetic regulatory networks, and neural networks --- are known to exhibit small-world patterns of connectivity or interaction among components \citep{bassett2017small, fox2014herbivores, gaiteri2014beyond}.
+% In small-world graphs, mean path length (the number of edges traversed on a shortest-route) between arbitrary components scales logarithmically with system size \citep{watts1998collective}.
+% We anticipate that open-ended phenomena emerging across distributed hardware might also %involve
+% use small-world connectivity dynamics.
+% What would the impact be of providing a system of hierarchical log-time hardware interconnects as opposed to relying solely on local %hardware
+% interconnects?
 
-In Supplementary Sections \ref{sec:proof1}, \ref{sec:proof2}, \ref{sec:proof3}, and \ref{sec:proof4}, we analyze the scaling relationship between system size and expected node-to-node hops traversed between computational elements interacting as part of an emergent small-world network \citep{Moreno_Ofria_2020}.
-\footnote{
-Why do we consider man node-to-node hops per connection?
+%In Supplementary Sections \ref{sec:proof1}, \ref{sec:proof2}, \ref{sec:proof3}, and \ref{sec:proof4}, we analyze the scaling relationship between system size and expected node-to-node hops traversed between computational elements interacting as part of an emergent small-world network \citep{Moreno_Ofria_2020}.
+%\footnote{
+%Why do we consider man node-to-node hops per connection?
 
-Although relativistic concerns do ultimately limit latency between spatially-distributed computational elements, with respect to contemporary hardware co-located at a single physical site at foreseeable scales, we expect node-to-node hops to represent an important bottleneck on system performance.
+%Although relativistic concerns do ultimately limit latency between spatially-distributed computational elements, with respect to contemporary hardware co-located at a single physical site at foreseeable scales, we expect node-to-node hops to represent an important bottleneck on system performance.
 
-At larger scales, consider the case where emergent connections are embodied via simulation state along the entire path of node-to-node hops traversed by the by the connection (along the line of axon wiring of biological neural networks).
-If mean emergent connections per simulation element remain constant as the system scales, then mean node-to-node hops per connection relates to the amount of state required per node to represent connections that pass through it.
-(Specifically, if mean node-to-node hops per connection remains constant than the amount of state required per node remains constant.)
+%At larger scales, consider the case where emergent connections are embodied via simulation state along the entire path of node-to-node hops traversed by the by the connection (along the line of axon wiring of biological neural networks).
+%If mean emergent connections per simulation element remain constant as the system scales, then mean node-to-node hops per connection relates to the amount of state required per node to represent connections that pass through it.
+%(Specifically, if mean node-to-node hops per connection remains constant than the amount of state required per node remains constant.)
 
-Finally, the asymptotic analyses performed on mesh networks without long-distance hierarchical interconnects can be interpreted in terms of Euclidean distance.
-(Potentially of interest with respect to relativistic limitations.)
-}
-\begin{enumerate}
-\item with and without hierarchical log-time physical interconnects between computational nodes, and
-\item with computational nodes embedded on one-, two-, or three-dimensional computational meshes.
-\end{enumerate}
+%Finally, the asymptotic analyses performed on mesh networks without long-distance hierarchical interconnects can be interpreted in terms of Euclidean distance.
+%(Potentially of interest with respect to relativistic limitations.)
+%}
+%\begin{enumerate}
+%\item with and without hierarchical log-time physical interconnects between computational nodes, and
+%\item with computational nodes embedded on one-, two-, or three-dimensional computational meshes.
+%\end{enumerate}
 
-In Supplementary Section \ref{sec:proof1}, we find that expected hops over edges weighted by edge betweenness centrality scales polynomially in all cases without hierarchical physical interconnects \citep{Moreno_Ofria_2020}.
-With hierarchical physical interconnects, a logarithmic scaling relationship can be achieved.
+%In Supplementary Section \ref{sec:proof1}, we find that expected hops over edges weighted by edge betweenness centrality scales polynomially in all cases without hierarchical physical interconnects \citep{Moreno_Ofria_2020}.
+%With hierarchical physical interconnects, a logarithmic scaling relationship can be achieved.
 
-In Supplementary Sections \ref{sec:proof2} and \ref{sec:proof3} we find that hierarchical physical interconnects yield better best-case mean hops per edge in the case of a one-dimensional computational mesh \citep{Moreno_Ofria_2020}.
-Interestingly, asymptotically better outcomes in two- and three- dimensional meshes cannot be guaranteed by hierarchical physical interconnects.
-This suggests that --- even at truly vast scales --- emergent inter-component interaction networks could arise with bounded per-hardware-component messaging load.
+%In Supplementary Sections \ref{sec:proof2} and \ref{sec:proof3} we find that hierarchical physical interconnects yield better best-case mean hops per edge in the case of a one-dimensional computational mesh \citep{Moreno_Ofria_2020}.
+%Interestingly, asymptotically better outcomes in two- and three- dimensional meshes cannot be guaranteed by hierarchical physical interconnects.
+%This suggests that --- even at truly vast scales --- emergent inter-component interaction networks could arise with bounded per-hardware-component messaging load.
 
-In Supplementary Section \ref{sec:proof4} we show that, with a specific traditional construction of small-world graphs, best-case mean hops per edge scales polynomially with graph size \citep{Moreno_Ofria_2020}.
-With hierarchical physical interconnects, a logarithmic scaling relationship can still be achieved.
+%In Supplementary Section \ref{sec:proof4} we show that, with a specific traditional construction of small-world graphs, best-case mean hops per edge scales polynomially with graph size \citep{Moreno_Ofria_2020}.
+%With hierarchical physical interconnects, a logarithmic scaling relationship can still be achieved.
 
-These theoretical analyses suggest that whether log-time physical interconnects deliver asymptotically better mean connection latency and hop-efficiency depend on the structure of the network overlaid on a spatially-distributed hardware system.
-Although we focus on asymptotic analyses, better scaling coefficients might be achieved with long-distance hardware interconnects.
-Equivalent asymptotic behavior does not preclude important considerations with respect to performance.
+%These theoretical analyses suggest that whether log-time physical interconnects deliver asymptotically better mean connection latency and hop-efficiency depend on the structure of the network overlaid on a spatially-distributed hardware system.
+%Although we focus on asymptotic analyses, better scaling coefficients might be achieved with long-distance hardware interconnects.
+%Equivalent asymptotic behavior does not preclude important considerations with respect to performance.
 
 \subsection{Exploiting Log-Time Physical Interconnects: a Case Study}
 
 What could an artificial life system that exploits log-time hardware interconnects look like?
 
-We present an extension to upcoming work incorporating genetic programming with the DISHTINY platform for studying evolutionary transitions in individuality \citep{moreno2019toward}.
-In existing work with the system, cells situated on a two-dimensional grid interact exclusively with immediate neighbors.
-This extension introduces explicitly-registered direct interconnects between (potentially distant) cells for messaging and resource-sharing.
-Cells may establish these interconnects through a genetically-mediated exploratory growth process.
+We present an extension to 
+%upcoming work incorporating genetic programming with
+the DISHTINY platform for studying evolutionary transitions in individuality \citep{moreno2019toward}.
+In previous work with the system, cells situated on a two-dimensional grid interact exclusively with immediate neighbors.
+This extension introduces 
+genetic programs that can 
+explicitly-register direct interconnects between (potentially distant) cells for messaging and resource-sharing.
+Cells %may 
+establish these interconnects through a genetically-mediated exploratory growth process.
 
-We report a case study of an evolved strain which adaptively employs over-interconnect resource sharing and messaging to selectively distribute resource to the multicell periphery.
-In Supplementary Section \ref{sec:case_study_2032}, we report another case study of an evolve strain which adaptively employs over-interconnect messaging to selectively suppress somatic cell reproduction \citep{Moreno_Ofria_2020}.
+%We report a case study of an evolved strain which adaptively employs over-interconnect resource sharing and messaging to selectively distribute resource to the multicell periphery.
+We report a case study of an evolved strain that adaptively employs interconnects to communicate and selectively distribute resources to the periphery of a multicellular organism.
+In Section \ref{sec:case_study_2032} of accompanying supplemental material \citep{Moreno_Ofria_2020}, we report another case study of an evolve strain that adaptively employs over-interconnect messaging to selectively suppress somatic cell reproduction.
 
 In future implementations, explicitly-registered cell-cell interconnects may use log-time physical interconnects.
 Our prototype implementation exploits shared-memory thread-level parallelism on a single multiprocessor.
 
-\subsection{Abstraction, Engineering, and the Path of Computational Scale}
+\subsection{Abstraction, Engineering, and Computational Scale}
 
-Although designed with an eye to scalability largely along the lines outlined by Ackley, DISHTINY exchanges a uniform, evolutionary-passive substrate for manually-engineered self-replicators.
+Although designed with an eye toward scalability, largely along the lines outlined by Ackley, DISHTINY exchanges a uniform, evolutionary-passive substrate for manually-engineered %self-replicators.
+self-replicating cells.
 Evolutionary transitions in individuality provide a framework to unite self-replicators and induce meaningful functional synthesis of programmatic components tied to individual compute elements.
-This approach mirrors the philosophy of practicality and feasibility laid out by Channon in \citep{channon2019maximum}.
+This approach mirrors the philosophy of practicality and feasibility laid out by Channon \citep{channon2019maximum}:
 
 \begin{displayquote}
 It is not computationally feasible (even if we knew how) for an OEE simulation to start from a sparse fog of hydrogen and helium and transition to a biological-level era, so it is clearly necessary to skip over or engineer in at least some complex features that arose through major transitions in our universe.
 \end{displayquote}
 
-DISHTINY engineers-over complex features (e.g., genetic transmission of variation, explicitly-registered cell-cell interconnects) in a manner that aimis to reflect underlying hardware capabilities (e.g., procedural expression of programs, log-time physical interconnects) so they can be fully taken advantage of.
+DISHTINY engineers-in some complex features (e.g., cellular structure, genetic transmission of variation, explicitly-registered cell-cell interconnects) in a manner that aims to reflect underlying hardware capabilities (e.g., procedural expression of programs, log-time physical interconnects) so they can be fully %taken advantage of.
+utilized.
 
-More granular, less prescriptional approache seem likely to become ascendant when orders of magnitude of more compute power --- toward the extent envisioned by Ackley --- become available.
+More granular, less prescriptional approaches seem likely to become %ascendant
+preferred when orders of magnitude of more compute power --- toward the extent envisioned by Ackley --- become available.
 Such systems will address important questions in their own right about the computational foundations of physical and biological reality.
 Current work developing those systems sets the stage for that eventuality \citep{ackley2018alife}.

@@ -1,18 +1,18 @@
 \section{Conclusion}
 
 Ackley's concept of indefinite scalability lays out an ambitious vision for the computational substrate of future open-ended evolution models.
-This vision has inspired researchers to incorporate thinking about underlying computational substrates into open-ended evolution theory and consider how (or whether) available computational resources meaningfully constrain existing open-ended evolution models.
-Although computational substrates for open-ended evolution limited purely by physical (or economic) concerns have yet to be realized, indefinite scalability has already had concrete, and fruitful, impact on thinking around open-ended evolution.
+This vision has inspired researchers to incorporate thinking about underlying computational substrates into open-ended evolution theory and to consider how (or whether) available computational resources meaningfully constrain existing open-ended evolution models.
+For the time being, computational substrates for open-ended evolution limited purely by physical (or economic) concerns remain on the horizon, but indefinite scalability has already had concrete, and fruitful, impact on thinking around open-ended evolution.
 
 Although prevalent contemporary computational hardware (and the developer-facing software infrastructure that supports its use) lacks essential features necessary to achieve true indefinite scalability such as fault tolerance and purely relative addressing, many cores designed to support low-latency interconnects.
 These high-performance computing resources are increasingly accessible.
-Concern over indefinite scalability should not disuade the design and implemenation of open-ended evolution models that accomodate for the limitations of existing hardware and softare infrastructure to make effective use of it.
+Concern over indefinite scalability should not dissuade the design and implementation of open-ended evolution models that accommodate for the limitations of existing hardware and software infrastructure to make effective use of it.
 We highlight how log-time hardware interconnects might be exploited in practically scalable, but other model design or implementation tradeoffs may be relevant too (e.g., model dynamics or performance gains that rely on absolute instead of purely relative addressing).
 
 Realizing open-ended evolution models with truly vast computational substrates will require intermediate steps.
 Efforts to pursue practical scalability that wrings out contemporary, commercially-available hardware and software infrastructure, will accelerate progress toward realizing truly indefinitely scalable systems.
-It seems conceivable that, coupled with innovative model design informed by open-ended evolution theory and effective model implementation in codei, contemporary hardware systems and software infrastructure harbor the potential to realize paradigm-shifting advances in open-ended evolution.
-As was the case with deep learning, the tipping point of scale for model systems to exhibit qualatitively different behavior may be closer than we assume, perhaps only two or three orders of magnitude.
+It seems conceivable that, coupled with innovative model design informed by open-ended evolution theory and effective model implementation in code, contemporary hardware systems and software infrastructure harbor the potential to realize paradigm-shifting advances in open-ended evolution.
+As was the case with deep learning, the tipping point of scale for model systems to exhibit qualitatively different behavior may be closer than we assume, perhaps only two or three orders of magnitude.
 
 We highlighted how dynamic interactions within and between evolutionary individuals are crucial to open-ended evolution.
 Open-ended evolution models designed to scale computationally should realize these dynamic interactions within a framework that can be efficiently and readily mapped onto parallel computational implementation.
@@ -23,9 +23,9 @@ In particular, tools to collect data on distributed evolving systems (especially
 Here, we presented an extension of the DISHTINY framework as an example of an artificial life system that might hypothetically take advantage of log-time hardware interconnects.
 We employed a very modest prototype parallel implementation that used shared-memory parallelism to distribute evolving --- and interacting --- populations of cells over two threads.
 We provided a faculty for cells to establish long-distance interconnects over the computational mesh, which in future implementations could rely on hardware-level log-time interconnects.
-Two case studies characterized strains that evolved to adaptively employ these interconnects.
-In the first, messaging and resource sharing over interconnects appeared to facilitate resource recruitment to multicell peripheries.
-In the second, interconnect messaging played an adaptive role in selectively moderating somatic reproduction.
+We have characterized two strains that adaptively employed these interconnects to synthesize spatially-distributed functionality.
+In the first case study, messaging and resource sharing over interconnects appeared to facilitate resource recruitment to multicell peripheries.
+In a second, supplemental case study, interconnect messaging played an adaptive role in selectively moderating somatic reproduction \citep{Moreno_Ofria_2020}.
 
 Incorporating simulation-level objects or physics in open-ended evolution models that explicitly correspond to hardware interconnects represents just one possible approach to exploiting them.
 Automatic detection of emergent long-distance interactions across a computational mesh and dynamically re-routing signaling traffic to use hierarchical interconnects might also be possible.
@@ -33,5 +33,6 @@ Open-ended evolution models could also be entirely designed around hierarchical 
 
 At the core, from both the practical and indefinite standpoints, efforts to scale computational models of open-ended evolution, seek to realize the evolutionary generation of continually novel and increasingly complex artifacts.
 As we scale DISHTINY, we are interested in assembling metrics to quantify different aspects of complexity in the system such as organization \citep{goldsby2012task}, structure, and function \citep{goldsby2014evolutionary}.
-We hope that parallel and distributed open-ended model systems will prove fruitful tools to investigate questions about how biological complexity relates to fitness, genetic drift over elapsed evolutionary time, mutational load, genetic recombination (sex and horizontal gene transfer), ecology, historical contingency, and key innovations.
+We %hope
+believe that open-ended model systems built on contemporary distributed computational substrates will prove fruitful tools to investigate questions about how biological complexity relates to fitness, genetic drift over elapsed evolutionary time, mutational load, genetic recombination (sex and horizontal gene transfer), ecology, historical contingency, and key innovations.
 
